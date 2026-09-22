@@ -556,6 +556,61 @@ function gridHTML(sc,selKey,hiKey){let h='';for(const key of ALLKEYS){const st=c
 function freqBarHTML(sc,f){return `<div class="freqbar">${sc.acts.map(a=>{const p=Math.round((f[a]||0)*100);return p?`<div class="f-${a}" style="width:${p}%">${ACTL[a]} ${p}%</div>`:'';}).join('')}</div>`;}
 function rangePct(sc){let n=0;for(const key of ALLKEYS){const f=freqOf(sc,key);n+=(1-(f.fold||0))*keyCombos(key);}return (100*n/1326).toFixed(1);}
 
+/* ============ 根拠生成（プリフロップ） ============ */
+function handTraits(key){
+  const hi=RANKS.indexOf(key[0]),lo=RANKS.indexOf(key[1]);const pair=key.length===2,suited=key[2]==='s';const gap=hi-lo;
+  const t={pair,suited,hi,lo,gap,tags:[]};
+  if(pair){t.tier=hi>=10?'premium':hi>=7?'strong':hi>=4?'mid':'small';
+    t.desc={premium:'プレミアムペア（QQ以上）。プリフロップ最強クラスでほぼどの相手レンジにも勝っている',strong:'強いポケットペア（99〜JJ）。多くのレンジに勝っているがオーバーカードには弱い',mid:'ミドルペア（66〜88）。単体では弱いがセット（3枚目）を引けば大きく勝てる',small:'小さいポケットペア（22〜55）。セット狙い（約12%）が主な価値で、ヒットしなければ弱い'}[t.tier];}
+  else{
+    const bw=hi>=8&&lo>=8;const ace=hi===12;const wheel=ace&&lo<=3;const conn=gap<=2&&lo>=3;
+    if(ace&&lo>=10)t.desc=`${suited?'スーテッド':'オフスート'}のAK/AQ/AJ級。トップペア・トップキッカーを作りやすく、Aブロッカー（相手のAA/AKの組合せを減らす）も持つ`;
+    else if(wheel&&suited)t.desc='A2s〜A5s（ホイールエース）。Aブロッカー＋ナッツフラッシュ／ホイールストレートの可能性があり、3ベット・4ベットブラフの定番候補';
+    else if(ace&&suited)t.desc='スーテッドのA-x。ナッツフラッシュ狙いとAブロッカーがあるがキッカーが弱く、ドミネートされやすい';
+    else if(ace)t.desc='オフスートのA-x。キッカーが弱くAがヒットしても負けやすく、フラッシュも作れないため価値が低い';
+    else if(bw&&suited)t.desc='スーテッド・ブロードウェイ。トップペア・フラッシュ・ストレートを作れるバランスの良いハンド';
+    else if(bw)t.desc='オフスート・ブロードウェイ。ペアは作れるがドミネート（同じ絵札でキッカー負け）のリスクが高い';
+    else if(suited&&conn)t.desc='スーテッド・コネクター系。ストレート／フラッシュのナッツ級を作れる遊びやすいハンドで、後ろのポジションから価値が上がる';
+    else if(suited&&hi>=11)t.desc='スーテッドのK-x/Q-x。フラッシュ狙いが主な価値で、ペアを作ってもキッカーで負けやすい';
+    else if(suited)t.desc='弱いスーテッド。フラッシュ以外の勝ち筋が薄く、ポジションと安いポットが必要';
+    else if(conn)t.desc='オフスート・コネクター。ストレート狙いのみでフラッシュがなく、参加価値は低い';
+    else t.desc='弱いオフスート・ハンド。ペアを作っても弱く、ドローもないため参加価値がほぼない';
+    t.blocker=ace;t.playable=suited||conn||bw;
+  }
+  return t;
+}
+const BEHIND={UTG:5,HJ:4,CO:3,BTN:2,SB:1,BB:0};
+function isIP(hero,vil){return POSORDER.indexOf(hero)>POSORDER.indexOf(vil)&&hero!=='SB'&&hero!=='BB'||(hero==='BTN');}
+function explainPre(sc,key,f){
+  const t=handTraits(key);const best=bestAct(f);const mixed=Object.keys(f).filter(a=>f[a]>0&&f[a]<1).length>=2;
+  const lines=[`ハンドの性質：${t.desc}。`];
+  if(sc.cat==='rfi'){
+    const n=BEHIND[sc.hero];
+    lines.push(`状況：${sc.hero} からのオープンは後ろに ${n} 人残っており、${n>=4?'誰かが強いハンドを持っている確率が高いためレンジを絞る必要がある':n>=2?'中程度に絞る':'相手は BB だけなので非常に広く開けられる'}。`);
+    if(best==='raise'&&!mixed)lines.push(`結論：このハンドは ${sc.hero} のレンジ上位〜中位に入るため、レイズで参加。${t.pair||t.blocker?'ペア／Aブロッカーで相手の3ベットにも対応しやすい':'フォールドエクイティ＋ヒット時のプレイアビリティが十分'}。`);
+    else if(mixed)lines.push(`結論：レンジの境界線上のハンド。毎回開けると後ろの ${n} 人に3ベットされたとき利益が出ないが、毎回捨てるとブラインドを取り損ねる。EVがほぼゼロ付近なので約半分の頻度で開け、相手に読まれにくくする（混合戦略）。`);
+    else lines.push(`結論：${sc.hero} からはフォールド。${t.pair?'':'ハンド強度が足りず、'}後ろの ${n} 人に3ベットされたりコールされてポジション不利で戦う場面が多くなり、期待値がマイナスになる。同じハンドでも ${n>=3?'BTN／CO のような後ろのポジション':'より良い状況'}なら開けられる。`);
+  } else if(sc.cat==='vs'){
+    const ip=isIP(sc.hero,sc.vil);const bb=sc.hero==='BB';const sb=sc.hero==='SB';
+    lines.push(`状況：${sc.vil} のオープンレンジ（全ハンドの約 ${rangePct(SCBY['rfi_'+sc.vil])}%）に対して、あなたは ${ip?'ポジション有利（IP）':'ポジション不利（OOP）'}。${bb?'BB は既に 1bb を入れているのでコールに必要な勝率は約27%と低く、広く守れる':sb?'SB は OOP かつ後ろに BB が残るため、コールは不利になりやすく「3ベット or フォールド」が基本':'後ろにまだ人が残るため、コールはスクイーズ（後ろからの3ベット）のリスクを負う'}。`);
+    const fb=f.bet3||0,fc=f.call||0;
+    if(fb>=1)lines.push(`結論：3ベット 100%。${t.pair&&t.tier==='premium'||(t.hi===12&&t.lo>=10)?'レンジ最上位のバリュー3ベット。相手のオープンレンジに大きく勝っているのでポットを育てたい':'相手のコンティニューレンジに対しても戦え、フォールドを取れる価値も高い'}。`);
+    else if(fb>0&&fc>0)lines.push(`結論：3ベット ${Math.round(fb*100)}% ／ コール ${Math.round(fc*100)}% の混合。${t.blocker&&!t.pair?'Aブロッカーで相手の強いハンドを減らし、スーテッドの遊びやすさもあるので3ベットブラフとして機能する一方、コールでもナッツを狙える':'3ベットしてもコールしてもEVが近い'}。どちらか一方に固定すると相手に搾取されるため頻度を分ける。`);
+    else if(fb>0)lines.push(`結論：3ベット ${Math.round(fb*100)}%（残りはフォールド）。${sb?'SB からはコールが弱いので、参加するなら3ベット。':''}${t.blocker&&!t.pair?'Aブロッカー付きのブラフ候補。':'相手のレンジに対して十分な強さ。'}毎回3ベットすると3ベットレンジが広がりすぎるため一部の頻度に抑える。`);
+    else if(fc>=1)lines.push(`結論：コール。${t.pair?'セットを引けば大きく勝てる（インプライドオッズ）':t.playable?'ストレート・フラッシュ・トップペアの勝ち筋があり、'+(bb?'安い価格で守れる':'ポジションを活かして戦える'):'相手のレンジに対して勝率が足りている'}が、3ベットすると相手の強いハンドしか残らず不利になるためレイズはしない。`);
+    else if(fc>0)lines.push(`結論：コール ${Math.round(fc*100)}%（残りはフォールド）。守るには境界線上で、${bb?'BB の割引価格でも':''}EV がゼロ付近。相手のサイズやプレイ傾向によって捨てても良いハンド。`);
+    else lines.push(`結論：フォールド。${t.desc.includes('ドミネート')?'相手のオープンレンジ（絵札やAが多い）に対してドミネートされやすく、ヒットしても負けやすい':'相手のレンジに対する勝率とプレイアビリティが不足'}。${!ip?'OOP で戦う不利も重なる。':''}`);
+  } else {
+    const ip=sc.hero!=='SB';const fb=f.bet4||0,fc=f.call||0;
+    lines.push(`状況：あなたのオープンに対して ${sc.vil} が3ベット。相手の3ベットレンジは「強いバリュー＋Aブロッカー等のブラフ」で構成される。コールに必要な勝率は約 35〜37%（追加 8.5〜9.5bb を約 14〜15bb のポットに）で、あなたは ${ip?'IP なのでコール後もポジションで補える':'OOP（SB）なのでコールは不利'}。`);
+    if(fb>=1)lines.push(`結論：4ベット 100%。レンジ最上位のバリュー。相手の3ベットレンジに大きく勝っており、コールして相手のブラフをチェックダウンさせるより4ベットで価値を最大化する。`);
+    else if(fb>0&&fc>0)lines.push(`結論：4ベット ${Math.round(fb*100)}% ／ コール ${Math.round(fc*100)}% の混合。${t.pair?'JJ/QQ 級は4ベットすると5ベット（AA/KK）に対して困り、コールなら相手のブラフからも価値を取れる':t.blocker&&t.lo<=3?'A5s/A4s は Aブロッカーで相手の AA/AK を減らし、4ベットブラフに最適。コールでもナッツフラッシュ／ホイールを狙える':'AK は4ベットで相手のブラフを降ろす価値と、コールしてフロップで戦う価値が拮抗'}。`);
+    else if(fc>=1)lines.push(`結論：コール。${t.pair?'セットを引いたときに相手の強い3ベットレンジから大きく回収できる（インプライドオッズ）':'相手の3ベットレンジに対して必要勝率 35% 前後を満たし、'+(ip?'IP で戦える':'')}。4ベットすると相手の最上位だけが残り不利。`);
+    else lines.push(`結論：フォールド。相手の3ベットレンジ（上位約 8〜12%）に対して勝率が足りず、${t.pair?'':'ドミネートされやすく、'}コールしてもフロップで難しい判断が続く。オープンに使った 2.5bb は諦める。`);
+  }
+  return lines.join('<br>');
+}
+
 /* ============ 成績保存 ============ */
 let stats={rank:{n:0,ok:0},outs:{n:0,ok:0},flop:{n:0,ok:0},drill:{n:0,score:0,miss:0}};
 try{const s=JSON.parse(localStorage.getItem('holdem-dojo-stats2'));if(s&&s.drill)stats=Object.assign(stats,s);}catch(e){}
@@ -591,10 +646,10 @@ document.getElementById('drBtns').addEventListener('click',e=>{
   const score=Math.round(100*fa/fb);const cls=fa<=0?'bad':score>=100?'ok':'mix';
   stats.drill.n++;stats.drill.score+=score;if(fa<=0)stats.drill.miss++;save();
   const head=fa<=0?'純ミス':score>=100?'正解':'混合（許容）';
-  document.getElementById('drVerdict').innerHTML=`<div class="verdict ${cls}"><div class="row" style="gap:14px"><span class="score">${score}</span><div><b>${head}</b> — ${dr.key} の GTO 頻度：${dr.sc.acts.map(x=>`${ACTL[x]} ${Math.round((f[x]||0)*100)}%`).join(' / ')}<br>最頻アクション：<b>${ACTL[best]}</b>${fa>0&&score<100?`。${ACTL[a]} も ${Math.round(fa*100)}% で選ばれる混合戦略です`:''}</div></div>${freqBarHTML(dr.sc,f)}</div>`;
+  document.getElementById('drVerdict').innerHTML=`<div class="verdict ${cls}"><div class="row" style="gap:14px"><span class="score">${score}</span><div><b>${head}</b> — ${dr.key} の GTO 頻度：${dr.sc.acts.map(x=>`${ACTL[x]} ${Math.round((f[x]||0)*100)}%`).join(' / ')}<br>最頻アクション：<b>${ACTL[best]}</b>${fa>0&&score<100?`。${ACTL[a]} も ${Math.round(fa*100)}% で選ばれる混合戦略です`:''}</div></div>${freqBarHTML(dr.sc,f)}<h4>根拠</h4>${explainPre(dr.sc,dr.key,f)}</div>`;
   document.getElementById('drGrid').innerHTML=gridHTML(dr.sc,null,dr.key);
 });
-document.getElementById('drGrid').addEventListener('click',e=>{const c=e.target.closest('.c');if(!c)return;const f=freqOf(dr.sc,c.dataset.key);const el=document.getElementById('drCellInfo');el.hidden=false;el.innerHTML=`<b>${c.dataset.key}</b>（${keyCombos(c.dataset.key)}通り）${freqBarHTML(dr.sc,f)}`;});
+document.getElementById('drGrid').addEventListener('click',e=>{const c=e.target.closest('.c');if(!c)return;const f=freqOf(dr.sc,c.dataset.key);const el=document.getElementById('drCellInfo');el.hidden=false;el.innerHTML=`<b>${c.dataset.key}</b>（${keyCombos(c.dataset.key)}通り）${freqBarHTML(dr.sc,f)}<h4>根拠</h4>${explainPre(dr.sc,c.dataset.key,f)}`;});
 document.getElementById('drNext').addEventListener('click',drDeal);
 document.getElementById('drReset').addEventListener('click',()=>{stats.drill={n:0,score:0,miss:0};save();});
 drDeal();
@@ -611,7 +666,7 @@ function cellInfo(key){
   const el=document.getElementById('cellInfo');el.hidden=false;const sc=SCBY[preId];const f=freqOf(sc,key);
   const type=key.length===2?'ポケットペア':key[2]==='s'?'スーテッド':'オフスート';
   const opens=SC.filter(s=>s.cat==='rfi'&&(freqOf(s,key).raise||0)>0).map(s=>`${s.hero}${freqOf(s,key).raise<1?'(混合)':''}`);
-  el.innerHTML=`<b>${key}</b>（${type}、${keyCombos(key)}通り）${freqBarHTML(sc,f)}オープンできる位置：${opens.length?opens.join(' / '):'なし'}`;
+  el.innerHTML=`<b>${key}</b>（${type}、${keyCombos(key)}通り）${freqBarHTML(sc,f)}オープンできる位置：${opens.length?opens.join(' / '):'なし'}<h4>根拠</h4>${explainPre(sc,key,f)}`;
 }
 drawGrid();
 
@@ -639,6 +694,14 @@ function flopAdvice(hand,board){
   else { if(weakPair&&!anyDraw||air){rec='check';why='Q/J/Tハイやローのドライボードでは、弱いペア・空振りはチェックして安く見に行きます。';}else{rec='small';why='ドライボードではトップペア・オーバーペア・ドロー・強いオーバーカードで小さくベット。';}}
   return {rec,why,t,i};
 }
+function explainFlop(adv){
+  const t=adv.t,i=adv.i;const L=[];
+  L.push(`① 誰のレンジが有利か：${t.high==='AK'?'A/K が落ちたボードはプリフロップレイザー（あなた）に AK・AQ・AA・KK 等が多く、BB のコールレンジには少ない。レンジ全体で有利なので広く安く打てる':t.paired?'ペアボードは両者とも当たりにくく、レイザーのオーバーペア・絵札ハイが相対的に強い。相手はフォールドしやすい':t.mono?'モノトーンは BB のコールレンジ（スーテッドが多い）にフラッシュ／ドローが多く、レイザーの有利が薄れる':t.wet?'ロー〜ミドルの連結／ツートーンは BB のコールレンジ（スーテッドコネクター・小さいペア）が当たりやすく、レンジ有利が小さい。強い手だけを大きく打つ二極化が必要':'Q/J/T ハイやローのドライボードはレンジ有利が中程度。強い手・ドローで打ち、弱い手は打たない'}。`);
+  const strong=i.cat>=2||i.pairClass==='overpair'||i.pairClass==='set'||(i.pairClass==='top'&&i.tptk);const draw=i.fd||i.sOuts>=8;
+  L.push(`② 自分の手の役割：${strong?'強い手＝バリュー。より弱い手（弱いペア・ドロー）からコールを引き出したい':draw?'強いドロー＝セミブラフ。今は負けていてもアウツが多く、降ろせれば即勝ち、コールされても勝てる可能性が残る':i.sOuts>=4||i.overcards?'弱いドロー／オーバーカード。降ろせれば良いが、コールされると分が悪い。安いベットかチェックが無難':['middle','bottom','underpair','top'].includes(i.pairClass)?'中程度の手（ショーダウンバリューはあるが弱い）。打っても弱い手からコールされにくく、強い手にだけコールされる。ポットを小さく保つ':'空振り。ベットはブラフでしかなく、相手が降りやすい状況（レンジ有利・ドライ）でのみ小さく打つ'}。`);
+  L.push(`③ サイズの理由：${adv.rec==='small'?'小さいベット（33%）はレンジ全体で打てる。相手は多くの手で降りるかコールせざるを得ず、こちらの損失は小さい':adv.rec==='big'?'大きいベット（75%）は相手のドローに悪いオッズを押し付け、強い手の価値を最大化する。弱い手を混ぜると損が大きいので二極化する':'チェックはポットを制御し、レイズされて手を捨てる損失を避ける。相手のブラフを誘う効果もある'}。`);
+  return L.join('<br>');
+}
 function flDeal(){
   const rfi=SCBY.rfi_BTN;let d,hand;
   for(let k=0;k<200;k++){d=shuffle(DECK);hand=[d[0],d[1]];if((freqOf(rfi,handKey(d[0],d[1])).raise||0)>0)break;}
@@ -648,7 +711,7 @@ function flDeal(){
 document.querySelectorAll('[data-fl]').forEach(b=>b.addEventListener('click',()=>{
   if(fl.done)return;fl.done=true;const a=b.dataset.fl,ok=a===fl.adv.rec;bump('flop',ok);
   const L={check:'チェック',small:'小さくベット（33%）',big:'大きくベット（75%）'};
-  document.getElementById('flVerdict').innerHTML=`<div class="verdict ${ok?'ok':'bad'}"><b>${ok?'正解':'不正解'}</b> — 推奨：<b>${L[fl.adv.rec]}</b><br>ボード：${fl.adv.t.name}　あなたの手：${handInfoText(fl.adv.i)}<br>${fl.adv.why}</div>`;
+  document.getElementById('flVerdict').innerHTML=`<div class="verdict ${ok?'ok':'bad'}"><b>${ok?'正解':'不正解'}</b> — 推奨：<b>${L[fl.adv.rec]}</b><br>ボード：${fl.adv.t.name}　あなたの手：${handInfoText(fl.adv.i)}<br>${fl.adv.why}<h4>根拠</h4>${explainFlop(fl.adv)}</div>`;
 }));
 document.getElementById('flNext').addEventListener('click',flDeal);
 flDeal();
@@ -760,7 +823,7 @@ function actLine(h,s){return h.actions[s].filter(a=>a.t!=='post'&&a.t!=='uncalle
 function preVerdictHTML(p,label){
   if(!p)return '';if(p.na)return `<div class="an na">${label}：${esc(p.reason)}${p.key?`（${p.key}、あなたは ${p.act==='raise'?'レイズ':p.act==='call'?'コール':p.act==='fold'?'フォールド':p.act}）`:''}</div>`;
   const head=p.cls==='ok'?'GTO と一致':p.cls==='mix'?'混合戦略の範囲内':'GTO では頻度 0（純ミス）';
-  return `<div class="an ${p.cls}">${label}：<span class="pill ${p.cls}">${head}</span> スコア ${p.score}　シナリオ「${p.sc.title}」${p.approx?'（近似シナリオで代用）':''}<br>${p.key} の GTO：${p.sc.acts.map(x=>`${ACTL[x]} ${Math.round((p.f[x]||0)*100)}%`).join(' / ')}　あなた：<b>${ACTL[p.act]||p.act}</b>　最頻：${ACTL[p.best]}</div>`;
+  return `<div class="an ${p.cls}">${label}：<span class="pill ${p.cls}">${head}</span> スコア ${p.score}　シナリオ「${p.sc.title}」${p.approx?'（近似シナリオで代用）':''}<br>${p.key} の GTO：${p.sc.acts.map(x=>`${ACTL[x]} ${Math.round((p.f[x]||0)*100)}%`).join(' / ')}　あなた：<b>${ACTL[p.act]||p.act}</b>　最頻：${ACTL[p.best]}<details style="margin-top:6px"><summary style="cursor:pointer;font-size:12.5px;color:var(--muted)">根拠を見る</summary><div style="font-size:13px;margin-top:4px">${explainPre(p.sc,p.key,p.f)}</div></details></div>`;
 }
 function postVerdictHTML(h,r){
   const pct=x=>(100*x).toFixed(1)+'%';const S={flop:'フロップ',turn:'ターン',river:'リバー'}[r.street];
@@ -772,7 +835,26 @@ function postVerdictHTML(h,r){
     else if(r.eqEst!=null&&r.outsEst>0){s+=`　ドローの概算勝率：約 ${pct(r.eqEst)}（アウツ約 ${r.outsEst}、${r.street==='flop'?'4倍':'2倍'}ルール）`;const good=r.eqEst>=r.need;if(r.t==='call')cls=good?'ok':'mix';else if(r.t==='fold')cls=good?'mix':'ok';}
     else if(r.info&&r.info.cat>=1)cls='na';}
   else if(r.eq!=null){s+=`<br>この時点の実勝率（相手の手が判明）：<b>${pct(r.eq)}</b>`;}
+  s+=`<details style="margin-top:4px"><summary style="cursor:pointer;font-size:12.5px;color:var(--muted)">根拠を見る</summary><div style="font-size:13px;margin-top:4px">${explainPost(h,r)}</div></details>`;
   return `<div class="an ${cls}">${s}</div>`;
+}
+function explainPost(h,r){
+  const pct=x=>(100*x).toFixed(1)+'%';const L=[];const i=r.info;
+  if(r.need!=null){
+    L.push(`必要勝率の計算：コール額 ${fmtAmt(h,r.toCall)} ÷（現在のポット ${fmtAmt(h,r.potNow)} ＋ コール額）＝ ${pct(r.need)}。これを上回る勝率があればコールは長期的にプラス。`);
+    if(r.eq!=null)L.push(`相手の手はショーダウンで判明しているので、残りのカードを全通り配って厳密な勝率 ${pct(r.eq)} を計算した（結果論であり、実戦では相手のレンジ全体に対して見積もる）。${r.eq>=r.need?'必要勝率を上回るためコールは正当化される':'必要勝率に届かないため、この相手にはフォールドが正解だった'}。`);
+    else if(r.eqEst!=null&&r.outsEst>0)L.push(`相手の手は不明なので、ドローのアウツ（約 ${r.outsEst} 枚）から ${r.street==='flop'?'4倍':'2倍'}ルールで概算 ${pct(r.eqEst)}。${r.eqEst>=r.need?'必要勝率を上回るのでコール可':'必要勝率に届かず、インプライドオッズ（当たった後に取れる額）が大きい場合だけコール'}。`);
+    else if(i&&i.cat>=1){const strong=i.cat>=2||['overpair','set','top'].includes(i.pairClass);L.push(`相手の手が不明で、あなたは${strong?'トップペア以上の作られた手':'弱いペア'}。${strong?'一般的なベットレンジ（バリュー＋ブラフ）に対して必要勝率 '+pct(r.need)+' を満たすことが多く、コールは妥当':'相手のベットレンジに対して勝率が不足しやすく、ポットオッズが良い場合や相手がブラフ多めの場合に限ってコール'}。ただしターン以降で大きなベットが続く場合は再評価が必要。`);}
+    else if(i)L.push(`相手の手が不明で、あなたは作られた手もドローもない状態。必要勝率 ${pct(r.need)} を満たす見込みが薄く、通常はフォールド。`);
+  } else if(r.t==='bet'||r.t==='raise'){
+    const ratio=r.amt/r.potNow;
+    L.push(`あなたのベットはポットの約 ${Math.round(ratio*100)}%。${ratio<=0.4?'小さいサイズは「レンジベット」向き。相手に安く降りてもらいつつ、失敗しても損失が小さい':ratio<=0.8?'中〜大サイズは強い手と強いドローを二極化して打つときのサイズ。中途半端な手には向かない':'ポット以上のオーバーベットは、ナッツ級とブラフに二極化したときに最も効果がある'}。`);
+    if(i){const strong=i.cat>=2||['overpair','set','top'].includes(i.pairClass);const draw=i.fd||i.sOuts>=4;L.push(`あなたの手は${handInfoText(i)}。${strong?'バリューベット（より弱い手からコールを引き出す）':draw?'セミブラフ（今は負けていても当たれば勝ち、相手を降ろせば即勝ち）':'ブラフ寄り（相手を降ろせないと価値がない）'}として機能する。`);}
+  } else if(r.t==='check'&&i){
+    L.push(`チェック。あなたの手は${handInfoText(i)}。${i.cat>=2?'強い手でのチェックは相手のブラフを誘う（トラップ）意図なら有効':'弱い手でのチェックはポットを小さく保ち、無料でカードを見る選択'}。`);
+  } else if(r.t==='fold'){L.push('フォールド。ここまでに入れたチップは戻らないため、判断は「これから入れる額に対して勝率が見合うか」だけで決める。');}
+  if(r.eq!=null&&r.need==null)L.push(`（参考）相手の手が判明しているため、この時点の厳密勝率は ${pct(r.eq)}。`);
+  return L.join('<br>')||'追加の根拠なし';
 }
 function hhRun(){
   const txt=document.getElementById('hhText').value;const err=document.getElementById('hhErr');err.innerHTML='';
@@ -917,7 +999,11 @@ function rkDeal(){
 document.querySelectorAll('[data-ans]').forEach(b=>b.addEventListener('click',()=>{
   if(rk.done)return;rk.done=true;const ok=b.dataset.ans===rk.ans;bump('rank',ok);
   const label={A:'Aの勝ち',B:'Bの勝ち',T:'引き分け'}[rk.ans];
-  document.getElementById('rkVerdict').innerHTML=`<div class="verdict ${ok?'ok':'bad'}"><b>${ok?'正解':'不正解'}</b> — ${label}<br>A：${describe(rk.sa)}<br>B：${describe(rk.sb)}</div>`;
+  const ca=catOf(rk.sa),cb=catOf(rk.sb);let why;
+  if(ca!==cb)why=`役の種類が違うので順位で決まる：${CATNAMES_OUT[Math.max(ca,cb)]}（${ca>cb?'A':'B'}）＞ ${CATNAMES_OUT[Math.min(ca,cb)]}（${ca>cb?'B':'A'}）。役の一覧の上にある方が勝ち。`;
+  else if(rk.ans==='T')why=`同じ役で、役を構成する 5 枚が完全に同じ（ボードだけで最強の 5 枚ができている、またはキッカーまで同じ）ため引き分け。手札の残りは 5 枚に入らないので比較されない。`;
+  else why=`同じ「${CATNAMES_OUT[ca]}」なので、役を作るランクの高さ、次にキッカー（役以外の残りカード）の順で比較。7 枚のうち最強の 5 枚だけを比べるので、使われない 2 枚は勝敗に影響しない。`;
+  document.getElementById('rkVerdict').innerHTML=`<div class="verdict ${ok?'ok':'bad'}"><b>${ok?'正解':'不正解'}</b> — ${label}<br>A：${describe(rk.sa)}<br>B：${describe(rk.sb)}<h4>根拠</h4>${why}</div>`;
 }));
 document.getElementById('rkNext').addEventListener('click',rkDeal);
 rkDeal();
@@ -952,7 +1038,12 @@ document.getElementById('osCheck').addEventListener('click',()=>{
    <div class="verdict ${okOuts?'ok':'bad'}"><b>アウツ：${okOuts?'正解':'不正解'}</b> — 正解は <b>${O}枚</b>（未見 ${unseen}枚中）。次の1枚で逆転する確率 ${pct(p1)}${os.street===3?`、リバーまでなら ${pct(p2)}（${est}%ルール）`:`（${est}%ルール）`}</div>
    <div class="verdict ${okCall?'ok':'bad'}"><b>判断：${okCall?'正解':'不正解'}</b> — 必要勝率 ${os.bet}÷(${os.pot}+${os.bet}+${os.bet}) = <b>${pct(need)}</b> に対し勝率 ${pct(p2)} → <b>${decision==='call'?'コール':'フォールド'}</b>${os.street===3?'<br><span style="font-size:12px;opacity:.8">※フロップは「リバーまで2枚見られる（オールイン相当）」前提。ターンでも追加ベットが来るなら次の1枚の確率で判断します。</span>':''}</div>`;
   render('osOutCards',os.outs,'sm out');
+  // 根拠: アウツを「完成する役」ごとに分類
+  const groups={};for(const c of os.outs){const cat=CATNAMES_OUT[catOf(evalBest(os.hero.concat(os.board,[c])))];(groups[cat]=groups[cat]||[]).push(c.id);}
+  const vilNow=describe(evalBest(os.vil.concat(os.board)));const heroNow=describe(evalBest(os.hero.concat(os.board)));
+  document.getElementById('osVerdict').innerHTML+=`<div class="verdict info"><b>根拠</b><br>現在：あなた ${heroNow} ／ 相手 ${vilNow}。相手の手札 2 枚とボードを除いた未見カードは ${unseen} 枚。<br>逆転できるカードの内訳：${Object.entries(groups).map(([k,v])=>`${k} ${v.length}枚（${v.join(' ')}）`).join('、')}。<br>${os.street===3?`フロップなので 2 枚引ける。1 枚目で外れても 2 枚目があるため、確率は「1−(外れ×外れ)」＝${pct(p2)}。暗算では 4 倍ルール（${O}×4＝${est}%）で近似できる`:`ターンなので残り 1 枚。確率は ${O}÷${unseen}＝${pct(p1)}。暗算では 2 倍ルール（${O}×2＝${est}%）`}。<br>必要勝率 ${pct(need)} は「コール額 ÷（ポット＋相手のベット＋コール額）」。勝率がこれを${p2>=need?'上回るので、長期的にはコールで得をする':'下回るので、コールし続けると損をする（インプライドオッズが大きい場合は例外）'}。</div>`;
 });
+const CATNAMES_OUT=['ハイカード','ワンペア','ツーペア','スリーカード','ストレート','フラッシュ','フルハウス','フォーカード','ストレートフラッシュ'];
 document.getElementById('osNext').addEventListener('click',osDeal);
 osDeal();
 
@@ -980,7 +1071,27 @@ function eqRun(){
   document.getElementById('eqResult').innerHTML=`
     <div class="bar"><div class="w" style="width:${pw}%">${pw.toFixed(1)}%</div><div class="t" style="width:${pt}%">${pt>4?pt.toFixed(1)+'%':''}</div><div class="l" style="width:${pl}%">${pl.toFixed(1)}%</div></div>
     <div class="kv"><span>あなたのエクイティ</span><b>${eq.toFixed(1)}%</b><span>勝ち / 引分 / 負け</span><b>${pw.toFixed(1)} / ${pt.toFixed(1)} / ${pl.toFixed(1)}</b><span>試行回数</span><b>${N.toLocaleString()}</b><span>相手</span><b>${vil?vil.map(c=>c.id).join(''):'ランダム2枚'}</b></div>
-    <p class="note">エクイティ ＝ 勝率 ＋ 引分率÷2。モンテカルロなので±0.5%程度ぶれます。</p>`;
+    <p class="note">エクイティ ＝ 勝率 ＋ 引分率÷2。モンテカルロなので±0.5%程度ぶれます。</p>
+    <div class="verdict info"><b>根拠</b><br>${explainEq(hero,vil,board,eq)}</div>`;
+}
+function explainEq(hero,vil,board,eq){
+  const L=[`計算方法：既知のカードを除いた ${52-2-(vil?2:0)-board.length} 枚から${vil?'':'相手の 2 枚と'}残りのボードを乱数で配り、7 枚の最強 5 枚同士を比較。これを試行回数ぶん繰り返した勝ち・引き分けの割合。`];
+  if(!vil){L.push('相手はランダム 2 枚（全ハンドの平均）。実戦の相手はもっと強いレンジで参加するため、対レンジではこれより下がるのが普通。');return L.join('<br>');}
+  if(board.length===0){
+    const hp=hero[0].r===hero[1].r,vp=vil[0].r===vil[1].r;const hh=Math.max(hero[0].r,hero[1].r),hl=Math.min(hero[0].r,hero[1].r),vh=Math.max(vil[0].r,vil[1].r),vl=Math.min(vil[0].r,vil[1].r);
+    if(hp&&vp)L.push(`ペア対ペア：高い方のペアが約 80% で勝つ定番マッチアップ。低いペアは「セットを引く（約 12%×2 回）」以外ほぼ勝てない。`);
+    else if(hp||vp){const pr=hp?hero:vil;const ov=hp?vil:hero;const pR=pr[0].r;const over=ov.filter(c=>c.r>pR).length;
+      L.push(over===2?`ペア対オーバーカード 2 枚：いわゆる「コインフリップ」。オーバーカード側はペア（約 30%）＋ストレート／フラッシュで約 45〜48%、ペア側がやや有利（${hp?'あなた':'相手'}がペア）。`:over===1?`ペア対オーバーカード 1 枚：ペア側が約 70%。オーバーカード側はそのカード（3 枚）を引く必要がある。`:`ペア対アンダーカード 2 枚：ペア側が約 80〜85%。相手は 2 ペアやトリップスを引く必要がある。`);}
+    else{const shareHi=hh===vh;const dom=shareHi||hl===vl;
+      if(dom)L.push(`同じ高いカードを共有する「ドミネート」状態：${hh===vh?(hl>vl?'あなた':'相手'):(hh>vh?'あなた':'相手')}のキッカーが上で約 70〜75%。共有カードがヒットしても下側は負ける。`);
+      else L.push(`ペアなし同士：高いカードを持つ側（${hh>vh?'あなた':'相手'}）が約 60〜65%。${(hero[0].s===hero[1].s)!==(vil[0].s===vil[1].s)?'スーテッド側はフラッシュ分で約 3〜4% 上乗せ。':''}${Math.abs(hero[0].r-hero[1].r)<=2||Math.abs(vil[0].r-vil[1].r)<=2?'コネクター側はストレート分で数%上乗せ。':''}`);}
+  } else {
+    const hi=handInfo(hero,board),vi=handInfo(vil,board);
+    L.push(`現在：あなた ${hi.label} ／ 相手 ${vi.label}。${hi.sc>vi.sc?'あなたがリードしており、相手が逆転するアウツの分だけ勝率が下がる':hi.sc<vi.sc?'相手がリードしており、あなたの勝率＝逆転できるアウツから来る':'現時点は同等'}。`);
+    if(board.length<5){const d=hi.sc<vi.sc?hi:vi;const who=hi.sc<vi.sc?'あなた':'相手';const outsTxt=[d.fd?'フラッシュドロー（9 枚）':'',d.sOuts>=8?'オープンエンド（8 枚）':d.sOuts>=4?'ガットショット（4 枚）':'',d.overcards?'オーバーカード（6 枚）':''].filter(Boolean).join('＋');if(outsTxt)L.push(`負けている側（${who}）のドロー：${outsTxt}。${board.length===3?'残り 2 枚なので 4 倍ルール':'残り 1 枚なので 2 倍ルール'}で概算できる。`);}
+  }
+  L.push(`結果 ${eq.toFixed(1)}% は上記の構造から来る数字。定番マッチアップの目安（ペア対ペア 80/20、ペア対オーバーカード 55/45、ドミネート 70/30）と照らして体感で覚えるのが目的。`);
+  return L.join('<br>');
 }
 document.getElementById('eqRun').addEventListener('click',eqRun);
 document.getElementById('eqRand').addEventListener('click',()=>{const d=shuffle(DECK);document.getElementById('eqHero').value=d[0].id+d[1].id;document.getElementById('eqVil').value=d[2].id+d[3].id;document.getElementById('eqBoard').value='';eqRun();});
