@@ -1,0 +1,1018 @@
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>ホールデム道場</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#EFEDE6; --surface:#FFFFFF; --surface-2:#F6F5F0; --ink:#1B1F1C; --muted:#5F665F; --line:#D5D3CB;
+  --felt:#1F6A47; --felt-deep:#164F35; --felt-ink:#F4F7F4; --gold:#B8862B;
+  --suit-s:#1B1F1C; --suit-h:#C3312D; --suit-d:#2757A8; --suit-c:#1E7A3F;
+  --card-bg:#FBFAF6; --card-ink:#151715; --card-back:#7A2E2A;
+  --ok:#2E8B57; --ok-bg:#E3F2E9; --bad:#C3312D; --bad-bg:#F9E4E3; --warn:#B8862B; --warn-bg:#F7EDD8;
+  --a-raise:#C3312D; --a-call:#2E8B57; --a-fold:#C9CCC4; --a-fold-ink:#5F665F;
+  --focus:#2757A8;
+  --display:"Barlow Condensed","Noto Sans JP",sans-serif;
+  --body:"Noto Sans JP",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121714; --surface:#1B221D; --surface-2:#222B25; --ink:#ECEDE8; --muted:#9AA39B; --line:#2E382F;
+    --felt:#2A8A5E; --felt-deep:#1E6A47; --felt-ink:#F4F7F4; --gold:#D4A24A;
+    --suit-s:#151715; --suit-h:#C3312D; --suit-d:#2757A8; --suit-c:#1E7A3F;
+    --card-bg:#F8F7F2; --card-ink:#151715; --card-back:#8A3A35;
+    --ok:#57B472; --ok-bg:#1E3527; --bad:#E5615C; --bad-bg:#3A2323; --warn:#D4A24A; --warn-bg:#3A311F;
+    --a-raise:#D24C47; --a-call:#3E9E63; --a-fold:#3A443C; --a-fold-ink:#9AA39B;
+    --focus:#6C9BE8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121714; --surface:#1B221D; --surface-2:#222B25; --ink:#ECEDE8; --muted:#9AA39B; --line:#2E382F;
+  --felt:#2A8A5E; --felt-deep:#1E6A47; --felt-ink:#F4F7F4; --gold:#D4A24A;
+  --suit-s:#151715; --suit-h:#C3312D; --suit-d:#2757A8; --suit-c:#1E7A3F;
+  --card-bg:#F8F7F2; --card-ink:#151715; --card-back:#8A3A35;
+  --ok:#57B472; --ok-bg:#1E3527; --bad:#E5615C; --bad-bg:#3A2323; --warn:#D4A24A; --warn-bg:#3A311F;
+  --a-raise:#D24C47; --a-call:#3E9E63; --a-fold:#3A443C; --a-fold-ink:#9AA39B;
+  --focus:#6C9BE8;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:0 48px}
+header.top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-block:22px 10px}
+header.top h1{font-family:var(--display);font-size:38px;line-height:1;margin:0;letter-spacing:.02em;text-wrap:balance}
+header.top h1 small{font-size:16px;color:var(--muted);margin-left:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+header.top .sub{color:var(--muted);font-size:13px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding-block:8px;border-bottom:1px solid var(--line);margin-bottom:18px;scrollbar-width:none}
+nav.tabs button{flex:0 0 auto;font-family:var(--body);font-weight:500;font-size:14px;color:var(--muted);background:transparent;border:1px solid transparent;border-radius:999px;padding:7px 14px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--felt);color:var(--felt-ink);border-color:var(--felt)}
+nav.tabs button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+h2{font-family:var(--display);font-size:26px;margin:0 0 6px;letter-spacing:.01em}
+h3{font-size:15px;margin:0 0 8px;font-weight:700}
+h4{font-size:13px;margin:12px 0 4px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+p.lead{color:var(--muted);margin:0 0 16px;max-width:70ch}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.felt{background:radial-gradient(ellipse at 50% 30%,var(--felt) 0%,var(--felt-deep) 100%);color:var(--felt-ink);border-radius:14px;padding:16px;box-shadow:inset 0 0 0 6px rgba(0,0,0,.18)}
+.felt .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:4px}
+.felt .line{font-size:14px;line-height:1.5;margin-bottom:8px}
+.felt .big{font-family:var(--display);font-size:30px;line-height:1.1}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.seat{display:flex;flex-direction:column;gap:4px}
+.seats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media (max-width:480px){.seats{grid-template-columns:1fr}}
+.card{display:inline-flex;flex-direction:column;justify-content:space-between;width:46px;height:64px;background:var(--card-bg);color:var(--card-ink);border-radius:6px;padding:4px 5px;font-family:var(--mono);font-weight:700;box-shadow:0 1px 2px rgba(0,0,0,.35);line-height:1;user-select:none}
+.card .rk{font-size:18px}.card .su{font-size:20px;align-self:flex-end}
+.card.sm{width:30px;height:42px;padding:2px 3px;border-radius:4px}.card.sm .rk{font-size:12px}.card.sm .su{font-size:13px}
+.row.nw{flex-wrap:nowrap;gap:3px}
+.card.s-s{color:var(--suit-s)}.card.s-h{color:var(--suit-h)}.card.s-d{color:var(--suit-d)}.card.s-c{color:var(--suit-c)}
+.card.back{background:repeating-linear-gradient(45deg,var(--card-back) 0 4px,#5f2320 4px 8px)}
+.card.out{outline:3px solid var(--gold);outline-offset:1px}
+.card.slot{background:rgba(255,255,255,.12);box-shadow:none;border:1px dashed rgba(255,255,255,.4)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button.act{font-family:var(--body);font-size:14px;font-weight:500;padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button.act.primary{background:var(--felt);border-color:var(--felt);color:var(--felt-ink)}
+button.act.raise{background:var(--a-raise);border-color:var(--a-raise);color:#fff}
+button.act.call{background:var(--a-call);border-color:var(--a-call);color:#fff}
+button.act.ghost{background:transparent}
+button.act:disabled{opacity:.5;cursor:default}
+.verdict{margin-top:12px;padding:12px 14px;border-radius:8px;font-size:14px}
+.verdict.ok{background:var(--ok-bg);border-left:4px solid var(--ok)}
+.verdict.bad{background:var(--bad-bg);border-left:4px solid var(--bad)}
+.verdict.mix{background:var(--warn-bg);border-left:4px solid var(--warn)}
+.verdict.info{background:var(--surface-2);border-left:4px solid var(--gold)}
+.verdict b{font-weight:700}
+.stat{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:auto}
+.head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.tscroll{overflow-x:auto}
+/* range grid */
+.rgrid{display:grid;grid-template-columns:repeat(13,1fr);gap:2px;font-family:var(--mono);font-size:11px;font-weight:500;max-width:560px}
+.rgrid .c{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:3px;background:var(--a-fold);color:var(--a-fold-ink);cursor:pointer;border:1px solid transparent}
+.rgrid .c.lit{color:#fff;text-shadow:0 0 2px rgba(0,0,0,.5)}
+.rgrid .c.pair{font-weight:700}
+.rgrid .c.sel{box-shadow:0 0 0 2px var(--gold);z-index:1}
+@media (max-width:480px){.rgrid{font-size:9px}}
+.rgrid.mini{max-width:420px;font-size:9px;gap:1px}
+.poschips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.poschips button{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.poschips button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#1B1F1C}
+.legend{font-size:12px;color:var(--muted);margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:4px}
+.freqbar{display:flex;height:18px;border-radius:4px;overflow:hidden;font-family:var(--mono);font-size:11px;margin:6px 0}
+.freqbar div{display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden;white-space:nowrap}
+.freqbar .f-raise,.freqbar .f-bet3,.freqbar .f-bet4{background:var(--a-raise)}.freqbar .f-call{background:var(--a-call)}.freqbar .f-fold{background:var(--a-fold);color:var(--a-fold-ink)}
+.score{font-family:var(--display);font-size:40px;line-height:1}
+/* forms */
+label.f{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+input[type=text],input[type=number],select,textarea{font-family:var(--mono);font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);width:100%}
+textarea{min-height:220px;resize:vertical;line-height:1.4}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media (max-width:480px){.fields{grid-template-columns:1fr}}
+.bar{height:22px;display:flex;border-radius:6px;overflow:hidden;background:var(--surface-2);margin:10px 0 6px;font-family:var(--mono);font-size:12px}
+.bar div{display:flex;align-items:center;justify-content:center;color:#fff;white-space:nowrap;overflow:hidden}
+.bar .w{background:var(--ok)}.bar .t{background:var(--gold)}.bar .l{background:var(--bad)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px;margin-top:8px}
+.kv b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted);border:1px solid var(--line)}
+.pill.ok{background:var(--ok-bg);color:var(--ok);border-color:transparent}.pill.bad{background:var(--bad-bg);color:var(--bad);border-color:transparent}.pill.mix{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.quick button{font-family:var(--mono);font-size:12px;padding:4px 9px;border-radius:6px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);cursor:pointer}
+dl.gloss{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:8px 16px;margin:0}
+dl.gloss dt{font-weight:700}dl.gloss dd{margin:0}
+@media (max-width:520px){dl.gloss{grid-template-columns:1fr}dl.gloss dd{margin-bottom:6px;color:var(--muted)}}
+/* hand history */
+.hhlist{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.hh{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.hh .hhhead{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;font-size:13px}
+.hh .hhhead b{font-family:var(--mono)}
+.hh .street{display:grid;grid-template-columns:70px 1fr;gap:6px 12px;font-size:13.5px;padding:6px 0;border-top:1px dashed var(--line)}
+.hh .street .sname{font-family:var(--mono);color:var(--muted);font-size:12px;padding-top:2px}
+.hh .acts{color:var(--muted);font-size:12.5px;font-family:var(--mono);line-height:1.5;word-break:break-word}
+.hh .acts .me{color:var(--ink);font-weight:700}
+.hh .an{margin-top:4px;padding:8px 10px;border-radius:6px;background:var(--surface-2);font-size:13px}
+.hh .an.ok{border-left:3px solid var(--ok)}.hh .an.bad{border-left:3px solid var(--bad)}.hh .an.mix{border-left:3px solid var(--warn)}.hh .an.na{border-left:3px solid var(--line)}
+.summary{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.summary .tile{background:var(--surface-2);border-radius:8px;padding:8px 14px;min-width:110px}
+.summary .tile .v{font-family:var(--display);font-size:26px;line-height:1.1}.summary .tile .k{font-size:11px;color:var(--muted);letter-spacing:.06em}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .15s}.card.out{transform:translateY(-4px)}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <h1>ホールデム道場 <small>Hold'em Dojo</small></h1>
+  <span class="sub">テキサスホールデムを「手を動かして」覚える練習帳</span>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="モジュール">
+  <button role="tab" data-tab="drill" aria-selected="true">GTOドリル</button>
+  <button role="tab" data-tab="pre" aria-selected="false">レンジ表</button>
+  <button role="tab" data-tab="flop" aria-selected="false">フロップ判断</button>
+  <button role="tab" data-tab="hh" aria-selected="false">ハンド履歴レビュー</button>
+  <button role="tab" data-tab="rank" aria-selected="false">役の強さ</button>
+  <button role="tab" data-tab="outs" aria-selected="false">アウツ/オッズ</button>
+  <button role="tab" data-tab="eq" aria-selected="false">エクイティ</button>
+  <button role="tab" data-tab="gloss" aria-selected="false">用語集</button>
+</nav>
+
+<!-- ===== GTOドリル ===== -->
+<section id="tab-drill" role="tabpanel">
+  <div class="head"><h2>GTOドリル（プリフロップ）</h2><span class="stat" id="drillStat"></span></div>
+  <p class="lead">6-max・100bb。状況とハンドが出るので、GTO近似戦略と同じアクションを選びます。混合戦略（同じハンドを50%でレイズ、50%でコール等）はどちらを選んでも正解扱い、頻度0のアクションを選ぶと「純ミス」です。</p>
+  <div class="poschips" id="drillCats"></div>
+  <div class="grid2">
+    <div class="panel">
+      <div class="felt">
+        <div class="lbl">Situation</div>
+        <div class="big" id="drTitle"></div>
+        <div class="line" id="drLine"></div>
+        <div class="lbl">Your hand</div>
+        <div class="row" id="drHand"></div>
+      </div>
+      <div class="btns" id="drBtns"></div>
+      <div class="btns"><button class="act ghost" id="drNext">次の問題</button><button class="act ghost" id="drReset">成績リセット</button></div>
+      <div id="drVerdict"></div>
+    </div>
+    <div class="panel">
+      <h3>このシナリオのレンジ表</h3>
+      <div class="rgrid mini" id="drGrid"></div>
+      <div class="legend"><span><i style="background:var(--a-raise)"></i>レイズ / 3ベット / 4ベット</span><span><i style="background:var(--a-call)"></i>コール</span><span><i style="background:var(--a-fold)"></i>フォールド</span><span>セルの色の割合＝頻度</span></div>
+      <div id="drCellInfo" class="verdict info" hidden></div>
+      <p class="note">レンジは一般公開されているGTO近似チャートを基に作成した目安で、ソルバーの厳密解ではありません。EVロスではなく「頻度スコア」（選んだアクションの頻度 ÷ 最頻アクションの頻度）で採点しています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== レンジ表 ===== -->
+<section id="tab-pre" role="tabpanel" hidden>
+  <div class="head"><h2>レンジ表ブラウザ</h2></div>
+  <p class="lead">全シナリオのレンジ表を眺めるためのページ。セルをクリックすると各アクションの頻度と、どのシナリオでレイズ対象になるかを表示します。</p>
+  <div class="panel">
+    <div class="fields" style="max-width:520px"><div><label class="f" for="preSel">シナリオ</label><select id="preSel"></select></div></div>
+    <div class="rgrid" id="rgrid"></div>
+    <div class="legend"><span><i style="background:var(--a-raise)"></i>レイズ系</span><span><i style="background:var(--a-call)"></i>コール</span><span><i style="background:var(--a-fold)"></i>フォールド</span><span id="posPct"></span></div>
+    <div id="cellInfo" class="verdict info" hidden></div>
+  </div>
+</section>
+
+<!-- ===== フロップ判断 ===== -->
+<section id="tab-flop" role="tabpanel" hidden>
+  <div class="head"><h2>フロップ Cベット判断</h2><span class="stat" id="flopStat"></span></div>
+  <p class="lead">あなたが BTN からオープンし、BB がコール（ポット 5.5bb、実効 100bb）。BB がチェックしてきました。ボードの質感と自分の手の強さから、チェック／小さいベット／大きいベットを選びます。</p>
+  <div class="grid2">
+    <div class="panel">
+      <div class="felt">
+        <div class="lbl">Flop <span class="pill" id="flTex"></span></div>
+        <div class="row" id="flBoard"></div>
+        <div class="lbl" style="margin-top:10px">Your hand（BTN, IP）</div>
+        <div class="row" id="flHand"></div>
+        <div class="line" style="margin-top:8px">BB: チェック → あなたの番（ポット 5.5bb）</div>
+      </div>
+      <div class="btns">
+        <button class="act" data-fl="check">チェック</button>
+        <button class="act call" data-fl="small">小さくベット（33%）</button>
+        <button class="act raise" data-fl="big">大きくベット（75%）</button>
+        <button class="act ghost" id="flNext">次の問題</button>
+      </div>
+      <div id="flVerdict"></div>
+    </div>
+    <div class="panel">
+      <h3>判断の型（IP・シングルレイズポット）</h3>
+      <div class="tscroll"><table>
+        <thead><tr><th>ボード</th><th>方針</th></tr></thead>
+        <tbody>
+          <tr><td>A/Kハイ・レインボー・非連結（ドライ）</td><td>ほぼ全レンジで<b>小さくベット</b>（レンジベット）。プリフロップレイザーが有利なボード</td></tr>
+          <tr><td>ペアボード</td><td>小さくベット高頻度。相手の当たりが少ない</td></tr>
+          <tr><td>Q/J/Tハイ・レインボー・非連結</td><td>小さくベット多め。弱いローペア・完全な空振りはチェックも</td></tr>
+          <tr><td>ロー〜ミドル・連結／ツートーン（ウェット）</td><td>二極化：ツーペア以上・オーバーペア・強いドローは<b>大きくベット</b>、中途半端な手はチェック</td></tr>
+          <tr><td>モノトーン（同スート3枚）</td><td>基本チェック。フラッシュ・セット・Aハイフラッシュドローは小さくベット</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">この判定はソルバー傾向を要約したヒューリスティックで、GTO Wizardのような厳密解ではありません。「どんなボードで誰が有利か」「強い手と強いドローは大きく、弱い手はチェック」の感覚づくりが目的です。厳密解が必要になったら、オープンソースのソルバーで計算した結果を読み込む形に拡張できます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ハンド履歴 ===== -->
+<section id="tab-hh" role="tabpanel" hidden>
+  <div class="head"><h2>ハンド履歴レビュー</h2></div>
+  <p class="lead">PokerStars 形式のハンド履歴テキストを貼り付けると、あなたのプリフロップ判断をレンジ表と照合し、ポストフロップの各判断にポットオッズと（ショーダウンで相手の手が見えた場合）実際の勝率を付けます。複数ハンドをまとめて貼れます。</p>
+  <div class="panel">
+    <label class="f" for="hhText">ハンド履歴（PokerStars クライアントの「ハンド履歴をリクエスト」で取得したテキスト）</label>
+    <textarea id="hhText" spellcheck="false" placeholder="PokerStars Hand #...: Hold'em No Limit ($0.05/$0.10 USD) - ..."></textarea>
+    <div class="btns"><button class="act primary" id="hhRun">解析する</button><button class="act ghost" id="hhSample">サンプルを読み込む</button><button class="act ghost" id="hhClear">クリア</button></div>
+    <div id="hhErr"></div>
+    <div id="hhSummary"></div>
+  </div>
+  <div class="hhlist" id="hhList"></div>
+</section>
+
+<!-- ===== 役の強さ ===== -->
+<section id="tab-rank" role="tabpanel" hidden>
+  <div class="head"><h2>役の強さ</h2><span class="stat" id="rankStat"></span></div>
+  <p class="lead">ボード5枚＋各自2枚の計7枚から最強の5枚を選びます。一覧で順序を押さえ、クイズで「どちらが勝ちか」を即答できるまで繰り返してください。</p>
+  <div class="grid2">
+    <div class="panel">
+      <h3>役の一覧（強い順）</h3>
+      <div class="tscroll"><table id="rankTable"><thead><tr><th>役</th><th>例</th><th>7枚時の出現率</th></tr></thead><tbody></tbody></table></div>
+      <p class="note">出現率は7枚（ホール2枚＋ボード5枚）で最終的にその役になる確率。ワンペア以下が6割を占めるため、実戦では「相手のペアに勝てるか」の判断が最頻出です。</p>
+    </div>
+    <div class="panel">
+      <h3>クイズ：どちらが勝ち？</h3>
+      <div class="felt">
+        <div class="lbl">Board</div>
+        <div class="row" id="rkBoard"></div>
+        <div class="seats" style="margin-top:12px">
+          <div class="seat"><div class="lbl">Hand A</div><div class="row" id="rkA"></div></div>
+          <div class="seat"><div class="lbl">Hand B</div><div class="row" id="rkB"></div></div>
+        </div>
+      </div>
+      <div class="btns">
+        <button class="act primary" data-ans="A">Aの勝ち</button>
+        <button class="act primary" data-ans="B">Bの勝ち</button>
+        <button class="act" data-ans="T">引き分け</button>
+        <button class="act ghost" id="rkNext">次の問題</button>
+      </div>
+      <div id="rkVerdict"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== アウツ / オッズ ===== -->
+<section id="tab-outs" role="tabpanel" hidden>
+  <div class="head"><h2>アウツとポットオッズ</h2><span class="stat" id="outsStat"></span></div>
+  <p class="lead">相手の手を「見えている」前提で、次の1枚であなたが逆転するカード（アウツ）を数えます。数えたら、ベット額に対してコールが割に合うかまで判定します。</p>
+  <div class="grid2">
+    <div class="panel">
+      <div class="felt">
+        <div class="lbl">Board <span class="pill" id="ostreet"></span></div>
+        <div class="row" id="osBoard"></div>
+        <div class="seats" style="margin-top:12px">
+          <div class="seat"><div class="lbl">You</div><div class="row" id="osHero"></div></div>
+          <div class="seat"><div class="lbl">Villain（現在リード）</div><div class="row" id="osVil"></div></div>
+        </div>
+        <div class="lbl" style="margin-top:10px">Pot / Bet</div>
+        <div style="font-family:var(--mono);font-size:18px" id="osPot"></div>
+      </div>
+      <div class="fields" style="margin-top:12px">
+        <div><label class="f" for="osAns">次の1枚で逆転するカードは何枚？</label><input type="number" id="osAns" min="0" max="45" inputmode="numeric" placeholder="例: 9"></div>
+        <div><label class="f" for="osCall">この額をコールする？</label><select id="osCall"><option value="">選択</option><option value="call">コール</option><option value="fold">フォールド</option></select></div>
+      </div>
+      <div class="btns">
+        <button class="act primary" id="osCheck">答え合わせ</button>
+        <button class="act ghost" id="osNext">次の問題</button>
+      </div>
+      <div id="osVerdict"></div>
+      <div class="row" id="osOutCards" style="margin-top:10px"></div>
+    </div>
+    <div class="panel">
+      <h3>暗算の型</h3>
+      <div class="tscroll"><table>
+        <thead><tr><th>場面</th><th>概算</th><th>正確</th></tr></thead>
+        <tbody>
+          <tr><td>ターン→リバー（残り1枚）</td><td class="num">アウツ × 2 ％</td><td class="num">アウツ ÷ 46</td></tr>
+          <tr><td>フロップ→リバー（残り2枚）</td><td class="num">アウツ × 4 ％</td><td class="num">1 − (46−O)(45−O)/(47·46)</td></tr>
+        </tbody>
+      </table></div>
+      <h3 style="margin-top:14px">代表的なドロー</h3>
+      <div class="tscroll"><table>
+        <thead><tr><th>ドロー</th><th>アウツ</th><th>1枚</th><th>2枚</th></tr></thead>
+        <tbody>
+          <tr><td>ガットショット</td><td class="num">4</td><td class="num">8.7%</td><td class="num">16.5%</td></tr>
+          <tr><td>オーバーカード2枚</td><td class="num">6</td><td class="num">13.0%</td><td class="num">24.1%</td></tr>
+          <tr><td>オープンエンド(OESD)</td><td class="num">8</td><td class="num">17.4%</td><td class="num">31.5%</td></tr>
+          <tr><td>フラッシュドロー</td><td class="num">9</td><td class="num">19.6%</td><td class="num">35.0%</td></tr>
+          <tr><td>フラッシュ + ガット</td><td class="num">12</td><td class="num">26.1%</td><td class="num">45.0%</td></tr>
+          <tr><td>フラッシュ + OESD</td><td class="num">15</td><td class="num">32.6%</td><td class="num">54.1%</td></tr>
+        </tbody>
+      </table></div>
+      <h3 style="margin-top:14px">ポットオッズ</h3>
+      <p class="note" style="margin-top:0">ポットPに相手がBをベット。コールに必要な勝率 ＝ B ÷ (P + B + B)。<br>例：ポット100に50ベット → 50÷200 ＝ 25%。勝率が25%を上回ればコールが正当化されます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== エクイティ ===== -->
+<section id="tab-eq" role="tabpanel" hidden>
+  <div class="head"><h2>エクイティ計算</h2></div>
+  <p class="lead">2つのハンドの勝率をモンテカルロ法（乱数で残りのカードを配り切る試行の繰り返し）で求めます。「AKはQQに対して何％か」のような定番マッチアップを体感で覚えるための道具です。</p>
+  <div class="grid2">
+    <div class="panel">
+      <div class="quick" id="eqQuick"></div>
+      <div class="fields">
+        <div><label class="f" for="eqHero">あなた（例: AhKs）</label><input type="text" id="eqHero" value="AhKs" autocomplete="off" spellcheck="false"></div>
+        <div><label class="f" for="eqVil">相手（例: QdQc / 空欄=ランダム）</label><input type="text" id="eqVil" value="QdQc" autocomplete="off" spellcheck="false"></div>
+        <div><label class="f" for="eqBoard">ボード（0/3/4/5枚、例: Jh7s2d）</label><input type="text" id="eqBoard" value="" autocomplete="off" spellcheck="false"></div>
+        <div><label class="f" for="eqN">試行回数</label><select id="eqN"><option value="10000">10,000</option><option value="30000" selected>30,000</option><option value="100000">100,000</option></select></div>
+      </div>
+      <div class="btns"><button class="act primary" id="eqRun">計算する</button><button class="act ghost" id="eqRand">ランダム対戦</button></div>
+      <div id="eqErr"></div>
+      <p class="note">表記：ランクは 2〜9, T, J, Q, K, A。スートは s♠ h♥ d♦ c♣。例 "Td9d" ＝ 10♦9♦。</p>
+    </div>
+    <div class="panel">
+      <div class="felt">
+        <div class="lbl">Board</div>
+        <div class="row" id="eqBoardV"></div>
+        <div class="seats" style="margin-top:12px">
+          <div class="seat"><div class="lbl">You</div><div class="row" id="eqHeroV"></div></div>
+          <div class="seat"><div class="lbl">Villain</div><div class="row" id="eqVilV"></div></div>
+        </div>
+      </div>
+      <div id="eqResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 用語集 ===== -->
+<section id="tab-gloss" role="tabpanel" hidden>
+  <div class="head"><h2>用語集</h2></div>
+  <p class="lead">最初に押さえておきたい用語だけに絞っています。</p>
+  <div class="panel"><dl class="gloss" id="gloss"></dl></div>
+</section>
+</div>
+
+<script>
+/* ============ カード基盤 ============ */
+const RANKS='23456789TJQKA', SUITS='shdc', SYM={s:'♠',h:'♥',d:'♦',c:'♣'};
+const DECK=[];for(let s of SUITS)for(let r=0;r<13;r++)DECK.push({r,s,id:RANKS[r]+s});
+const rl=r=>r===8?'10':RANKS[r];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function cardHTML(c,cls=''){if(!c)return `<span class="card slot ${cls}"></span>`;return `<span class="card s-${c.s} ${cls}" data-id="${c.id}"><span class="rk">${rl(c.r)}</span><span class="su">${SYM[c.s]}</span></span>`;}
+function render(el,cards,cls='',n){let h=cards.map(c=>cardHTML(c,cls)).join('');if(n)for(let i=cards.length;i<n;i++)h+=cardHTML(null,cls);document.getElementById(el).innerHTML=h;}
+function parseCards(str){const out=[];const t=(str||'').replace(/[\s,]/g,'');if(t.length%2)throw new Error('カード表記が不正です（2文字1組）: '+str);for(let i=0;i<t.length;i+=2){const r=RANKS.indexOf(t[i].toUpperCase()),s=t[i+1].toLowerCase();if(r<0||!SUITS.includes(s))throw new Error('不正なカード: '+t.slice(i,i+2));out.push(DECK[SUITS.indexOf(s)*13+r]);}return out;}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ============ 役判定 ============ */
+function combos(n,k){const res=[],idx=[];(function rec(st){if(idx.length===k){res.push(idx.slice());return;}for(let i=st;i<n;i++){idx.push(i);rec(i+1);idx.pop();}})(0);return res;}
+const COMBOS={5:combos(5,5),6:combos(6,5),7:combos(7,5)};
+const P13_5=13**5;
+function eval5(cs){
+  const rs=cs.map(c=>c.r).sort((a,b)=>b-a);
+  const flush=cs.every(c=>c.s===cs[0].s);
+  const cnt={};for(const r of rs)cnt[r]=(cnt[r]||0)+1;
+  const g=Object.entries(cnt).map(([r,n])=>({r:+r,n})).sort((a,b)=>b.n-a.n||b.r-a.r);
+  let sh=-1;
+  if(g.length===5){if(rs[0]-rs[4]===4)sh=rs[0];else if(rs[0]===12&&rs[1]===3&&rs[4]===0)sh=3;}
+  let cat,k;
+  if(sh>=0&&flush){cat=8;k=[sh];}
+  else if(g[0].n===4){cat=7;k=[g[0].r,g[1].r];}
+  else if(g[0].n===3&&g[1].n===2){cat=6;k=[g[0].r,g[1].r];}
+  else if(flush){cat=5;k=rs;}
+  else if(sh>=0){cat=4;k=[sh];}
+  else if(g[0].n===3){cat=3;k=[g[0].r,g[1].r,g[2].r];}
+  else if(g[0].n===2&&g[1].n===2){cat=2;k=[g[0].r,g[1].r,g[2].r];}
+  else if(g[0].n===2){cat=1;k=[g[0].r,g[1].r,g[2].r,g[3].r];}
+  else{cat=0;k=rs;}
+  let sc=cat;for(let i=0;i<5;i++)sc=sc*13+(k[i]??0);return sc;
+}
+function evalBest(cards){if(cards.length===5)return eval5(cards);let best=-1;for(const c of COMBOS[cards.length]){const s=eval5([cards[c[0]],cards[c[1]],cards[c[2]],cards[c[3]],cards[c[4]]]);if(s>best)best=s;}return best;}
+const catOf=sc=>Math.floor(sc/P13_5);
+function describe(sc){
+  const cat=catOf(sc);let rem=sc-cat*P13_5;const k=[];for(let i=4;i>=0;i--){k.unshift(rem%13);rem=Math.floor(rem/13);}
+  const R=r=>rl(r);
+  switch(cat){
+    case 8:return k[0]===12?'ロイヤルフラッシュ':`ストレートフラッシュ（${R(k[0])}ハイ）`;
+    case 7:return `フォーカード（${R(k[0])}）`;
+    case 6:return `フルハウス（${R(k[0])} full of ${R(k[1])}）`;
+    case 5:return `フラッシュ（${R(k[0])}ハイ）`;
+    case 4:return `ストレート（${R(k[0])}ハイ）`;
+    case 3:return `スリーカード（${R(k[0])}）`;
+    case 2:return `ツーペア（${R(k[0])}と${R(k[1])}、キッカー${R(k[2])}）`;
+    case 1:return `ワンペア（${R(k[0])}、キッカー${R(k[1])}）`;
+    default:return `ハイカード（${R(k[0])}ハイ）`;
+  }
+}
+/* 手の性質（ボード3〜4枚時） */
+function handInfo(hand,board){
+  const cards=hand.concat(board);const sc=evalBest(cards);const cat=catOf(sc);
+  const br=board.map(c=>c.r).sort((a,b)=>b-a);const top=br[0];
+  const info={sc,cat,label:describe(sc),pairClass:null,fd:false,nfd:false,sOuts:0,overcards:false};
+  const [h1,h2]=hand;
+  if(cat===1||cat===2||cat===3){
+    if(h1.r===h2.r){ if(board.some(c=>c.r===h1.r))info.pairClass='set'; else if(h1.r>top)info.pairClass='overpair'; else info.pairClass='underpair'; }
+    else if(cat===1||cat===2){ const hit=hand.filter(c=>board.some(b=>b.r===c.r)); if(hit.length){ const hr=Math.max(...hit.map(c=>c.r)); info.pairClass=hr===top?'top':hr===br[1]?'middle':'bottom'; if(hr===top){const kick=hand.find(c=>c.r!==hr);info.tptk=kick&&kick.r>=11;} } else info.pairClass='boardpair'; }
+    else info.pairClass='trips';
+  }
+  if(cat===0&&h1.r>top&&h2.r>top)info.overcards=true;
+  if(board.length<5){
+    const sc2={};cards.forEach(c=>sc2[c.s]=(sc2[c.s]||0)+1);
+    for(const s in sc2)if(sc2[s]===4){info.fd=true;info.nfd=hand.some(c=>c.s===s&&c.r===12);}
+    if(cat<4){let outs=0;for(let r=0;r<13;r++){const c=DECK.find(d=>d.r===r&&!cards.some(x=>x.id===d.id));if(!c)continue;const c2=catOf(evalBest(cards.concat([c])));if(c2===4||c2===8)outs+=4-cards.filter(x=>x.r===r).length;}info.sOuts=outs;}
+  }
+  return info;
+}
+function handInfoText(i){
+  const parts=[];
+  const pc={set:'セット',overpair:'オーバーペア',underpair:'アンダーペア',top:i.tptk?'トップペア（強キッカー）':'トップペア',middle:'ミドルペア',bottom:'ボトムペア',boardpair:'ボードのペアのみ',trips:'トリップス'}[i.pairClass];
+  parts.push(pc?`${i.label}＝${pc}`:i.label);
+  if(i.fd)parts.push(i.nfd?'ナッツフラッシュドロー':'フラッシュドロー');
+  if(i.sOuts>=8)parts.push('オープンエンド級ストレートドロー');else if(i.sOuts>=4)parts.push('ガットショット');
+  if(i.overcards)parts.push('オーバーカード2枚');
+  return parts.join('、');
+}
+
+/* ============ レンジDSL ============ */
+const RCACHE={};
+function expandRange(str){
+  if(RCACHE[str])return RCACHE[str];const set=new Set();
+  str.split(',').map(t=>t.trim()).filter(Boolean).forEach(tok=>{
+    if(tok.includes('-')){const [a,b]=tok.split('-');const ra=RANKS.indexOf(a[0]),la=RANKS.indexOf(a[1]),lb=RANKS.indexOf(b[1]),suf=a[2]||'';
+      if(ra===la){const rb=RANKS.indexOf(b[0]);for(let r=Math.min(ra,rb);r<=Math.max(ra,rb);r++)set.add(RANKS[r]+RANKS[r]);}
+      else for(let l=Math.min(la,lb);l<=Math.max(la,lb);l++)set.add(RANKS[ra]+RANKS[l]+suf);return;}
+    const plus=tok.endsWith('+');if(plus)tok=tok.slice(0,-1);
+    const a=RANKS.indexOf(tok[0]),b=RANKS.indexOf(tok[1]),suf=tok[2]||'';
+    if(a===b){for(let r=a;r<=(plus?12:a);r++)set.add(RANKS[r]+RANKS[r]);}
+    else{const hi=Math.max(a,b),lo=Math.min(a,b);for(let l=lo;l<=(plus?hi-1:lo);l++)set.add(RANKS[hi]+RANKS[l]+suf);}
+  });RCACHE[str]=set;return set;
+}
+function handKey(c1,c2){const hi=Math.max(c1.r,c2.r),lo=Math.min(c1.r,c2.r);if(hi===lo)return RANKS[hi]+RANKS[lo];return RANKS[hi]+RANKS[lo]+(c1.s===c2.s?'s':'o');}
+const keyCombos=k=>k.length===2?6:k[2]==='s'?4:12;
+const ALLKEYS=[];for(let i=12;i>=0;i--)for(let j=12;j>=0;j--)ALLKEYS.push(i===j?RANKS[i]+RANKS[i]:i>j?RANKS[i]+RANKS[j]+'s':RANKS[j]+RANKS[i]+'o');
+
+/* ============ シナリオ定義（6-max 100bb 近似） ============ */
+const ACTL={raise:'レイズ',call:'コール',bet3:'3ベット',bet4:'4ベット',fold:'フォールド'};
+const POSJ={UTG:'UTG',HJ:'HJ',CO:'CO',BTN:'BTN',SB:'SB',BB:'BB'};
+const SC=[
+ // RFI
+ {id:'rfi_UTG',cat:'rfi',hero:'UTG',vil:null,title:'UTG オープン',line:'あなたが最初に行動。誰も参加していません。',acts:['raise','fold'],
+  mix:[['raise',1,'66+, A8s+, A5s, A4s, KTs+, QTs+, JTs, T9s, AJo+, KQo'],['raise',.5,'22-55, A7s, A6s, A3s, A2s, K9s, Q9s, J9s, 98s, 87s, ATo, KJo']]},
+ {id:'rfi_HJ',cat:'rfi',hero:'HJ',vil:null,title:'HJ オープン',line:'UTG フォールド。あなたの番。',acts:['raise','fold'],
+  mix:[['raise',1,'44+, A2s+, K9s+, Q9s+, J9s+, T9s, 98s, 87s, ATo+, KJo+, QJo'],['raise',.5,'22, 33, K8s, Q8s, J8s, T8s, 76s, 65s, A9o, KTo, QTo, JTo']]},
+ {id:'rfi_CO',cat:'rfi',hero:'CO',vil:null,title:'CO オープン',line:'UTG・HJ フォールド。あなたの番。',acts:['raise','fold'],
+  mix:[['raise',1,'22+, A2s+, K6s+, Q8s+, J8s+, T8s+, 97s+, 86s+, 76s, 65s, A8o+, KTo+, QTo+, JTo'],['raise',.5,'K5s, K4s, Q7s, Q6s, J7s, T7s, 96s, 75s, 54s, A7o, A6o, A5o, K9o, Q9o, J9o, T9o']]},
+ {id:'rfi_BTN',cat:'rfi',hero:'BTN',vil:null,title:'BTN オープン',line:'全員フォールドであなたの番。後ろは SB・BB だけ。',acts:['raise','fold'],
+  mix:[['raise',1,'22+, A2s+, K2s+, Q4s+, J6s+, T6s+, 96s+, 85s+, 75s+, 64s+, 54s, A2o+, K8o+, Q9o+, J9o+, T9o'],['raise',.5,'Q3s, Q2s, J5s, J4s, T5s, 95s, 84s, 74s, 63s, 53s, 43s, K7o, K6o, K5o, Q8o, J8o, T8o, 98o']]},
+ {id:'rfi_SB',cat:'rfi',hero:'SB',vil:null,title:'SB オープン（vs BB）',line:'全員フォールド。残るは BB だけ。レイズ or フォールド戦略。',acts:['raise','fold'],
+  mix:[['raise',1,'22+, A2s+, K4s+, Q6s+, J7s+, T7s+, 97s+, 86s+, 75s+, 65s, A7o+, K9o+, QTo+, JTo'],['raise',.5,'K3s, K2s, Q5s, Q4s, J6s, T6s, 96s, 85s, 64s, 54s, A2o-A6o, K8o, Q9o, J9o, T9o, 98o']]},
+ // vs RFI
+ {id:'vs_BB_BTN',cat:'vs',hero:'BB',vil:'BTN',title:'BB vs BTN オープン',line:'BTN が 2.5bb にレイズ、SB フォールド。あなたは BB。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'TT+, AQs+, AKo, A5s, A4s'],['bet3',.5,'99, AJs, ATs, KQs, KJs, A3s, A2s, AQo, AJo, KQo, 76s, 65s'],['call',.5,'99, AJs, ATs, KQs, KJs, A3s, A2s, AQo, AJo, KQo, 76s, 65s'],
+       ['call',1,'22-88, A6s-A9s, K2s-KTs, Q2s-QJs, J4s-JTs, T5s-T9s, 95s+, 84s+, 74s+, 63s+, 53s+, 43s, A2o-ATo, K5o+, Q8o+, J8o+, T8o+, 98o, 87o']]},
+ {id:'vs_BB_CO',cat:'vs',hero:'BB',vil:'CO',title:'BB vs CO オープン',line:'CO が 2.5bb にレイズ、BTN・SB フォールド。あなたは BB。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'JJ+, AQs+, AKo, A5s, A4s'],['bet3',.5,'TT, 99, AJs, ATs, KQs, KJs, A3s, AQo, AJo, KQo'],['call',.5,'TT, 99, AJs, ATs, KQs, KJs, A3s, AQo, AJo, KQo'],
+       ['call',1,'22-88, A6s-A9s, A2s, K5s-KTs, Q7s-QJs, J7s-JTs, T6s+, 96s+, 85s+, 75s+, 64s+, 54s, A2o-ATo, K9o, KTo, KJo, Q9o, QTo, QJo, J9o, JTo, T9o, 98o']]},
+ {id:'vs_BB_HJ',cat:'vs',hero:'BB',vil:'HJ',title:'BB vs HJ オープン',line:'HJ が 2.5bb にレイズ、他はフォールド。あなたは BB。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'QQ+, AKs, AKo, A5s'],['bet3',.5,'JJ, TT, AQs, AJs, KQs, A4s, AQo'],['call',.5,'JJ, TT, AQs, AJs, KQs, A4s, AQo'],
+       ['call',1,'22-99, ATs, A6s-A9s, A3s, A2s, K7s-KJs, Q8s-QJs, J8s-JTs, T7s+, 97s+, 86s+, 75s+, 65s, 54s, AJo, ATo, KQo, KJo, QJo, JTo, T9o']]},
+ {id:'vs_BB_UTG',cat:'vs',hero:'BB',vil:'UTG',title:'BB vs UTG オープン',line:'UTG が 2.5bb にレイズ、他は全員フォールド。あなたは BB。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'QQ+, AKs'],['bet3',.5,'JJ, AQs, AKo, A5s, A4s'],['call',.5,'JJ, AQs, AKo, A5s, A4s'],
+       ['call',1,'22-TT, AJs, ATs, A6s-A9s, A3s, A2s, K8s-KQs, Q9s-QJs, J9s, JTs, T8s+, 97s+, 86s+, 76s, 65s, 54s, AQo, AJo, KQo, KJo, QJo, JTo']]},
+ {id:'vs_BB_SB',cat:'vs',hero:'BB',vil:'SB',title:'BB vs SB オープン',line:'全員フォールド後、SB が 3bb にレイズ。あなたは BB。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'99+, ATs+, KJs+, QJs, AJo+, KQo, A5s, A4s'],['bet3',.5,'88, 77, A9s, A8s, KTs, QTs, JTs, T9s, ATo, KJo, QJo, A3s, A2s'],['call',.5,'88, 77, A9s, A8s, KTs, QTs, JTs, T9s, ATo, KJo, QJo, A3s, A2s'],
+       ['call',1,'22-66, A6s, A7s, K2s-K9s, Q2s-Q9s, J2s-J9s, T4s-T8s, 95s+, 84s+, 74s+, 63s+, 53s+, 43s, A2o-A9o, K5o+, Q7o+, J7o+, T7o+, 97o+, 87o, 76o']]},
+ {id:'vs_SB_BTN',cat:'vs',hero:'SB',vil:'BTN',title:'SB vs BTN オープン',line:'BTN が 2.5bb にレイズ。あなたは SB。基本は 3ベット or フォールド。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'77+, A8s+, A2s-A5s, KTs+, QTs+, JTs, T9s, AJo+, KQo'],['bet3',.5,'66, 55, A7s, A6s, K9s, Q9s, J9s, 98s, 87s, ATo, KJo, QJo'],['call',.5,'66, 55, 44, 33, 22']]},
+ {id:'vs_SB_CO',cat:'vs',hero:'SB',vil:'CO',title:'SB vs CO オープン',line:'CO が 2.5bb にレイズ、BTN フォールド。あなたは SB。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'88+, A9s+, A5s, A4s, KJs+, QJs, AQo+, KQo'],['bet3',.5,'77, 66, A8s, A7s, A3s, A2s, KTs, QTs, JTs, T9s, AJo, KJo']]},
+ {id:'vs_BTN_CO',cat:'vs',hero:'BTN',vil:'CO',title:'BTN vs CO オープン',line:'CO が 2.5bb にレイズ。あなたは BTN（ポジション有利）。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'JJ+, AQs+, AKo, A5s, A4s'],['bet3',.5,'TT, 99, AJs, ATs, KQs, KJs, QJs, JTs, T9s, AQo, A3s, A2s'],['call',.5,'TT, 99, AJs, ATs, KQs, KJs, QJs, JTs, T9s, AQo, A3s, A2s'],
+       ['call',1,'22-88, A6s-A9s, KTs, QTs, 98s, 87s, 76s, 65s, AJo, KQo']]},
+ {id:'vs_BTN_HJ',cat:'vs',hero:'BTN',vil:'HJ',title:'BTN vs HJ オープン',line:'HJ が 2.5bb にレイズ、CO フォールド。あなたは BTN。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'QQ+, AKs, AKo, A5s'],['bet3',.5,'JJ, TT, AQs, AJs, KQs, A4s, AQo'],['call',.5,'JJ, TT, AQs, AJs, KQs, A4s, AQo'],
+       ['call',1,'22-99, ATs, A9s, KJs, KTs, QJs, QTs, JTs, T9s, 98s, 87s, 76s, AJo, KQo']]},
+ {id:'vs_BTN_UTG',cat:'vs',hero:'BTN',vil:'UTG',title:'BTN vs UTG オープン',line:'UTG が 2.5bb にレイズ、HJ・CO フォールド。あなたは BTN。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'QQ+, AKs'],['bet3',.5,'JJ, TT, AQs, AKo, A5s, A4s, KQs'],['call',.5,'JJ, TT, AQs, AKo, A5s, A4s, KQs'],
+       ['call',1,'22-99, AJs, ATs, KJs, QJs, JTs, T9s, 98s, 87s, 76s, AQo']]},
+ {id:'vs_CO_HJ',cat:'vs',hero:'CO',vil:'HJ',title:'CO vs HJ オープン',line:'HJ が 2.5bb にレイズ。あなたは CO。後ろに BTN・SB・BB が残っています。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'QQ+, AKs, AKo'],['bet3',.5,'JJ, TT, AQs, A5s, A4s, KQs, AQo'],['call',.5,'JJ, TT, AQs, A5s, A4s, KQs, AQo'],
+       ['call',1,'22-99, AJs, ATs, KJs, KTs, QJs, JTs, T9s, 98s, 87s']]},
+ {id:'vs_CO_UTG',cat:'vs',hero:'CO',vil:'UTG',title:'CO vs UTG オープン',line:'UTG が 2.5bb にレイズ、HJ フォールド。あなたは CO。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'KK+, AKs'],['bet3',.5,'QQ, JJ, AQs, AKo, A5s'],['call',.5,'QQ, JJ, AQs, AKo, A5s'],
+       ['call',1,'22-TT, AJs, ATs, KQs, KJs, QJs, JTs, T9s, 98s, AQo']]},
+ {id:'vs_HJ_UTG',cat:'vs',hero:'HJ',vil:'UTG',title:'HJ vs UTG オープン',line:'UTG が 2.5bb にレイズ。あなたは HJ。後ろに4人残っています。',acts:['bet3','call','fold'],
+  mix:[['bet3',1,'KK+, AKs'],['bet3',.5,'QQ, JJ, AQs, AKo, A5s'],['call',.5,'QQ, JJ, AQs, AKo, A5s'],
+       ['call',1,'22-TT, AJs, KQs, KJs, QJs, JTs, T9s']]},
+ // vs 3bet
+ {id:'v3_BTN_SB',cat:'v3',hero:'BTN',vil:'SB',title:'BTN オープン → SB が 3ベット',line:'あなたが BTN から 2.5bb にオープン、SB が 11bb に 3ベット、BB フォールド。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'QQ+, AKs'],['bet4',.5,'JJ, AKo, A5s, A4s'],['call',.5,'JJ, AKo, A5s, A4s'],
+       ['call',1,'22-TT, ATs+, KTs+, QTs+, JTs, T9s, 98s, 87s, 76s, AQo, AJo, KQo, A3s, A2s']]},
+ {id:'v3_BTN_BB',cat:'v3',hero:'BTN',vil:'BB',title:'BTN オープン → BB が 3ベット',line:'あなたが BTN から 2.5bb にオープン、SB フォールド、BB が 12bb に 3ベット。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'QQ+, AKs'],['bet4',.5,'JJ, AKo, A5s, A4s'],['call',.5,'JJ, AKo, A5s, A4s'],
+       ['call',1,'44-TT, ATs+, KTs+, QTs+, JTs, T9s, 98s, 87s, AQo, AJo, KQo, A3s']]},
+ {id:'v3_CO_BTN',cat:'v3',hero:'CO',vil:'BTN',title:'CO オープン → BTN が 3ベット',line:'あなたが CO から 2.5bb にオープン、BTN が 8bb に 3ベット、ブラインドはフォールド。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'KK+'],['bet4',.5,'QQ, AKs, AKo, A5s, A4s'],['call',.5,'QQ, AKs, AKo, A5s, A4s'],
+       ['call',1,'55-JJ, ATs+, KTs+, QTs+, JTs, T9s, 98s, AQo, KQo']]},
+ {id:'v3_CO_BB',cat:'v3',hero:'CO',vil:'BB',title:'CO オープン → BB が 3ベット',line:'あなたが CO から 2.5bb にオープン、BTN・SB フォールド、BB が 11bb に 3ベット。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'QQ+, AKs'],['bet4',.5,'JJ, AKo, A5s'],['call',.5,'JJ, AKo, A5s'],
+       ['call',1,'55-TT, ATs+, KJs+, QJs, JTs, T9s, 98s, AQo, KQo']]},
+ {id:'v3_UTG_BB',cat:'v3',hero:'UTG',vil:'BB',title:'UTG オープン → BB が 3ベット',line:'あなたが UTG から 2.5bb にオープン、全員フォールド、BB が 11bb に 3ベット。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'KK+, AKs'],['bet4',.5,'QQ, AKo, A5s'],['call',.5,'QQ, AKo, A5s'],
+       ['call',1,'66-JJ, AQs, AJs, ATs, KQs, KJs, QJs, JTs, T9s, AQo']]},
+ {id:'v3_HJ_BTN',cat:'v3',hero:'HJ',vil:'BTN',title:'HJ オープン → BTN が 3ベット',line:'あなたが HJ から 2.5bb にオープン、CO フォールド、BTN が 8bb に 3ベット、ブラインドはフォールド。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'KK+'],['bet4',.5,'QQ, AKs, AKo, A5s'],['call',.5,'QQ, AKs, AKo, A5s'],
+       ['call',1,'66-JJ, AQs, AJs, ATs, KQs, KJs, QJs, JTs, T9s, AQo']]},
+ {id:'v3_SB_BB',cat:'v3',hero:'SB',vil:'BB',title:'SB オープン → BB が 3ベット',line:'あなたが SB から 3bb にオープン、BB が 10bb に 3ベット。あなたは OOP。',acts:['bet4','call','fold'],
+  mix:[['bet4',1,'QQ+, AKs, AKo'],['bet4',.5,'JJ, TT, AQs, A5s, A4s'],['call',.5,'JJ, TT, AQs, A5s, A4s'],
+       ['call',1,'22-99, AJs, ATs, A6s-A9s, KJs+, QJs, JTs, T9s, 98s, 87s, AQo, AJo, KQo']]},
+];
+const SCBY={};SC.forEach(s=>SCBY[s.id]=s);
+function freqOf(sc,key){const f={};let tot=0;for(const [a,p,rs] of sc.mix){if(expandRange(rs).has(key)){f[a]=(f[a]||0)+p;tot+=p;}}if(tot>1){for(const a in f)f[a]/=tot;tot=1;}f.fold=Math.max(0,1-tot);return f;}
+function bestAct(f){let b='fold',m=-1;for(const a in f)if(f[a]>m+1e-9){m=f[a];b=a;}return b;}
+function cellStyle(sc,key){const f=freqOf(sc,key);const order=sc.acts;let pos=0;const stops=[];for(const a of order){const p=(f[a]||0)*100;if(p<=0)continue;const col=a==='call'?'var(--a-call)':a==='fold'?'var(--a-fold)':'var(--a-raise)';stops.push(`${col} ${pos}% ${pos+p}%`);pos+=p;}return {bg:`linear-gradient(to right,${stops.join(',')})`,lit:(f.fold||0)<.5};}
+function gridHTML(sc,selKey,hiKey){let h='';for(const key of ALLKEYS){const st=cellStyle(sc,key);const cls=['c',key.length===2?'pair':'',st.lit?'lit':'',(selKey===key||hiKey===key)?'sel':''].join(' ');h+=`<div class="${cls}" data-key="${key}" role="button" tabindex="0" style="background:${st.bg}">${key}</div>`;}return h;}
+function freqBarHTML(sc,f){return `<div class="freqbar">${sc.acts.map(a=>{const p=Math.round((f[a]||0)*100);return p?`<div class="f-${a}" style="width:${p}%">${ACTL[a]} ${p}%</div>`:'';}).join('')}</div>`;}
+function rangePct(sc){let n=0;for(const key of ALLKEYS){const f=freqOf(sc,key);n+=(1-(f.fold||0))*keyCombos(key);}return (100*n/1326).toFixed(1);}
+
+/* ============ 成績保存 ============ */
+let stats={rank:{n:0,ok:0},outs:{n:0,ok:0},flop:{n:0,ok:0},drill:{n:0,score:0,miss:0}};
+try{const s=JSON.parse(localStorage.getItem('holdem-dojo-stats2'));if(s&&s.drill)stats=Object.assign(stats,s);}catch(e){}
+function save(){try{localStorage.setItem('holdem-dojo-stats2',JSON.stringify(stats));}catch(e){}showStats();}
+function bump(key,ok){stats[key].n++;if(ok)stats[key].ok++;save();}
+function showStats(){for(const k of ['rank','outs','flop']){const s=stats[k];const el=document.getElementById(k+'Stat');if(el)el.textContent=s.n?`正解 ${s.ok}/${s.n}（${Math.round(100*s.ok/s.n)}%）`:'未回答';}
+  const d=stats.drill;document.getElementById('drillStat').textContent=d.n?`${d.n}問 / 平均スコア ${Math.round(d.score/d.n)} / 純ミス ${d.miss}`:'未回答';}
+
+/* ============ タブ ============ */
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('section[role=tabpanel]').forEach(s=>s.hidden=s.id!=='tab-'+b.dataset.tab);
+  try{localStorage.setItem('holdem-dojo-tab',b.dataset.tab);}catch(e){}
+}));
+try{const t=localStorage.getItem('holdem-dojo-tab');if(t){const b=document.querySelector(`nav.tabs button[data-tab="${t}"]`);if(b)b.click();}}catch(e){}
+
+/* ============ GTOドリル ============ */
+let drCat='all',dr={};
+const CATS=[['all','すべて'],['rfi','オープン (RFI)'],['vs','vs オープン'],['v3','vs 3ベット']];
+const dc=document.getElementById('drillCats');
+CATS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;b.setAttribute('aria-pressed',k===drCat);b.addEventListener('click',()=>{drCat=k;dc.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));drDeal();});dc.appendChild(b);});
+function drDeal(){
+  const pool=SC.filter(s=>drCat==='all'||s.cat===drCat);const sc=pool[Math.floor(Math.random()*pool.length)];
+  const d=shuffle(DECK);dr={sc,hand:[d[0],d[1]],key:handKey(d[0],d[1]),done:false};
+  document.getElementById('drTitle').textContent=sc.title;document.getElementById('drLine').textContent=sc.line;render('drHand',dr.hand);
+  document.getElementById('drBtns').innerHTML=sc.acts.map(a=>`<button class="act ${a==='call'?'call':a==='fold'?'':'raise'}" data-dr="${a}">${ACTL[a]}</button>`).join('');
+  document.getElementById('drVerdict').innerHTML='';document.getElementById('drCellInfo').hidden=true;
+  document.getElementById('drGrid').innerHTML=gridHTML(sc,null,null);
+}
+document.getElementById('drBtns').addEventListener('click',e=>{
+  const b=e.target.closest('[data-dr]');if(!b||dr.done)return;dr.done=true;
+  const a=b.dataset.dr,f=freqOf(dr.sc,dr.key),best=bestAct(f);const fa=f[a]||0,fb=f[best];
+  const score=Math.round(100*fa/fb);const cls=fa<=0?'bad':score>=100?'ok':'mix';
+  stats.drill.n++;stats.drill.score+=score;if(fa<=0)stats.drill.miss++;save();
+  const head=fa<=0?'純ミス':score>=100?'正解':'混合（許容）';
+  document.getElementById('drVerdict').innerHTML=`<div class="verdict ${cls}"><div class="row" style="gap:14px"><span class="score">${score}</span><div><b>${head}</b> — ${dr.key} の GTO 頻度：${dr.sc.acts.map(x=>`${ACTL[x]} ${Math.round((f[x]||0)*100)}%`).join(' / ')}<br>最頻アクション：<b>${ACTL[best]}</b>${fa>0&&score<100?`。${ACTL[a]} も ${Math.round(fa*100)}% で選ばれる混合戦略です`:''}</div></div>${freqBarHTML(dr.sc,f)}</div>`;
+  document.getElementById('drGrid').innerHTML=gridHTML(dr.sc,null,dr.key);
+});
+document.getElementById('drGrid').addEventListener('click',e=>{const c=e.target.closest('.c');if(!c)return;const f=freqOf(dr.sc,c.dataset.key);const el=document.getElementById('drCellInfo');el.hidden=false;el.innerHTML=`<b>${c.dataset.key}</b>（${keyCombos(c.dataset.key)}通り）${freqBarHTML(dr.sc,f)}`;});
+document.getElementById('drNext').addEventListener('click',drDeal);
+document.getElementById('drReset').addEventListener('click',()=>{stats.drill={n:0,score:0,miss:0};save();});
+drDeal();
+
+/* ============ レンジ表ブラウザ ============ */
+const preSel=document.getElementById('preSel');
+SC.forEach(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=`${{rfi:'RFI',vs:'vs オープン',v3:'vs 3ベット'}[s.cat]}｜${s.title}`;preSel.appendChild(o);});
+let preId=SC[0].id,selKey=null;
+function drawGrid(){const sc=SCBY[preId];document.getElementById('rgrid').innerHTML=gridHTML(sc,selKey,null);document.getElementById('posPct').textContent=`参加率 ${rangePct(sc)}%（フォールド以外の合計）`;if(selKey)cellInfo(selKey);}
+preSel.addEventListener('change',()=>{preId=preSel.value;drawGrid();});
+document.getElementById('rgrid').addEventListener('click',e=>{const c=e.target.closest('.c');if(c){selKey=c.dataset.key;drawGrid();}});
+document.getElementById('rgrid').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const c=e.target.closest('.c');if(c){e.preventDefault();selKey=c.dataset.key;drawGrid();}}});
+function cellInfo(key){
+  const el=document.getElementById('cellInfo');el.hidden=false;const sc=SCBY[preId];const f=freqOf(sc,key);
+  const type=key.length===2?'ポケットペア':key[2]==='s'?'スーテッド':'オフスート';
+  const opens=SC.filter(s=>s.cat==='rfi'&&(freqOf(s,key).raise||0)>0).map(s=>`${s.hero}${freqOf(s,key).raise<1?'(混合)':''}`);
+  el.innerHTML=`<b>${key}</b>（${type}、${keyCombos(key)}通り）${freqBarHTML(sc,f)}オープンできる位置：${opens.length?opens.join(' / '):'なし'}`;
+}
+drawGrid();
+
+/* ============ フロップ判断 ============ */
+let fl={};
+function texture(board){
+  const rs=board.map(c=>c.r).sort((a,b)=>b-a);const paired=new Set(rs).size<3;const suits=new Set(board.map(c=>c.s)).size;
+  const mono=suits===1,two=suits===2;const conn=!paired&&(rs[0]-rs[2]<=4);const high=rs[0]>=11?'AK':rs[0]>=8?'QJT':'low';
+  const wet=!paired&&(two||conn)&&high!=='AK';
+  let name;if(mono)name='モノトーン';else if(paired)name='ペアボード';else if(high==='AK'&&!two&&!conn)name='A/Kハイ・ドライ';else if(high==='AK')name='A/Kハイ・'+(two?'ツートーン':'連結');else if(wet)name=(high==='QJT'?'ミドル':'ロー')+'・ウェット';else name=(high==='QJT'?'Q/J/Tハイ':'ロー')+'・ドライ';
+  return {paired,mono,two,conn,high,wet,name};
+}
+function flopAdvice(hand,board){
+  const t=texture(board),i=handInfo(hand,board);
+  const strong=i.cat>=2||i.pairClass==='overpair'||i.pairClass==='set'||(i.pairClass==='top'&&i.tptk);
+  const strongDraw=i.fd||i.sOuts>=8;const anyDraw=i.fd||i.sOuts>=4;
+  const weakPair=['middle','bottom','underpair'].includes(i.pairClass);
+  const air=i.cat===0&&!anyDraw&&!i.overcards;
+  let rec,why;
+  if(t.mono){ if(i.cat>=5||i.pairClass==='set'||i.nfd){rec='small';why='モノトーンは相手にもフラッシュ（ドロー）が多く、強い手・ナッツFDだけ小さく打ちます。';}else{rec='check';why='モノトーンでは中途半端な手はチェック。相手のフラッシュ／ドローに打ち込む価値が低いです。';}}
+  else if(t.paired){ rec=(air&&t.high==='low')?'check':'small';why=rec==='small'?'ペアボードは相手が当たりにくく、レンジ全体で小さくベットするのが定石。':'ローのペアボードで完全な空振りはチェックに回します。';}
+  else if(t.high==='AK'&&!t.two&&!t.conn){rec='small';why='A/Kハイのドライボードはプリフロップレイザー（あなた）のレンジが圧倒的に有利。ほぼ全レンジで小さくベット（レンジベット）。';}
+  else if(t.wet){ if(strong||strongDraw){rec='big';why='ウェットなボードは相手のドローが多いので、強い手と強いドローで大きく打って値段を払わせます（二極化）。';}else{rec='check';why='ウェットボードで中途半端な手（弱ペア・オーバーカードのみ・空振り）はチェック。小さいベットはレイズされやすい。';}}
+  else if(t.high==='AK'){ if(strong||strongDraw){rec='big';why='A/Kハイでもツートーン／連結なら、強い手・強いドローはやや大きめに。';}else{rec='small';why='A/Kハイはレイザー有利。弱い手でも小さいベットでフォールドを取れます。';}}
+  else { if(weakPair&&!anyDraw||air){rec='check';why='Q/J/Tハイやローのドライボードでは、弱いペア・空振りはチェックして安く見に行きます。';}else{rec='small';why='ドライボードではトップペア・オーバーペア・ドロー・強いオーバーカードで小さくベット。';}}
+  return {rec,why,t,i};
+}
+function flDeal(){
+  const rfi=SCBY.rfi_BTN;let d,hand;
+  for(let k=0;k<200;k++){d=shuffle(DECK);hand=[d[0],d[1]];if((freqOf(rfi,handKey(d[0],d[1])).raise||0)>0)break;}
+  const board=d.slice(2,5);fl={hand,board,done:false,adv:flopAdvice(hand,board)};
+  render('flBoard',board);render('flHand',hand);document.getElementById('flTex').textContent=fl.adv.t.name;document.getElementById('flVerdict').innerHTML='';
+}
+document.querySelectorAll('[data-fl]').forEach(b=>b.addEventListener('click',()=>{
+  if(fl.done)return;fl.done=true;const a=b.dataset.fl,ok=a===fl.adv.rec;bump('flop',ok);
+  const L={check:'チェック',small:'小さくベット（33%）',big:'大きくベット（75%）'};
+  document.getElementById('flVerdict').innerHTML=`<div class="verdict ${ok?'ok':'bad'}"><b>${ok?'正解':'不正解'}</b> — 推奨：<b>${L[fl.adv.rec]}</b><br>ボード：${fl.adv.t.name}　あなたの手：${handInfoText(fl.adv.i)}<br>${fl.adv.why}</div>`;
+}));
+document.getElementById('flNext').addEventListener('click',flDeal);
+flDeal();
+
+/* ============ ハンド履歴レビュー ============ */
+const POSORDER=['UTG','HJ','CO','BTN','SB','BB'];
+const to6=p=>/^UTG|^LJ|^MP/.test(p)?'UTG':p;
+function parseHH(text){const hands=[];text.replace(/\r/g,'').split(/\n(?=PokerStars\s)/).forEach(b=>{try{const h=parseOne(b.trim());if(h)hands.push(h);}catch(e){}});return hands;}
+function parseOne(t){
+  const lines=t.split('\n').map(l=>l.trim()).filter(Boolean);if(!lines.length)return null;
+  const head=lines[0];const m=head.match(/PokerStars (?:Zoom )?(?:Hand|Game) #(\d+):\s*(.*?)\s+-\s+(.*)$/);if(!m||!/Hold'?em/i.test(head))return null;
+  const bbm=m[2].match(/\(\s*[^\d]*([\d.,]+)\s*\/\s*[^\d]*([\d.,]+)/);const bb=bbm?parseFloat(bbm[2].replace(/,/g,'')):1;
+  const h={id:m[1],game:m[2],date:m[3],bb,seats:[],actions:{pre:[],flop:[],turn:[],river:[]},board:[],hero:null,heroCards:null,shown:{},maxSeats:6,btnSeat:null,collected:{},tourney:/Tournament/.test(head)};
+  const tm=lines[1]&&lines[1].match(/Table '(.*?)' (\d+)-max(?:.*?Seat #(\d+) is the button)?/);if(tm){h.table=tm[1];h.maxSeats=+tm[2];if(tm[3])h.btnSeat=+tm[3];}
+  let street='pre';const amt=s=>parseFloat(String(s).replace(/[^\d.]/g,''))||0;
+  for(const l of lines.slice(2)){
+    let x;
+    if((x=l.match(/^Seat (\d+): (.+?) \([^\d]*([\d.,]+) in chips/))){if(!/sitting out|out of hand/.test(l))h.seats.push({seat:+x[1],name:x[2],stack:parseFloat(x[3].replace(/,/g,''))});continue;}
+    if(/^\*\*\* HOLE CARDS/.test(l))continue;
+    if((x=l.match(/^\*\*\* FLOP \*\*\* \[(.+?)\]/))){street='flop';h.board=parseCards(x[1]);continue;}
+    if((x=l.match(/^\*\*\* TURN \*\*\* \[.+?\] \[(.+?)\]/))){street='turn';h.board=h.board.concat(parseCards(x[1]));continue;}
+    if((x=l.match(/^\*\*\* RIVER \*\*\* \[.+?\] \[(.+?)\]/))){street='river';h.board=h.board.concat(parseCards(x[1]));continue;}
+    if(/^\*\*\* (SHOW DOWN|SUMMARY)/.test(l)){street='end';continue;}
+    if((x=l.match(/^Dealt to (.+?) \[(.+?)\]/))){h.hero=x[1];h.heroCards=parseCards(x[2]);continue;}
+    if((x=l.match(/^(.+?): shows \[(.+?)\]/))){h.shown[x[1]]=parseCards(x[2]);continue;}
+    if((x=l.match(/^(.+?) collected [^\d]*([\d.,]+) from/))){h.collected[x[1]]=(h.collected[x[1]]||0)+amt(x[2]);continue;}
+    if(street==='end'){if((x=l.match(/^Seat \d+: (.+?) (?:\(.*?\) )?(?:showed|mucked) \[(.+?)\]/))){const nm=x[1].replace(/ \(.*$/,'');if(!h.shown[nm])h.shown[nm]=parseCards(x[2]);}continue;}
+    if((x=l.match(/^(.+?): posts (?:the )?(small blind|big blind|ante|small & big blinds?)\s*[^\d]*([\d.,]+)/))){h.actions[street].push({p:x[1],t:'post',kind:x[2],amt:amt(x[3])});continue;}
+    if((x=l.match(/^(.+?): folds/))){h.actions[street].push({p:x[1],t:'fold'});continue;}
+    if((x=l.match(/^(.+?): checks/))){h.actions[street].push({p:x[1],t:'check'});continue;}
+    if((x=l.match(/^(.+?): calls [^\d]*([\d.,]+)/))){h.actions[street].push({p:x[1],t:'call',amt:amt(x[2])});continue;}
+    if((x=l.match(/^(.+?): bets [^\d]*([\d.,]+)/))){h.actions[street].push({p:x[1],t:'bet',amt:amt(x[2])});continue;}
+    if((x=l.match(/^(.+?): raises [^\d]*([\d.,]+) to [^\d]*([\d.,]+)/))){h.actions[street].push({p:x[1],t:'raise',amt:amt(x[2]),to:amt(x[3])});continue;}
+    if((x=l.match(/^Uncalled bet \([^\d]*([\d.,]+)\) returned to (.+)/))){h.actions[street].push({p:x[2],t:'uncalled',amt:amt(x[1])});continue;}
+  }
+  if(!h.hero||!h.seats.length)return null;
+  // positions
+  h.seats.sort((a,b)=>a.seat-b.seat);const n=h.seats.length;let bi=h.seats.findIndex(s=>s.seat===h.btnSeat);if(bi<0)bi=0;
+  const order=[];for(let i=1;i<=n;i++)order.push(h.seats[(bi+i)%n]);// SB, BB, ..., BTN
+  h.pos={};
+  if(n===2){h.pos[order[1].name]='SB';h.pos[order[0].name]='BB';h.pos[order[1].name]='BTN';}
+  else{const k=n-3;const mids=k<=0?[]:['UTG'].concat(['UTG+1','UTG+2','LJ','HJ','CO'].slice(-(k-1)||6).slice(0,k-1));
+    if(k-1<=0)mids.length=Math.max(0,k);
+    const labels=['SB','BB'].concat(mids,['BTN']);order.forEach((s,i)=>h.pos[s.name]=labels[i]||'?');}
+  return h;
+}
+function nearestSc(cat,hero,vil){
+  const exact=SC.find(s=>s.cat===cat&&s.hero===hero&&(cat==='rfi'||s.vil===vil));if(exact)return {sc:exact,approx:false};
+  const c=SC.filter(s=>s.cat===cat&&s.hero===hero);if(!c.length)return null;
+  const vi=POSORDER.indexOf(vil);c.sort((a,b)=>Math.abs(POSORDER.indexOf(a.vil)-vi)-Math.abs(POSORDER.indexOf(b.vil)-vi));return {sc:c[0],approx:true};
+}
+function analyzeHand(h){
+  const out={pre:null,post:[],vpip:false,pfr:false};
+  const hero=h.hero,heroPos6=to6(h.pos[hero]||'?');const key=h.heroCards?handKey(h.heroCards[0],h.heroCards[1]):null;
+  // ---- preflop
+  let raisers=[],callers=[],limpers=[],heroDecisions=0;
+  for(const a of h.actions.pre){
+    if(a.t==='post'||a.t==='uncalled')continue;
+    if(a.p===hero){
+      heroDecisions++;
+      if(a.t==='call'||a.t==='raise')out.vpip=true;if(a.t==='raise')out.pfr=true;
+      if(!out.pre){
+        let ctx=null;
+        if(raisers.length===0&&limpers.length===0&&heroPos6!=='BB')ctx={cat:'rfi',vil:null,act:a.t==='raise'?'raise':a.t==='fold'?'fold':'limp'};
+        else if(raisers.length===1&&raisers[0]!==hero&&callers.length===0&&limpers.length===0)ctx={cat:'vs',vil:to6(h.pos[raisers[0]]),act:a.t==='raise'?'bet3':a.t};
+        else if(raisers.length===2&&raisers[0]===hero&&callers.length===0)ctx={cat:'v3',vil:to6(h.pos[raisers[1]]),act:a.t==='raise'?'bet4':a.t};
+        if(ctx&&key){const ns=nearestSc(ctx.cat,heroPos6,ctx.vil);if(ns){const f=freqOf(ns.sc,key);const best=bestAct(f);const fa=f[ctx.act]||0;out.pre={sc:ns.sc,approx:ns.approx,key,act:ctx.act,f,best,fa,score:Math.round(100*fa/(f[best]||1)),cls:fa<=0?'bad':fa>=f[best]-1e-9?'ok':'mix'};}}
+        if(!out.pre)out.pre={na:true,reason:ctx?'該当シナリオがライブラリにありません':(raisers.length===0&&limpers.length===0&&heroPos6==='BB')?'BB のウォーク／チェック（判断なし）':'コールドコール・スクイーズ・リンプ絡みなど、ライブラリ外の状況',key,act:a.t};
+      } else if(raisers.length===2&&raisers[0]===hero&&callers.length===0&&heroDecisions===2&&out.pre&&!out.pre.na&&out.pre.sc.cat==='rfi'&&key){
+        // RFI後に3ベットされて戻ってきた2回目の判断
+        const ns=nearestSc('v3',heroPos6,to6(h.pos[raisers[1]]));if(ns){const act=a.t==='raise'?'bet4':a.t;const f=freqOf(ns.sc,key);const best=bestAct(f);const fa=f[act]||0;out.pre2={sc:ns.sc,approx:ns.approx,key,act,f,best,fa,score:Math.round(100*fa/(f[best]||1)),cls:fa<=0?'bad':fa>=f[best]-1e-9?'ok':'mix'};}
+      }
+    }
+    if(a.t==='raise')raisers.push(a.p);else if(a.t==='call'){if(raisers.length)callers.push(a.p);else limpers.push(a.p);}
+  }
+  // ---- postflop pot tracking
+  let pot=0;const commit={};const st=s=>{for(const p in commit)pot+=commit[p],delete commit[p];};
+  const opp=Object.keys(h.shown).filter(p=>p!==hero);const vilCards=opp.length===1?h.shown[opp[0]]:null;
+  for(const a of h.actions.pre){if(a.t==='post')commit[a.p]=a.kind==='ante'?(pot+=a.amt,commit[a.p]||0):(commit[a.p]||0)+a.amt;else if(a.t==='call')commit[a.p]=(commit[a.p]||0)+a.amt;else if(a.t==='raise')commit[a.p]=a.to;else if(a.t==='uncalled')commit[a.p]=(commit[a.p]||0)-a.amt;}
+  st();
+  for(const s of ['flop','turn','river']){
+    const board=h.board.slice(0,s==='flop'?3:s==='turn'?4:5);if(board.length<3||!h.actions[s].length)continue;
+    for(const a of h.actions[s]){
+      if(a.p===hero&&a.t!=='uncalled'){
+        const maxc=Math.max(0,...Object.values(commit));const toCall=Math.max(0,maxc-(commit[hero]||0));const potNow=pot+Object.values(commit).reduce((x,y)=>x+y,0);
+        const rec={street:s,t:a.t,toCall,potNow,amt:a.t==='raise'?a.to:a.amt};
+        if(h.heroCards){rec.info=handInfo(h.heroCards,board);rec.infoText=handInfoText(rec.info);
+          if(vilCards&&board.length<5&&!vilCards.some(c=>board.some(b=>b.id===c.id)||h.heroCards.some(b=>b.id===c.id))){rec.eq=exactEquity(h.heroCards,vilCards,board);}
+          else if(vilCards&&board.length===5){const hs=evalBest(h.heroCards.concat(board)),vs=evalBest(vilCards.concat(board));rec.eq=hs>vs?1:hs<vs?0:.5;}}
+        if(toCall>0){rec.need=toCall/(potNow+toCall);
+          const O=rec.info?((rec.info.fd?9:0)+(rec.info.sOuts>=8?8:rec.info.sOuts>=4?4:0)-(rec.info.fd&&rec.info.sOuts?2:0)):0;rec.outsEst=O;rec.eqEst=board.length===3?Math.min(.95,O*0.04):board.length===4?O*0.0217:null;}
+        out.post.push(rec);
+      }
+      if(a.t==='call')commit[a.p]=(commit[a.p]||0)+a.amt;else if(a.t==='bet')commit[a.p]=a.amt;else if(a.t==='raise')commit[a.p]=a.to;else if(a.t==='uncalled')commit[a.p]=(commit[a.p]||0)-a.amt;
+    }
+    st();
+  }
+  out.vilCards=vilCards;out.vilName=opp[0]||null;
+  return out;
+}
+function exactEquity(hero,vil,board){
+  const used=new Set(hero.concat(vil,board).map(c=>c.id));const rest=DECK.filter(c=>!used.has(c.id));let w=0,t=0,n=0;
+  if(board.length===4){for(const c of rest){const b=board.concat([c]);const hs=evalBest(hero.concat(b)),vs=evalBest(vil.concat(b));n++;if(hs>vs)w++;else if(hs===vs)t++;}}
+  else{for(let i=0;i<rest.length;i++)for(let j=i+1;j<rest.length;j++){const b=board.concat([rest[i],rest[j]]);const hs=evalBest(hero.concat(b)),vs=evalBest(vil.concat(b));n++;if(hs>vs)w++;else if(hs===vs)t++;}}
+  return (w+t/2)/n;
+}
+function fmtAmt(h,v){return h.tourney?String(Math.round(v)):(Math.round(v*100)/100).toFixed(2);}
+function actLine(h,s){return h.actions[s].filter(a=>a.t!=='post'&&a.t!=='uncalled').map(a=>{const me=a.p===h.hero;const pos=h.pos[a.p]||'?';const v=a.t==='fold'?'F':a.t==='check'?'X':a.t==='call'?`C ${fmtAmt(h,a.amt)}`:a.t==='bet'?`B ${fmtAmt(h,a.amt)}`:`R→${fmtAmt(h,a.to)}`;return `<span class="${me?'me':''}">${pos} ${v}</span>`;}).join('　');}
+function preVerdictHTML(p,label){
+  if(!p)return '';if(p.na)return `<div class="an na">${label}：${esc(p.reason)}${p.key?`（${p.key}、あなたは ${p.act==='raise'?'レイズ':p.act==='call'?'コール':p.act==='fold'?'フォールド':p.act}）`:''}</div>`;
+  const head=p.cls==='ok'?'GTO と一致':p.cls==='mix'?'混合戦略の範囲内':'GTO では頻度 0（純ミス）';
+  return `<div class="an ${p.cls}">${label}：<span class="pill ${p.cls}">${head}</span> スコア ${p.score}　シナリオ「${p.sc.title}」${p.approx?'（近似シナリオで代用）':''}<br>${p.key} の GTO：${p.sc.acts.map(x=>`${ACTL[x]} ${Math.round((p.f[x]||0)*100)}%`).join(' / ')}　あなた：<b>${ACTL[p.act]||p.act}</b>　最頻：${ACTL[p.best]}</div>`;
+}
+function postVerdictHTML(h,r){
+  const pct=x=>(100*x).toFixed(1)+'%';const S={flop:'フロップ',turn:'ターン',river:'リバー'}[r.street];
+  let s=`<b>${S}</b> あなたは ${r.t==='fold'?'フォールド':r.t==='check'?'チェック':r.t==='call'?`コール ${fmtAmt(h,r.amt)}`:r.t==='bet'?`ベット ${fmtAmt(h,r.amt)}（ポット ${fmtAmt(h,r.potNow)} の ${Math.round(100*r.amt/r.potNow)}%）`:`レイズ→${fmtAmt(h,r.amt)}`}`;
+  if(r.infoText)s+=`<br>手：${r.infoText}`;
+  let cls='na';
+  if(r.need!=null){s+=`<br>必要勝率：${fmtAmt(h,r.toCall)} ÷ (${fmtAmt(h,r.potNow)} + ${fmtAmt(h,r.toCall)}) = <b>${pct(r.need)}</b>`;
+    if(r.eq!=null){s+=`　実勝率（相手 ${r.eqLabel||'の手が判明'}）：<b>${pct(r.eq)}</b>`;const good=r.eq>=r.need;if(r.t==='call'||r.t==='raise')cls=good?'ok':'bad';else if(r.t==='fold')cls=good?'bad':'ok';s+=`　→ ${good?'コールは割に合う':'コールは割に合わない'}`;}
+    else if(r.eqEst!=null&&r.outsEst>0){s+=`　ドローの概算勝率：約 ${pct(r.eqEst)}（アウツ約 ${r.outsEst}、${r.street==='flop'?'4倍':'2倍'}ルール）`;const good=r.eqEst>=r.need;if(r.t==='call')cls=good?'ok':'mix';else if(r.t==='fold')cls=good?'mix':'ok';}
+    else if(r.info&&r.info.cat>=1)cls='na';}
+  else if(r.eq!=null){s+=`<br>この時点の実勝率（相手の手が判明）：<b>${pct(r.eq)}</b>`;}
+  return `<div class="an ${cls}">${s}</div>`;
+}
+function hhRun(){
+  const txt=document.getElementById('hhText').value;const err=document.getElementById('hhErr');err.innerHTML='';
+  const hands=parseHH(txt);
+  if(!hands.length){err.innerHTML='<div class="verdict bad">解析できるハンドがありません。「PokerStars Hand #」で始まるテキストで、"Dealt to あなた [..]" の行が含まれているか確認してください。</div>';document.getElementById('hhList').innerHTML='';document.getElementById('hhSummary').innerHTML='';return;}
+  let vpip=0,pfr=0,pre={ok:0,mix:0,bad:0,na:0},net=0;const items=[];
+  for(const h of hands){
+    const an=analyzeHand(h);if(an.vpip)vpip++;if(an.pfr)pfr++;
+    for(const p of [an.pre,an.pre2]){if(!p)continue;if(p.na)pre.na++;else pre[p.cls]++;}
+    const put=h.actions.pre.concat(h.actions.flop,h.actions.turn,h.actions.river);
+    const invested=(()=>{let c={};let tot=0;for(const s of ['pre','flop','turn','river']){c={};for(const a of h.actions[s]){if(a.p!==h.hero)continue;if(a.t==='post')c[a.p]=(c[a.p]||0)+a.amt;else if(a.t==='call')c[a.p]=(c[a.p]||0)+a.amt;else if(a.t==='bet')c[a.p]=a.amt;else if(a.t==='raise')c[a.p]=a.to;else if(a.t==='uncalled')c[a.p]=(c[a.p]||0)-a.amt;}tot+=c[h.hero]||0;}return tot;})();
+    const won=h.collected[h.hero]||0;const result=won-invested;net+=result;
+    const streets=['pre','flop','turn','river'].filter(s=>h.actions[s].some(a=>a.t!=='post'));
+    const SN={pre:'プリフロップ',flop:'フロップ',turn:'ターン',river:'リバー'};
+    let body='';
+    for(const s of streets){
+      const bd=s==='pre'?'':h.board.slice(0,s==='flop'?3:s==='turn'?4:5).map(c=>cardHTML(c,'sm')).join('');
+      body+=`<div class="street"><div class="sname">${SN[s]}</div><div>${bd?`<div class="row nw" style="margin-bottom:4px">${bd}</div>`:''}<div class="acts">${actLine(h,s)}</div>${s==='pre'?preVerdictHTML(an.pre,'あなたの判断')+preVerdictHTML(an.pre2,'3ベットを受けて'):an.post.filter(r=>r.street===s).map(r=>postVerdictHTML(h,r)).join('')}</div></div>`;
+    }
+    const shownHTML=Object.keys(h.shown).filter(p=>p!==h.hero).map(p=>`${esc(h.pos[p]||'?')} ${esc(p)}：<span class="row nw" style="display:inline-flex;vertical-align:middle">${h.shown[p].map(c=>cardHTML(c,'sm')).join('')}</span>`).join('　');
+    items.push(`<div class="hh"><div class="hhhead"><b>#${h.id}</b><span class="pill">${esc(h.game)}</span><span class="pill">${esc(h.pos[h.hero]||'?')}</span><span class="row nw" style="display:inline-flex">${h.heroCards.map(c=>cardHTML(c,'sm')).join('')}</span><span class="pill ${result>0?'ok':result<0?'bad':''}">${result>=0?'+':''}${fmtAmt(h,result)}${h.tourney?'':' '}</span><span style="color:var(--muted);font-size:12px">${esc(h.date)}</span></div>${body}${shownHTML?`<div class="street"><div class="sname">ショーダウン</div><div style="font-size:13px">${shownHTML}</div></div>`:''}</div>`);
+  }
+  const n=hands.length;
+  document.getElementById('hhSummary').innerHTML=`<div class="summary"><div class="tile"><div class="v">${n}</div><div class="k">ハンド</div></div><div class="tile"><div class="v">${Math.round(100*vpip/n)}%</div><div class="k">VPIP</div></div><div class="tile"><div class="v">${Math.round(100*pfr/n)}%</div><div class="k">PFR</div></div><div class="tile"><div class="v">${pre.ok}/${pre.mix}/${pre.bad}</div><div class="k">プリフロップ 一致/混合/純ミス</div></div><div class="tile"><div class="v">${net>=0?'+':''}${hands[0].tourney?Math.round(net):net.toFixed(2)}</div><div class="k">収支（見えている分）</div></div></div><p class="note">VPIP＝自発的にチップを入れた割合、PFR＝プリフロップでレイズした割合。6-max の目安は VPIP 22〜28%、PFR 17〜22%。判定ライブラリ外（コールドコール・スクイーズ等）は ${pre.na} 件。</p>`;
+  document.getElementById('hhList').innerHTML=items.join('');
+}
+document.getElementById('hhRun').addEventListener('click',hhRun);
+document.getElementById('hhClear').addEventListener('click',()=>{document.getElementById('hhText').value='';document.getElementById('hhList').innerHTML='';document.getElementById('hhSummary').innerHTML='';document.getElementById('hhErr').innerHTML='';});
+const SAMPLE_HH=`PokerStars Hand #251000000001:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/09/20 21:14:02 JST
+Table 'Aludra II' 6-max Seat #4 is the button
+Seat 1: villain_a ($10.00 in chips)
+Seat 2: villain_b ($12.35 in chips)
+Seat 3: villain_c ($9.80 in chips)
+Seat 4: Hero ($10.00 in chips)
+Seat 5: villain_d ($10.00 in chips)
+Seat 6: villain_e ($21.10 in chips)
+villain_d: posts small blind $0.05
+villain_e: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [Ah Jh]
+villain_a: folds
+villain_b: folds
+villain_c: folds
+Hero: raises $0.15 to $0.25
+villain_d: folds
+villain_e: raises $0.85 to $1.10
+Hero: calls $0.85
+*** FLOP *** [Jc 7d 2h]
+villain_e: bets $1.40
+Hero: calls $1.40
+*** TURN *** [Jc 7d 2h] [Kd]
+villain_e: bets $4.20
+Hero: calls $4.20
+*** RIVER *** [Jc 7d 2h Kd] [4s]
+villain_e: checks
+Hero: checks
+*** SHOW DOWN ***
+villain_e: shows [Qs Qd] (a pair of Queens)
+Hero: mucks hand
+villain_e collected $12.85 from pot
+*** SUMMARY ***
+Total pot $13.45 | Rake $0.60
+Board [Jc 7d 2h Kd 4s]
+Seat 4: Hero (button) mucked [Ah Jh]
+Seat 6: villain_e (big blind) showed [Qs Qd] and won ($12.85) with a pair of Queens
+
+
+
+PokerStars Hand #251000000002:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/09/20 21:16:40 JST
+Table 'Aludra II' 6-max Seat #5 is the button
+Seat 1: villain_a ($10.00 in chips)
+Seat 2: villain_b ($12.35 in chips)
+Seat 3: villain_c ($9.80 in chips)
+Seat 4: Hero ($3.55 in chips)
+Seat 5: villain_d ($10.00 in chips)
+Seat 6: villain_e ($27.70 in chips)
+villain_e: posts small blind $0.05
+villain_a: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [9s 8s]
+villain_b: raises $0.15 to $0.25
+villain_c: folds
+Hero: calls $0.25
+villain_d: folds
+villain_e: folds
+villain_a: folds
+*** FLOP *** [Ts 7s 2c]
+villain_b: bets $0.20
+Hero: raises $0.60 to $0.80
+villain_b: calls $0.60
+*** TURN *** [Ts 7s 2c] [Kh]
+villain_b: checks
+Hero: bets $1.50
+villain_b: folds
+Uncalled bet ($1.50) returned to Hero
+Hero collected $2.14 from pot
+*** SUMMARY ***
+Total pot $2.25 | Rake $0.11
+Board [Ts 7s 2c Kh]
+Seat 4: Hero collected ($2.14)
+
+
+
+PokerStars Hand #251000000003:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/09/20 21:19:05 JST
+Table 'Aludra II' 6-max Seat #6 is the button
+Seat 1: villain_a ($9.90 in chips)
+Seat 2: villain_b ($11.30 in chips)
+Seat 3: villain_c ($9.80 in chips)
+Seat 4: Hero ($5.44 in chips)
+Seat 5: villain_d ($10.00 in chips)
+Seat 6: villain_e ($27.65 in chips)
+villain_a: posts small blind $0.05
+villain_b: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [Kd 6c]
+villain_c: folds
+Hero: raises $0.15 to $0.25
+villain_d: folds
+villain_e: folds
+villain_a: folds
+villain_b: folds
+Uncalled bet ($0.15) returned to Hero
+Hero collected $0.25 from pot
+*** SUMMARY ***
+Total pot $0.25 | Rake $0
+Seat 4: Hero collected ($0.25)
+`;
+document.getElementById('hhSample').addEventListener('click',()=>{document.getElementById('hhText').value=SAMPLE_HH;hhRun();});
+
+/* ============ 役一覧・クイズ ============ */
+const RANKROWS=[
+ ['ロイヤルフラッシュ','AsKsQsJsTs','0.0032%'],['ストレートフラッシュ','9h8h7h6h5h','0.028%'],['フォーカード','QcQdQhQs4c','0.17%'],
+ ['フルハウス','JsJhJd8c8d','2.6%'],['フラッシュ','Ad9d7d4d2d','3.0%'],['ストレート','Tc9d8s7h6c','4.6%'],
+ ['スリーカード','7s7h7dKc2d','4.8%'],['ツーペア','KhKc9s9dAc','23.5%'],['ワンペア','AhAd8c5s2h','43.8%'],['ハイカード','AsJd8c6h3s','17.4%']];
+document.querySelector('#rankTable tbody').innerHTML=RANKROWS.map(([n,c,p])=>`<tr><td><b>${n}</b></td><td><span class="row nw">${parseCards(c).map(x=>cardHTML(x,'sm')).join('')}</span></td><td class="num">${p}</td></tr>`).join('');
+let rk={};
+function rkDeal(){
+  const d=shuffle(DECK);rk={board:d.slice(0,5),A:d.slice(5,7),B:d.slice(7,9),done:false};
+  rk.sa=evalBest(rk.A.concat(rk.board));rk.sb=evalBest(rk.B.concat(rk.board));rk.ans=rk.sa>rk.sb?'A':rk.sb>rk.sa?'B':'T';
+  render('rkBoard',rk.board);render('rkA',rk.A);render('rkB',rk.B);document.getElementById('rkVerdict').innerHTML='';
+}
+document.querySelectorAll('[data-ans]').forEach(b=>b.addEventListener('click',()=>{
+  if(rk.done)return;rk.done=true;const ok=b.dataset.ans===rk.ans;bump('rank',ok);
+  const label={A:'Aの勝ち',B:'Bの勝ち',T:'引き分け'}[rk.ans];
+  document.getElementById('rkVerdict').innerHTML=`<div class="verdict ${ok?'ok':'bad'}"><b>${ok?'正解':'不正解'}</b> — ${label}<br>A：${describe(rk.sa)}<br>B：${describe(rk.sb)}</div>`;
+}));
+document.getElementById('rkNext').addEventListener('click',rkDeal);
+rkDeal();
+
+/* ============ アウツ / オッズ ============ */
+let os={};
+function osDeal(){
+  for(let t=0;t<2000;t++){
+    const d=shuffle(DECK);const street=Math.random()<0.55?3:4;
+    const hero=[d[0],d[1]],vil=[d[2],d[3]],board=d.slice(4,4+street),rest=d.slice(4+street);
+    const hs=evalBest(hero.concat(board)),vs=evalBest(vil.concat(board));if(hs>=vs)continue;
+    const outs=rest.filter(c=>evalBest(hero.concat(board,[c]))>evalBest(vil.concat(board,[c])));
+    if(outs.length<4||outs.length>15)continue;
+    const pot=[60,100,150,200][Math.floor(Math.random()*4)];const bet=[pot/2,Math.round(pot*2/3),pot][Math.floor(Math.random()*3)];
+    os={hero,vil,board,outs,rest:rest.length,street,pot,bet,done:false};break;
+  }
+  render('osBoard',os.board,'',5);render('osHero',os.hero);render('osVil',os.vil);
+  document.getElementById('ostreet').textContent=os.street===3?'フロップ':'ターン';
+  document.getElementById('osPot').textContent=`ポット ${os.pot} に相手が ${os.bet} ベット`;
+  document.getElementById('osAns').value='';document.getElementById('osCall').value='';
+  document.getElementById('osVerdict').innerHTML='';document.getElementById('osOutCards').innerHTML='';
+}
+document.getElementById('osCheck').addEventListener('click',()=>{
+  if(os.done)return;
+  const a=parseInt(document.getElementById('osAns').value,10);const call=document.getElementById('osCall').value;
+  if(isNaN(a)||!call){document.getElementById('osVerdict').innerHTML='<div class="verdict info">アウツ枚数とコール/フォールドの両方を入力してください。</div>';return;}
+  os.done=true;const O=os.outs.length,unseen=os.rest;const need=os.bet/(os.pot+2*os.bet);
+  const p1=O/unseen;const p2=os.street===3?1-((unseen-O)*(unseen-1-O))/(unseen*(unseen-1)):p1;const est=os.street===3?O*4:O*2;
+  const decision=p2>=need?'call':'fold';const okOuts=a===O,okCall=call===decision;bump('outs',okOuts&&okCall);
+  const pct=x=>(100*x).toFixed(1)+'%';
+  document.getElementById('osVerdict').innerHTML=`
+   <div class="verdict ${okOuts?'ok':'bad'}"><b>アウツ：${okOuts?'正解':'不正解'}</b> — 正解は <b>${O}枚</b>（未見 ${unseen}枚中）。次の1枚で逆転する確率 ${pct(p1)}${os.street===3?`、リバーまでなら ${pct(p2)}（${est}%ルール）`:`（${est}%ルール）`}</div>
+   <div class="verdict ${okCall?'ok':'bad'}"><b>判断：${okCall?'正解':'不正解'}</b> — 必要勝率 ${os.bet}÷(${os.pot}+${os.bet}+${os.bet}) = <b>${pct(need)}</b> に対し勝率 ${pct(p2)} → <b>${decision==='call'?'コール':'フォールド'}</b>${os.street===3?'<br><span style="font-size:12px;opacity:.8">※フロップは「リバーまで2枚見られる（オールイン相当）」前提。ターンでも追加ベットが来るなら次の1枚の確率で判断します。</span>':''}</div>`;
+  render('osOutCards',os.outs,'sm out');
+});
+document.getElementById('osNext').addEventListener('click',osDeal);
+osDeal();
+
+/* ============ エクイティ ============ */
+const QUICK=[['AhKs','QdQc',''],['AhKh','JdJc',''],['AsAd','KhKd',''],['7h7d','AsKc',''],['AcKc','8h8d',''],['Th9h','AsKd',''],['JsTs','AhQd','Kh9c2d'],['5c5d','AhKs','Ah7c2s']];
+const q=document.getElementById('eqQuick');
+QUICK.forEach(([h,v,b])=>{const btn=document.createElement('button');btn.textContent=`${h} vs ${v}${b?' @'+b:''}`;btn.addEventListener('click',()=>{document.getElementById('eqHero').value=h;document.getElementById('eqVil').value=v;document.getElementById('eqBoard').value=b;eqRun();});q.appendChild(btn);});
+function eqRun(){
+  const err=document.getElementById('eqErr');err.innerHTML='';let hero,vil,board;
+  try{
+    hero=parseCards(document.getElementById('eqHero').value);const vs=document.getElementById('eqVil').value.trim();vil=vs?parseCards(vs):null;board=parseCards(document.getElementById('eqBoard').value);
+    if(hero.length!==2)throw new Error('あなたのハンドは2枚で指定してください');if(vil&&vil.length!==2)throw new Error('相手のハンドは2枚で指定してください');
+    if(![0,3,4,5].includes(board.length))throw new Error('ボードは0・3・4・5枚のいずれか');
+    const all=hero.concat(vil||[],board);const ids=new Set(all.map(c=>c.id));if(ids.size!==all.length)throw new Error('同じカードが重複しています');
+  }catch(e){err.innerHTML=`<div class="verdict bad">${esc(e.message)}</div>`;return;}
+  const N=+document.getElementById('eqN').value;const known=new Set(hero.concat(vil||[],board).map(c=>c.id));const pool=DECK.filter(c=>!known.has(c.id));
+  let w=0,t=0,l=0;const need=5-board.length+(vil?0:2);
+  for(let i=0;i<N;i++){
+    for(let k=0;k<need;k++){const j=k+Math.floor(Math.random()*(pool.length-k));[pool[k],pool[j]]=[pool[j],pool[k]];}
+    let p=0;const v=vil||[pool[p++],pool[p++]];const b=board.concat(pool.slice(p,p+5-board.length));
+    const hs=evalBest(hero.concat(b)),vsc=evalBest(v.concat(b));if(hs>vsc)w++;else if(hs<vsc)l++;else t++;
+  }
+  render('eqBoardV',board,'',5);render('eqHeroV',hero);document.getElementById('eqVilV').innerHTML=vil?vil.map(c=>cardHTML(c)).join(''):cardHTML(null)+cardHTML(null);
+  const pw=100*w/N,pt=100*t/N,pl=100*l/N,eq=pw+pt/2;
+  document.getElementById('eqResult').innerHTML=`
+    <div class="bar"><div class="w" style="width:${pw}%">${pw.toFixed(1)}%</div><div class="t" style="width:${pt}%">${pt>4?pt.toFixed(1)+'%':''}</div><div class="l" style="width:${pl}%">${pl.toFixed(1)}%</div></div>
+    <div class="kv"><span>あなたのエクイティ</span><b>${eq.toFixed(1)}%</b><span>勝ち / 引分 / 負け</span><b>${pw.toFixed(1)} / ${pt.toFixed(1)} / ${pl.toFixed(1)}</b><span>試行回数</span><b>${N.toLocaleString()}</b><span>相手</span><b>${vil?vil.map(c=>c.id).join(''):'ランダム2枚'}</b></div>
+    <p class="note">エクイティ ＝ 勝率 ＋ 引分率÷2。モンテカルロなので±0.5%程度ぶれます。</p>`;
+}
+document.getElementById('eqRun').addEventListener('click',eqRun);
+document.getElementById('eqRand').addEventListener('click',()=>{const d=shuffle(DECK);document.getElementById('eqHero').value=d[0].id+d[1].id;document.getElementById('eqVil').value=d[2].id+d[3].id;document.getElementById('eqBoard').value='';eqRun();});
+eqRun();
+
+/* ============ 用語集 ============ */
+const GLOSS=[
+ ['ブラインド (SB/BB)','ディーラーボタンの左隣2人が強制的に置くベット。BBが1単位の基準'],
+ ['ポジション','行動順。UTG→HJ→CO→BTN→SB→BB。後ろほど情報が多く有利'],
+ ['IP / OOP','In Position（後で動ける）/ Out of Position（先に動かされる）'],
+ ['RFI','Raise First In。誰も参加していない状況で最初にレイズすること'],
+ ['3ベット / 4ベット','レイズに対する再レイズ / さらにその再レイズ（BB=1ベット目と数える）'],
+ ['SRP','Single Raised Pot。プリフロップでレイズ1回とコールで進んだポット'],
+ ['スーテッド / オフスート','2枚のスートが同じ(s) / 違う(o)。同じ方がフラッシュ分だけ強い'],
+ ['コネクター','連続したランク（例 98）。ストレートを作りやすい'],
+ ['フロップ / ターン / リバー','ボードに開く3枚 / 4枚目 / 5枚目'],
+ ['ボードテクスチャ','ボードの質感。ドライ（当たりが少ない）/ ウェット（ドローが多い）'],
+ ['アウツ','自分が勝ちに変わるカードの枚数'],
+ ['ポットオッズ','コール額 ÷ (ポット＋相手ベット＋コール額)。この比率以上の勝率があればコールが正当化される'],
+ ['エクイティ','その時点での期待勝率。全カードを配り切ったときに勝つ確率'],
+ ['インプライドオッズ','今のポットだけでなく、当たった後に追加で取れる額まで含めた期待値'],
+ ['Cベット','プリフロップでレイズした人がフロップでも続けてベットすること'],
+ ['レンジベット','レンジ全体で小さくベットする戦略。ドライで有利なボードで使う'],
+ ['混合戦略','同じハンドを一定確率で異なるアクションに振り分けること（例：50%レイズ・50%コール）'],
+ ['バリューベット','自分が勝っていると思うときに、より弱い手からコールを引き出すベット'],
+ ['ブラフ','自分が負けているときに、より強い手を降ろすためのベット'],
+ ['キッカー','役を構成しない残りのカード。同じ役同士の勝敗を決める'],
+ ['ナッツ','その時点で可能な最強の手'],
+ ['GTO','Game Theory Optimal。相手にどう対応されても搾取されない均衡戦略'],
+ ['VPIP / PFR','自発的に参加した割合 / プリフロップでレイズした割合。プレイスタイルの基本指標'],
+ ['スタック / エフェクティブスタック','手持ちチップ / 対戦する2人のうち少ない方のチップ量'],
+];
+document.getElementById('gloss').innerHTML=GLOSS.map(([t,d])=>`<dt>${t}</dt><dd>${d}</dd>`).join('');
+showStats();
+</script>
