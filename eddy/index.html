@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Eddy English">
+<meta name="theme-color" content="#111827">
+<title>Eddy APAC English</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#1d2330;--muted:#6b7280;--line:#e3e6eb;--acc:#2563eb;--ok:#16a34a;--ng:#dc2626;--warn:#d97706;--soft:#eef2ff;
+ --IN:#e67e22;--SG:#c0392b;--AU:#2980b9;--GB:#8e44ad;--US:#27ae60}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI","Hiragino Sans","Yu Gothic UI",system-ui,sans-serif;font-size:16px;line-height:1.55;padding-bottom:env(safe-area-inset-bottom)}
+header{background:#111827;color:#fff;padding:10px 14px;position:sticky;top:0;z-index:5}
+header h1{font-size:17px;margin:0}
+header .sub{font-size:11px;opacity:.7}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;background:transparent;color:#cbd5e1;border:1px solid transparent;padding:6px 10px;border-radius:6px;font-size:13px;white-space:nowrap}
+nav button.on{background:#1f2937;color:#fff;border-color:#374151}
+nav button .badge{background:var(--ng);color:#fff;border-radius:10px;padding:0 6px;font-size:11px;margin-left:4px}
+main{max-width:900px;margin:0 auto;padding:12px}
+.tab{display:none}.tab.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grow{flex:1}
+h2{font-size:17px;margin:0 0 8px}
+h3{font-size:15px;margin:12px 0 6px}
+.muted{color:var(--muted);font-size:13px}
+.small{font-size:12px}
+button.btn{background:var(--acc);color:#fff;border:0;padding:11px 16px;border-radius:9px;font-size:15px;font-weight:600}
+button.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line);font-weight:500}
+button.btn.ok{background:var(--ok)} button.btn.ng{background:var(--ng)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:6px 12px;background:#fff;font-size:14px;user-select:none;margin:2px 0}
+.chip.on{color:#fff;border-color:transparent}
+.chip[data-acc="IN"].on{background:var(--IN)} .chip[data-acc="SG"].on{background:var(--SG)} .chip[data-acc="AU"].on{background:var(--AU)} .chip[data-acc="GB"].on{background:var(--GB)} .chip[data-acc="US"].on{background:var(--US)}
+.chip.lvl.on,.chip.thm.on{background:var(--ink)}
+textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font-size:16px;font-family:inherit;min-height:110px;resize:vertical}
+select,input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font-size:16px;font-family:inherit;background:#fff}
+.dict-text{font-size:17px;line-height:1.7}
+.w.ok{color:var(--ok)} .w.miss{color:var(--ng);font-weight:700;text-decoration:underline dotted}
+.score{font-size:34px;font-weight:700}.score.g{color:var(--ok)}.score.y{color:var(--warn)}.score.r{color:var(--ng)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--line);padding:6px 7px;text-align:left;vertical-align:top}
+th{background:#f3f4f6}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;background:var(--soft);color:#3730a3;margin-right:4px}
+.acc-tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;color:#fff;margin-right:4px}
+.turn{padding:8px 10px;border-left:4px solid #ccc;margin:6px 0;background:#fafafa;border-radius:4px}
+.turn .sp{font-weight:600;font-size:13px}
+.turn.playing{background:#fff7d6}
+.hidden-text{filter:blur(6px);user-select:none}
+.seg{padding:10px 8px;border-bottom:1px solid var(--line)}
+.speed{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.speed button{padding:7px 9px;border:1px solid var(--line);background:#fff;border-radius:6px;font-size:13px}
+.speed button.on{background:var(--ink);color:#fff}
+.spark{display:flex;gap:2px;align-items:flex-end;height:40px}
+.spark div{width:10px;background:var(--acc);border-radius:2px 2px 0 0}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;z-index:9;white-space:nowrap}
+.toast.show{opacity:1}
+.recbtn.rec{background:var(--ng);animation:pulse 1s infinite}
+@keyframes pulse{0%{opacity:1}50%{opacity:.55}100%{opacity:1}}
+.kbd{font-family:Consolas,monospace;background:#f3f4f6;border:1px solid var(--line);border-radius:4px;padding:0 5px;font-size:12px}
+.stat{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px}
+.cheatwrap{overflow-x:auto}
+.cheatwrap table{min-width:720px}
+.pcnote{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎧 Eddy APAC English</h1><div class="sub">訛り特化ビジネス英語リスニング — 印・星・豪・英・米</div>
+  <nav id="nav">
+    <button data-tab="drill" class="on">ディクテーション</button>
+    <button data-tab="dialog">会議を聞く</button>
+    <button data-tab="shadow">シャドーイング</button>
+    <button data-tab="review">弱点復習<span class="badge" id="dueBadge" style="display:none">0</span></button>
+    <button data-tab="cheat">クセ早見表</button>
+    <button data-tab="progress">進捗</button>
+    <button data-tab="settings">設定</button>
+  </nav>
+</header>
+<main>
+
+<section class="tab on" id="tab-drill">
+  <div class="card" id="drillConfig">
+    <div class="row"><span id="accChips"></span></div>
+    <div class="row" style="margin-top:6px"><span id="lvlChips"></span></div>
+    <div class="muted" id="lvlDesc"></div>
+    <div class="row" style="margin-top:6px"><span id="thmChips"></span></div>
+    <div class="row" style="margin-top:8px"><div class="speed" id="speedBtns"></div></div>
+    <div class="row" style="margin-top:8px">
+      <label class="muted"><input type="checkbox" id="randomOrder" checked> ランダム</label>
+      <label class="muted"><input type="checkbox" id="skipGraduated" checked> 卒業済みを除外</label>
+      <span class="muted" id="poolInfo"></span>
+    </div>
+    <button class="btn" id="btnStart" style="width:100%;margin-top:10px">▶ 出題開始</button>
+  </div>
+  <div class="card" id="dictCard" style="display:none"></div>
+  <div class="card muted small">聞いて書き取る→「採点」(PCは <span class="kbd">Ctrl+Enter</span>)。90%以上で正解、3回連続で卒業。落とした文は翌日・3日・7日・14日後に「弱点復習」へ再出題。進捗はこの端末内に保存されます(設定でバックアップ可)。</div>
+</section>
+
+<section class="tab" id="tab-dialog">
+  <div class="card">
+    <h2>会議を通しで聞く</h2>
+    <div class="muted">スクリプトを隠して通し聞き→要点を言えるか→表示して確認→聞き取れなかった発言だけディクテーション。</div>
+    <div class="row" style="margin-top:8px"><div class="speed" id="speedBtns2"></div></div>
+    <div id="dlgList" style="margin-top:8px"></div>
+  </div>
+  <div class="card" id="dlgView" style="display:none"></div>
+</section>
+
+<section class="tab" id="tab-shadow">
+  <div class="card">
+    <h2>シャドーイング</h2>
+    <div class="muted">お手本→録音→音声認識で一致率を採点。訛りの母音・子音のクセを真似るつもりで。iPhoneはSafariの音声認識(Siri)を使います。</div>
+    <div class="row" style="margin-top:8px"><span id="accChipsS"></span></div>
+    <div class="row" style="margin-top:6px"><span id="lvlChipsS"></span><div class="speed" id="speedBtns3"></div></div>
+    <button class="btn" id="btnShadowNext" style="width:100%;margin-top:10px">▶ 次のお手本</button>
+  </div>
+  <div class="card" id="shadowCard" style="display:none"></div>
+</section>
+
+<section class="tab" id="tab-review">
+  <div class="card">
+    <h2>弱点復習 (間隔反復)</h2>
+    <div class="muted">90%未満だった文、または復習期日が来た文。3回連続90%以上で卒業。</div>
+    <div class="row" style="margin-top:8px"><div class="speed" id="speedBtns4"></div></div>
+    <button class="btn" id="btnReviewStart" style="width:100%;margin-top:10px">▶ 復習開始</button>
+    <div id="dueList" style="margin-top:10px"></div>
+  </div>
+  <div class="card" id="reviewCard" style="display:none"></div>
+</section>
+
+<section class="tab" id="tab-cheat">
+  <div class="card"><h2>訛りのクセ早見表</h2><div class="muted">聞く前に該当する訛りの行を30秒。会議前のウォームアップにも。</div><div class="cheatwrap" id="cheatTable" style="margin-top:8px"></div></div>
+  <div class="card"><h2>訛り別 語彙・語法</h2><div id="cheatLex"></div></div>
+  <div class="card"><h2>8週間プラン</h2>
+    <table><tr><th>週</th><th>対象</th><th>内容</th></tr>
+    <tr><td>1〜2</td><td>インド</td><td>毎日15分ディクテーション(B2→C1)。PC版でTata Motors Q&Aを週1本</td></tr>
+    <tr><td>3〜4</td><td>シンガポール</td><td>同上。子音脱落の補完に重点</td></tr>
+    <tr><td>5〜6</td><td>オーストラリア</td><td>同上。母音変換に重点</td></tr>
+    <tr><td>7〜8</td><td>米英速度</td><td>聞き取れた素材を1.25x→1.5xでシャドーイング</td></tr>
+    <tr><td>以後</td><td>混合</td><td>APAC会議の前週に参加者の国籍で教材を選ぶ</td></tr></table></div>
+  <div class="card pcnote">本物音声(決算説明会のWhisper取込)とAI会議ロールプレイはPC版(run.bat)の機能です。</div>
+</section>
+
+<section class="tab" id="tab-progress"><div class="card"><h2>進捗</h2><div id="progView"></div></div></section>
+
+<section class="tab" id="tab-settings">
+  <div class="card">
+    <h2>設定</h2>
+    <b>音声の性別</b><select id="setGender"><option value="M">男性</option><option value="F">女性</option><option value="R">ランダム</option></select>
+    <h3>進捗のバックアップ</h3>
+    <div class="muted">この端末の進捗をJSONで書き出し/読み込み。PC版と同じ形式です。</div>
+    <div class="row" style="margin-top:6px"><button class="btn sec" id="btnExport">書き出し(コピー)</button><button class="btn sec" id="btnImport">読み込み</button><button class="btn ng" id="btnReset">進捗を初期化</button></div>
+    <textarea id="progBox" placeholder="書き出した内容がここに出ます / 読み込む内容を貼り付け" style="margin-top:8px;min-height:80px"></textarea>
+    <h3>ホーム画面に追加</h3>
+    <div class="muted">Safariの共有メニュー →「ホーム画面に追加」でアプリのように開けます。</div>
+    <div class="muted small" style="margin-top:10px">教材 <span id="libCount"></span> 文 / 会議 <span id="dlgCount"></span> 本。ビルド: <span id="buildDate"></span></div>
+  </div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+<script src="data.js"></script>
+<script>
+const S={acc:'IN',lvl:'C1',thm:'all',speed:1.0,gender:'M',queue:[],cur:null,scored:false,reviewQueue:[],shAcc:'IN',shLvl:'C1'};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function accTag(a){return `<span class="acc-tag" style="background:var(--${a})">${LIB.accents[a]?.flag||''} ${a}</span>`;}
+function pickGender(){ return S.gender==='R'?(Math.random()<0.5?'M':'F'):S.gender; }
+function itemAudio(it){ return `audio/${it.id}_${it.gender||pickGender()}.mp3`; }
+const today=()=>new Date().toISOString().slice(0,10);
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10);};
+
+// ---------------- progress (localStorage)
+let PROG={attempts:[],srs:{}};
+function loadProg(){ try{ const s=localStorage.getItem('eddy_progress'); if(s) PROG=JSON.parse(s);}catch(e){} if(!PROG.attempts)PROG.attempts=[]; if(!PROG.srs)PROG.srs={}; }
+function saveProg(){ try{ localStorage.setItem('eddy_progress',JSON.stringify(PROG)); }catch(e){ toast('保存できませんでした'); } }
+const INTERVALS=[1,3,7,14];
+function recordAttempt(a){
+  const t=today(); PROG.attempts.push(Object.assign({ts:Math.floor(Date.now()/1000),date:t},a));
+  if(a.mode==='dictation'){
+    const s=PROG.srs[a.item_id]||{streak:0,idx:0,due:t,accent:a.accent,level:a.level,text:a.text,meta:a.meta||{},misses:0};
+    s.accent=a.accent; s.level=a.level; s.text=a.text; if(a.meta)s.meta=a.meta;
+    if(a.score>=90){s.streak=(s.streak||0)+1; s.idx=Math.min((s.idx||0)+1,INTERVALS.length-1);} else {s.streak=0; s.idx=0; s.misses=(s.misses||0)+1;}
+    s.due=addDays(t,INTERVALS[s.idx]); s.last_score=a.score; s.last=t; s.graduated=s.streak>=3; PROG.srs[a.item_id]=s;
+  }
+  saveProg(); refreshDue(); updatePoolInfo();
+}
+function dueItems(){ const t=today(); return Object.entries(PROG.srs).map(([id,v])=>Object.assign({id},v)).filter(v=>!v.graduated&&(v.due||t)<=t).sort((a,b)=>(a.due>b.due?1:-1)); }
+
+// ---------------- scoring
+const CONTR={"i'm":"i am","you're":"you are","we're":"we are","they're":"they are","he's":"he is","she's":"she is","it's":"it is","that's":"that is","there's":"there is","what's":"what is","who's":"who is","where's":"where is","here's":"here is","let's":"let us","i've":"i have","you've":"you have","we've":"we have","they've":"they have","i'll":"i will","you'll":"you will","we'll":"we will","they'll":"they will","he'll":"he will","she'll":"she will","it'll":"it will","that'll":"that will","i'd":"i would","you'd":"you would","we'd":"we would","they'd":"they would","he'd":"he would","she'd":"she would","can't":"cannot","won't":"will not","don't":"do not","doesn't":"does not","didn't":"did not","isn't":"is not","aren't":"are not","wasn't":"was not","weren't":"were not","haven't":"have not","hasn't":"has not","hadn't":"had not","wouldn't":"would not","couldn't":"could not","shouldn't":"should not","mustn't":"must not","gonna":"going to","wanna":"want to","gotta":"got to","kinda":"kind of","sorta":"sort of","lemme":"let me","gimme":"give me","dunno":"do not know","ya":"yes","yeah":"yes","yep":"yes","yup":"yes","okay":"ok","alright":"all right","g'day":"good day","percent":"per cent","mr":"mister","dr":"doctor","q1":"q one","q2":"q two","q3":"q three","q4":"q four","usd":"us dollars","&":"and"};
+const ONES=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const TENS=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+function num2words(n){n=parseInt(n,10);if(isNaN(n))return'';if(n<20)return ONES[n];if(n<100)return TENS[Math.floor(n/10)]+(n%10?' '+ONES[n%10]:'');if(n<1000)return ONES[Math.floor(n/100)]+' hundred'+(n%100?' '+num2words(n%100):'');for(const [v,w] of [[1e9,'billion'],[1e6,'million'],[1e3,'thousand']])if(n>=v)return num2words(Math.floor(n/v))+' '+w+(n%v?' '+num2words(n%v):'');return String(n);}
+function normalize(s){
+  s=(s||'').toLowerCase().replace(/[’‘`]/g,"'").replace(/%/g,' percent ').replace(/\$/g,' dollars ').replace(/£/g,' pounds ').replace(/(\d)\.(\d)/g,'$1 point $2').replace(/(\d),(\d{3})/g,'$1$2').replace(/-/g,' ').replace(/[^a-z0-9'\s]/g,' ');
+  const out=[]; for(let t of s.split(/\s+/).filter(Boolean).map(t=>t.replace(/^'+|'+$/g,'')).filter(Boolean)){
+    if(CONTR[t])t=CONTR[t]; else if(/^\d+$/.test(t))t=num2words(t); else if(/^\d+(st|nd|rd|th)$/.test(t))t=num2words(t.replace(/\D/g,'')); else if(t.endsWith("'s"))t=t.slice(0,-2)+' s';
+    for(const u of t.split(' '))if(u)out.push(u);} return out;}
+function lcsDiff(a,b){const n=a.length,m=b.length;const dp=Array.from({length:n+1},()=>new Int16Array(m+1));for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=a[i]===b[j]?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);const ops=[];let i=0,j=0;while(i<n&&j<m){if(a[i]===b[j]){ops.push(['ok',a[i]]);i++;j++;}else if(dp[i+1][j]>=dp[i][j+1]){ops.push(['miss',a[i]]);i++;}else{ops.push(['extra',b[j]]);j++;}}while(i<n)ops.push(['miss',a[i++]]);while(j<m)ops.push(['extra',b[j++]]);return ops;}
+function score(expected,actual){const a=normalize(expected),b=normalize(actual);const ops=lcsDiff(a,b);const ok=ops.filter(o=>o[0]==='ok').length;return {pct:a.length?Math.round(ok/a.length*100):0,ops,missed:ops.filter(o=>o[0]==='miss').map(o=>o[1])};}
+function renderDiff(expected,ops){const counts={};ops.forEach(o=>{if(o[0]==='miss')counts[o[1]]=(counts[o[1]]||0)+1;});return expected.split(/(\s+)/).map(w=>{if(/^\s+$/.test(w))return w;const ns=normalize(w);const bad=ns.some(t=>counts[t]>0);if(bad){ns.forEach(t=>{if(counts[t]>0)counts[t]--;});return `<span class="w miss">${esc(w)}</span>`;}return `<span class="w ok">${esc(w)}</span>`;}).join('');}
+
+// ---------------- audio (single element: iOS friendly)
+const player=new Audio(); try{player.preservesPitch=true;player.mozPreservesPitch=true;}catch(e){}
+let onEnd=null; player.onended=()=>{const f=onEnd;onEnd=null;f&&f();};
+function play(url,cb){ onEnd=cb||null; player.pause(); player.src=url; player.playbackRate=S.speed; player.currentTime=0; player.play().catch(()=>{}); }
+function stopAll(){ onEnd=null; player.pause(); }
+
+// ---------------- chips
+function chips(container,list,cls,cur,onpick,attr){const el=$(container);el.innerHTML='';list.forEach(([k,label])=>{const c=document.createElement('span');c.className='chip '+cls+(k===cur?' on':'');c.textContent=label;if(attr)c.dataset[attr]=k;c.onclick=()=>{onpick(k);chips(container,list,cls,k,onpick,attr);};el.appendChild(c);});}
+function speedButtons(container){const el=$(container);el.innerHTML='';[0.8,0.9,1.0,1.1,1.25,1.5].forEach(v=>{const b=document.createElement('button');b.textContent=v.toFixed(2).replace(/0$/,'')+'x';b.className=v===S.speed?'on':'';b.onclick=()=>{S.speed=v;player.playbackRate=v;try{localStorage.setItem('eddy_speed',v);}catch(e){}$$('.speed').forEach(sp=>[...sp.children].forEach(x=>x.classList.toggle('on',x.textContent===b.textContent)));};el.appendChild(b);});}
+const accList=()=>Object.entries(LIB.accents).map(([k,v])=>[k,`${v.flag} ${v.name}`]);
+const lvlList=()=>Object.entries(LIB.levels).map(([k,v])=>[k,v.name]);
+
+// ---------------- drill
+function buildPool(){let p=LIB.items.filter(i=>i.accent===S.acc&&i.level===S.lvl&&(S.thm==='all'||i.theme===S.thm));if($('#skipGraduated').checked)p=p.filter(i=>!(PROG.srs[i.id]?.graduated));return p;}
+function updatePoolInfo(){$('#poolInfo').textContent=`対象 ${buildPool().length} 文`;$('#lvlDesc').textContent=LIB.levels[S.lvl].desc;}
+function startDrill(){let pool=buildPool();if(!pool.length){toast('該当する文がありません');return;}if($('#randomOrder').checked)pool=pool.sort(()=>Math.random()-0.5);S.queue=pool;$('#drillConfig').style.display='none';nextDrill();}
+function nextDrill(){const it=S.queue.shift();if(!it){toast('このセットは終了。お疲れさまでした');$('#dictCard').style.display='none';$('#drillConfig').style.display='block';return;}
+  const item=Object.assign({},it,{gender:pickGender()}); item.audio=itemAudio(item);
+  openDictation($('#dictCard'),item,nextDrill);}
+function openDictation(card,item,onNext){
+  S.cur=item;S.scored=false;card.style.display='block';card.scrollIntoView({behavior:'smooth',block:'start'});
+  const remain=S.queue.length?`残り ${S.queue.length} 文`:'';
+  card.innerHTML=`<div class="row">${accTag(item.accent)}<span class="tag">${item.level||''}</span><span class="tag">${LIB.themes[item.theme]||''}</span><span class="muted small">${esc(item.role||'')}</span><span class="muted small" style="margin-left:auto">${remain}</span><button class="chip" id="dCfg" style="padding:2px 8px">⚙</button></div>
+    <div class="row" style="margin:10px 0"><button class="btn" id="dPlay">🔊 もう一度</button><span class="muted" id="dCount"></span></div>
+    <textarea id="dInput" placeholder="聞こえた通りに英語で書き取る" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:8px"><button class="btn ok grow" id="dCheck">採点</button><button class="btn sec" id="dReveal">答え</button><button class="btn sec" id="dSkip">スキップ</button></div>
+    <div id="dResult" style="margin-top:12px"></div>`;
+  card.querySelector('#dCfg').onclick=()=>{stopAll();S.queue=[];card.style.display='none';$('#drillConfig').style.display='block';$('#reviewCard').style.display='none';window.scrollTo(0,0);};
+  const input=card.querySelector('#dInput'); let plays=0;
+  const doPlay=()=>{plays++;card.querySelector('#dCount').textContent=`再生 ${plays} 回`;play(item.audio);};
+  doPlay(); card.querySelector('#dPlay').onclick=doPlay;
+  const finish=(revealed)=>{
+    if(S.scored)return;S.scored=true;
+    const res=score(item.text,revealed?'':input.value);const pct=revealed?0:res.pct;const cls=pct>=90?'g':pct>=70?'y':'r';
+    card.querySelector('#dResult').innerHTML=`<div class="row"><span class="score ${cls}">${pct}%</span><span class="muted">${pct>=90?'正解! 3回連続で卒業':pct>=70?'惜しい。赤字を聞き直し':'復習リストに追加'} ・ 再生${plays}回 ・ ${S.speed}x</span></div>
+      <div class="dict-text" style="margin-top:6px">${revealed?esc(item.text):renderDiff(item.text,res.ops)}</div>
+      ${!revealed&&input.value?`<div class="muted small" style="margin-top:4px">あなたの入力: ${esc(input.value)}</div>`:''}
+      ${item.note?`<div style="margin-top:8px;background:var(--soft);padding:8px 10px;border-radius:6px;font-size:14px"><b>メモ:</b> ${esc(item.note)}</div>`:''}
+      ${(item.focus||[]).length?`<div class="muted small" style="margin-top:4px">ポイント: ${item.focus.map(f=>({rhythm:'リズム・抑揚',vowels:'母音',consonants:'子音',speed:'速度',lexicon:'語彙・語法'}[f]||f)).join(' / ')}</div>`:''}
+      <div class="row" style="margin-top:10px"><button class="btn grow" id="dNext">次へ</button><button class="btn sec" id="dAgain">🔊</button><button class="btn sec" id="dShadow">🎤 シャドー</button></div>`;
+    card.querySelector('#dNext').onclick=()=>{stopAll();onNext();};
+    card.querySelector('#dAgain').onclick=()=>play(item.audio);
+    card.querySelector('#dShadow').onclick=()=>{showTab('shadow');openShadow(item);};
+    recordAttempt({item_id:item.id,accent:item.accent,level:item.level||'',mode:'dictation',score:pct,speed:S.speed,missed:[...new Set(res.missed)],text:item.text,meta:{note:item.note||'',role:item.role||'',theme:item.theme||'',focus:item.focus||[],audio:item.audio}});
+  };
+  card.querySelector('#dCheck').onclick=()=>finish(false);card.querySelector('#dReveal').onclick=()=>finish(true);card.querySelector('#dSkip').onclick=()=>{stopAll();onNext();};
+  input.onkeydown=e=>{if(e.ctrlKey&&e.key==='Enter'){e.preventDefault();finish(false);}};
+  if(window.matchMedia('(min-width:700px)').matches) input.focus();
+}
+
+// ---------------- dialogues
+function renderDlgList(){const el=$('#dlgList');el.innerHTML=LIB.dialogues.map(d=>`<div class="seg" data-id="${d.id}">${accTag(d.accent)}<span class="tag">${d.level}</span> <b>${esc(d.title)}</b> <span class="muted small">${d.turns.length}発言</span></div>`).join('');el.querySelectorAll('.seg').forEach(s=>s.onclick=()=>openDialog(s.dataset.id));}
+function openDialog(id){
+  const d=LIB.dialogues.find(x=>x.id===id);const v=$('#dlgView');v.style.display='block';v.scrollIntoView({behavior:'smooth'});
+  v.innerHTML=`<div class="row"><h2 style="margin:0">${esc(d.title)}</h2></div>
+    <div class="row" style="margin:8px 0"><button class="btn" id="dlgPlayAll">▶ 通しで再生</button><button class="btn sec" id="dlgStop">■ 停止</button><label class="muted"><input type="checkbox" id="dlgShow"> スクリプト表示</label></div><div id="dlgTurns"></div>`;
+  const turns=d.turns;const tdiv=v.querySelector('#dlgTurns');
+  const col=vc=>vc.includes('-IN-')?'var(--IN)':vc.includes('-SG-')?'var(--SG)':vc.includes('-AU-')?'var(--AU)':vc.includes('-GB-')?'var(--GB)':'var(--US)';
+  tdiv.innerHTML=turns.map((t,i)=>`<div class="turn" style="border-color:${col(t.voice)}"><div class="row"><span class="sp">${esc(t.speaker)}</span><button class="chip" data-i="${i}">🔊</button><button class="chip" data-d="${i}">✍ 書き取り</button></div><div class="hidden-text" id="tt${i}">${esc(t.text)}</div></div>`).join('');
+  v.querySelector('#dlgShow').onchange=e=>turns.forEach((_,i)=>v.querySelector('#tt'+i).classList.toggle('hidden-text',!e.target.checked));
+  const hl=i=>tdiv.querySelectorAll('.turn').forEach((x,k)=>x.classList.toggle('playing',k===i));
+  const url=i=>`audio/${d.id}_${i}.mp3`;
+  tdiv.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;hl(i);play(url(i),()=>hl(-1));});
+  tdiv.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{const i=+b.dataset.d;const t=turns[i];const acc=(t.voice.match(/en-(\w\w)-/)||[])[1]||d.accent;
+    const card=document.createElement('div');card.className='card';v.appendChild(card);
+    openDictation(card,{id:`${d.id}#${i}`,text:t.text,accent:acc,level:d.level,role:t.speaker,theme:d.theme,audio:url(i)},()=>card.remove());});
+  let stop=false;v.querySelector('#dlgStop').onclick=()=>{stop=true;stopAll();hl(-1);};
+  v.querySelector('#dlgPlayAll').onclick=()=>{stop=false;let i=0;const step=()=>{if(stop||i>=turns.length){hl(-1);return;}hl(i);play(url(i),()=>{i++;setTimeout(step,350);});};step();};
+}
+
+// ---------------- shadowing (Web Speech API)
+function shadowPick(){const pool=LIB.items.filter(i=>i.accent===S.shAcc&&i.level===S.shLvl);if(!pool.length){toast('該当なし');return;}const it=Object.assign({},pool[Math.floor(Math.random()*pool.length)]);it.gender=pickGender();it.audio=itemAudio(it);openShadow(it);}
+function openShadow(item){
+  const card=$('#shadowCard');card.style.display='block';card.scrollIntoView({behavior:'smooth'});
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  card.innerHTML=`<div class="row">${accTag(item.accent)}<span class="tag">${item.level||''}</span><span class="muted small">${esc(item.role||'')}</span></div>
+    <div class="dict-text" style="margin:10px 0">${esc(item.text)}</div>
+    <div class="row"><button class="btn sec" id="shPlay">🔊 お手本</button><button class="btn recbtn grow" id="shRec">🎤 録音開始</button></div>
+    <div class="muted small" id="shStatus" style="margin-top:6px">${SR?'':'このブラウザは音声認識に対応していません(iPhoneはSafari、PCはChrome/Edgeで)'}</div>
+    <div id="shResult" style="margin-top:12px"></div>`;
+  card.querySelector('#shPlay').onclick=()=>play(item.audio); play(item.audio);
+  const btn=card.querySelector('#shRec'); if(!SR){btn.disabled=true;return;}
+  let rec=null,t0=0;
+  btn.onclick=()=>{
+    if(rec){rec.stop();return;}
+    stopAll(); rec=new SR(); rec.lang='en-US'; rec.continuous=true; rec.interimResults=true; let text='';
+    rec.onresult=e=>{let s='';for(const r of e.results)s+=r[0].transcript+' ';text=s.trim();card.querySelector('#shStatus').textContent=text;};
+    rec.onerror=e=>{card.querySelector('#shStatus').textContent='認識エラー: '+e.error;};
+    rec.onend=()=>{btn.classList.remove('rec');btn.textContent='🎤 録音開始';rec=null;
+      const secs=(Date.now()-t0)/1000;const res=score(item.text,text);const cls=res.pct>=90?'g':res.pct>=70?'y':'r';const words=normalize(item.text).length;const wpm=Math.round(words/(secs/60));
+      card.querySelector('#shResult').innerHTML=`<div class="row"><span class="score ${cls}">${res.pct}%</span><span class="muted">一致率 ・ ${wpm} WPM ・ ${secs.toFixed(1)}秒</span></div><div class="dict-text">${renderDiff(item.text,res.ops)}</div><div class="muted small">認識: ${esc(text)}</div>
+        <div class="row" style="margin-top:8px"><button class="btn sec" id="shAgain">もう一回</button><button class="btn grow" id="shNext">次のお手本</button></div>`;
+      card.querySelector('#shAgain').onclick=()=>btn.click();card.querySelector('#shNext').onclick=shadowPick;
+      recordAttempt({item_id:item.id,accent:item.accent,level:item.level||'',mode:'shadow',score:res.pct,speed:S.speed,missed:res.missed,text:item.text,meta:{wpm}});};
+    try{rec.start();t0=Date.now();btn.classList.add('rec');btn.textContent='■ 停止';card.querySelector('#shStatus').textContent='聞いています...';}catch(e){toast('マイクを開始できません');rec=null;}
+  };
+}
+
+// ---------------- review
+function refreshDue(){const due=dueItems();S.reviewQueue=due;const b=$('#dueBadge');b.style.display=due.length?'inline':'none';b.textContent=due.length;
+  $('#dueList').innerHTML=due.length?`<table><tr><th>訛り</th><th>文</th><th>期日</th><th>連続</th></tr>${due.map(d=>`<tr><td>${accTag(d.accent)}</td><td class="small">${esc(d.text)}</td><td>${d.due.slice(5)}</td><td>${d.streak}/3</td></tr>`).join('')}</table>`:'<div class="muted">今日の復習はありません 🎉</div>';}
+function startReview(){if(!S.reviewQueue.length){toast('復習対象なし');return;}nextReview();}
+function nextReview(){const d=S.reviewQueue.shift();if(!d){$('#reviewCard').style.display='none';toast('復習完了');refreshDue();return;}const m=d.meta||{};
+  const base=LIB.items.find(i=>i.id===d.id);const audio=base?`audio/${d.id}_${pickGender()}.mp3`:(m.audio||'');
+  openDictation($('#reviewCard'),{id:d.id,text:d.text,accent:d.accent,level:d.level,note:m.note,role:m.role,theme:m.theme,focus:m.focus,audio},nextReview);}
+
+// ---------------- cheat sheet
+function renderCheat(){const cs=LIB.cheatsheet;const keys=Object.keys(cs);const rows=[['rhythm','リズム・抑揚'],['vowels','母音'],['consonants','子音'],['speed','速度'],['strategy','攻略の要']];
+  $('#cheatTable').innerHTML=`<table><tr><th style="width:80px"></th>${keys.map(k=>`<th>${accTag(k)} ${LIB.accents[k].name}</th>`).join('')}</tr>${rows.map(([r,l])=>`<tr><th>${l}</th>${keys.map(k=>`<td class="small">${esc(cs[k][r])}</td>`).join('')}</tr>`).join('')}</table>`;
+  $('#cheatLex').innerHTML=keys.map(k=>`<h3>${accTag(k)} ${LIB.accents[k].name}</h3><table class="small">${cs[k].lexicon.map(([w,m],i)=>`<tr><td style="width:45%"><b>${esc(w)}</b> <button class="chip" data-say="audio/lex_${k}_${i}.mp3" style="padding:2px 8px">🔊</button></td><td>${esc(m)}</td></tr>`).join('')}</table>`).join('');
+  $$('#cheatLex [data-say]').forEach(b=>b.onclick=()=>play(b.dataset.say));}
+
+// ---------------- progress
+function renderProgress(){const at=PROG.attempts;const el=$('#progView');if(!at.length){el.innerHTML='<div class="muted">まだ記録がありません</div>';return;}
+  const by={};for(const a of at){const k=a.accent||'?';(by[k]=by[k]||{n:0,s:0,n7:0,s7:0,sh:0,shs:0});const d=(Date.now()/1000-a.ts)<7*86400;if(a.mode==='shadow'){by[k].sh++;by[k].shs+=a.score;}else{by[k].n++;by[k].s+=a.score;if(d){by[k].n7++;by[k].s7+=a.score;}}}
+  const grad=Object.values(PROG.srs).filter(s=>s.graduated).length,pend=Object.values(PROG.srs).filter(s=>!s.graduated).length;
+  const days={};for(const a of at){if(a.mode==='shadow')continue;(days[a.date]=days[a.date]||{n:0,s:0});days[a.date].n++;days[a.date].s+=a.score;}const dk=Object.keys(days).sort().slice(-21);
+  el.innerHTML=`<div class="row"><div class="stat"><div class="muted">総回答</div><div class="score">${at.length}</div></div><div class="stat"><div class="muted">卒業</div><div class="score g">${grad}</div></div><div class="stat"><div class="muted">復習中</div><div class="score y">${pend}</div></div><div class="stat"><div class="muted">学習日数</div><div class="score">${Object.keys(days).length}</div></div></div>
+   <h3>訛り別</h3><table><tr><th>訛り</th><th>回数</th><th>平均</th><th>7日平均</th><th>シャドー</th></tr>${Object.entries(by).sort().map(([k,v])=>`<tr><td>${LIB.accents[k]?accTag(k):k}</td><td>${v.n}</td><td>${v.n?Math.round(v.s/v.n):'-'}%</td><td>${v.n7?Math.round(v.s7/v.n7):'-'}%</td><td>${v.sh?Math.round(v.shs/v.sh)+'% ('+v.sh+')':'-'}</td></tr>`).join('')}</table>
+   <h3>日別 平均一致率 (直近21日)</h3><div class="spark">${dk.map(d=>`<div title="${d}" style="height:${Math.max(4,Math.round(days[d].s/days[d].n)*0.4)}px"></div>`).join('')}</div><div class="muted small">${dk[0]||''} 〜 ${dk[dk.length-1]||''}</div>`;}
+
+// ---------------- settings
+function exportProg(){$('#progBox').value=JSON.stringify(PROG);$('#progBox').select();try{document.execCommand('copy');toast('コピーしました');}catch(e){}}
+function importProg(){try{const p=JSON.parse($('#progBox').value);if(!p.attempts||!p.srs)throw 0;PROG=p;saveProg();refreshDue();updatePoolInfo();renderProgress();toast('読み込みました');}catch(e){toast('形式が違います');}}
+
+// ---------------- init
+function showTab(t){$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));$$('.tab').forEach(s=>s.classList.toggle('on',s.id==='tab-'+t));stopAll();if(t==='review')refreshDue();if(t==='progress')renderProgress();window.scrollTo(0,0);}
+$$('nav button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+(function init(){
+  loadProg();
+  try{S.gender=localStorage.getItem('eddy_gender')||'M';S.speed=parseFloat(localStorage.getItem('eddy_speed')||'1');S.acc=localStorage.getItem('eddy_acc')||'IN';S.lvl=localStorage.getItem('eddy_lvl')||'C1';}catch(e){}
+  chips('#accChips',accList(),'',S.acc,k=>{S.acc=k;updatePoolInfo();try{localStorage.setItem('eddy_acc',k);}catch(e){}},'acc');
+  chips('#lvlChips',lvlList(),'lvl',S.lvl,k=>{S.lvl=k;updatePoolInfo();try{localStorage.setItem('eddy_lvl',k);}catch(e){}});
+  chips('#thmChips',[['all','すべて'],...Object.entries(LIB.themes)],'thm','all',k=>{S.thm=k;updatePoolInfo();});
+  chips('#accChipsS',accList(),'',S.shAcc,k=>S.shAcc=k,'acc');chips('#lvlChipsS',lvlList(),'lvl',S.shLvl,k=>S.shLvl=k);
+  ['#speedBtns','#speedBtns2','#speedBtns3','#speedBtns4'].forEach(speedButtons);
+  $('#setGender').value=S.gender;$('#setGender').onchange=e=>{S.gender=e.target.value;try{localStorage.setItem('eddy_gender',S.gender);}catch(e){}};
+  $('#btnStart').onclick=startDrill;$('#skipGraduated').onchange=updatePoolInfo;$('#btnShadowNext').onclick=shadowPick;$('#btnReviewStart').onclick=startReview;
+  $('#btnExport').onclick=exportProg;$('#btnImport').onclick=importProg;$('#btnReset').onclick=()=>{if(confirm('進捗を初期化しますか?')){PROG={attempts:[],srs:{}};saveProg();refreshDue();updatePoolInfo();renderProgress();}};
+  $('#libCount').textContent=LIB.items.length;$('#dlgCount').textContent=LIB.dialogues.length;$('#buildDate').textContent=LIB.build||'';
+  renderDlgList();renderCheat();updatePoolInfo();refreshDue();renderProgress();
+})();
+</script>
+</body>
+</html>
