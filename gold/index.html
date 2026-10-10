@@ -35,7 +35,7 @@ footer{font-size:12px;color:var(--muted);margin:24px 0}
 @media(max-width:560px){.hero{grid-template-columns:1fr}.hero .num{font-size:48px}}
 </style></head><body><div class="wrap">
 <header><h1>Gold KPI Tracker</h1>
-<div class="sub">データ基準日 2026-10-09｜生成 2026-10-11 01:11</div>
+<div class="sub">データ基準日 2026-10-09｜生成 2026-10-11 01:13</div>
 
 </header>
 
@@ -47,6 +47,51 @@ footer{font-size:12px;color:var(--muted);margin:24px 0}
 <div class="flags"><div class='note'>●＝その条件を満たしている（シグナルそのものではない）。グループが「成立」し、冷却期間外ならシグナルが出る</div><div class='grp'><div class='gh'><b>① 戦時</b> <span class='gng'>未成立</span><span class='note'>　どれか1つで成立 → 2回分を前倒し（最も強い）</span></div><div class='flags'><span class='flag off'>○ VIX 15.4（≥25）</span> <span class='flag off'>○ 金融ストレス -0.47（≥+1.0）</span> <span class='flag off'>○ GVZ 22.7（≥30）</span></div></div><div class='grp'><div class='gh'><b>② 割安</b> <span class='gok'>成立</span><span class='note'>　3つ中2つで成立 → 次回分を前倒し（現在 2/3）</span></div><div class='flags'><span class='flag on'>● 52週高値比 -20.7%（≤-15%）</span> <span class='flag on'>● 200日線比 -7.3%（≤-3%）</span> <span class='flag off'>○ 投機筋ポジション 3年下位44%（≤10%）</span></div></div><div class='grp'><div class='gh'><b>③ 転換</b> <span class='gng'>未成立</span><span class='note'>　単独で成立 → 次回分を前倒し</span></div><div class='flags'><span class='flag off'>○ 200日線割れの後、50日線を上抜け</span></div></div><div class='grp'><div class='gh'><b>④ 環境（調整役）</b> <span class='gng'>未成立</span><span class='note'>　-2以下＝前倒しを1回分に抑える／+2以上＝2回分に広げる。単独ではシグナルを出さない</span></div><div class='flags'><span class='flag off'>○ 4ファクター合計 -2（逆風→1回分まで）</span></div></div></div>
 <div class="note">ルール：遅らせない（下落待ちの現金は持たない）。割安・転換で次回分を前倒し、戦時で2回分。シグナル後10営業日は次のシグナルを出さない。</div>
 </section>
+
+
+<section class="card"><details><summary><b>このページの読み方・ルール</b>（タップで開く）</summary>
+<h2 style="margin-top:10px">1. 何を判定しているか</h2>
+<div class="note">金を「予定どおり分割で買う」計画に対し、<b>前倒しすべき日だけ</b>を機械的に判定する。遅らせる判定はしない（下落待ちの現金は持たない）。
+売りの判定もしない（長期保有）。</div>
+<h2>2. 今日の行動（3段階）</h2>
+<div class="scroll"><table class="nowrap"><thead><tr><th>表示</th><th>意味</th><th>出る条件</th></tr></thead><tbody>
+<tr><td style="color:#2e7d4f"><b>2回分を前倒し（戦時）</b></td><td>次回と次々回の2回分を今日買う</td><td>① 戦時が成立</td></tr>
+<tr><td style="color:#2a78d6"><b>次回分を前倒し</b></td><td>次回分を今日買う</td><td>② 割安 または ③ 転換が成立</td></tr>
+<tr><td style="color:#8a8f99"><b>予定どおり</b></td><td>何もしない（予定日に買う）</td><td>上のどれも成立しない／冷却期間中</td></tr>
+</tbody></table></div>
+<h2>3. 条件グループ（影響の大きい順）</h2>
+<div class="scroll"><table class="nowrap"><thead><tr><th>グループ</th><th>見る指標</th><th>成立ルール</th><th>成立したら</th></tr></thead><tbody>
+<tr><td>① 戦時</td><td>VIX ≥25／金融ストレス指数 ≥+1.0／GVZ ≥30</td><td>どれか1つ</td><td>2回分を前倒し</td></tr>
+<tr><td>② 割安</td><td>52週高値比 ≤-15%／200日線比 ≤-3%／投機筋ネットロング比率が3年下位10%</td><td>3つ中2つ</td><td>次回分を前倒し</td></tr>
+<tr><td>③ 転換</td><td>直近60営業日に200日線割れがあり、終値が50日線を上抜け、50日線が上向き</td><td>単独</td><td>次回分を前倒し</td></tr>
+<tr><td>④ 環境</td><td>4ファクター合計（地政学・金利・ドル・インフレ、各+1/0/−1）</td><td>-2以下＝ブレーキ／+2以上＝アクセル</td><td>前倒しを1回分に抑える／2回分に広げる（単独ではシグナルを出さない）</td></tr>
+</tbody></table></div>
+<ul>
+<li><b>●／○</b>＝その条件を「満たしている／いない」の印。●の数ではなく、グループが「成立」かどうかで判定する</li>
+<li><b>冷却期間</b>：シグナルが出た後 10 営業日は次のシグナルを出さない（同じ局面で何度も前倒ししないため）</li>
+<li><b>シグナル</b>＝エンジンが「前倒し」と判定したこと。実際に買ったかどうか（購入済み）は別管理</li>
+<li>予定日が来た回は、シグナルに関係なく予定どおり買う</li>
+</ul>
+<h2>4. 先行アラートの記号</h2>
+<ul>
+<li>🔴 <b>近い</b>：冷却明けの日に条件が続いていればシグナルが出る → 資金を準備</li>
+<li>🟡 <b>接近</b>：あと1条件／50日線まで3%以内／VIX等がしきい値まで5以内</li>
+<li>⚪ <b>遠い</b>：当面は予定どおりの見込み。「あといくら」は金の価格に換算して表示</li>
+<li>地政学ショック（戦争・テロ等）は事前に捕捉できない。その場合は当日の判定をそのまま使う</li>
+</ul>
+<h2>5. 今日の動き（サマリー）の読み方</h2>
+<ul>
+<li><b>倍率</b>＝その指標の変化が「1年の通常変動（標準偏差）」の何倍か。1.5倍以上を「優先度の高い動き」として言葉で説明</li>
+<li><b>金への方向</b>：実質金利・ドル・原油の上昇は逆風、期待インフレ・地政学リスク・金融ストレスの上昇は追い風（金の値動きの経験則）</li>
+<li>スコアやエンジン条件の成立/解除、行動レベルの変化は「判定の変化」として最優先で表示</li>
+</ul>
+<h2>6. 根拠と限界</h2>
+<ul>
+<li>閾値は2006〜2015年で探索し、2016〜2026年で検証（過学習防止）。「同じ回数をランダムな日に前倒し」より取得単価が中央値で年+0.8%良い（勝率70〜80%）</li>
+<li>金は長期で上昇してきたため「早く買う」こと自体の効果（年初一括は分割より+7〜11%）の方が大きい。このルールの価値は、主観を排して前倒しを機械化すること</li>
+<li>機械学習の予測（参考指数のML）は予測力がないため、判定には使わない</li>
+</ul>
+</details></section>
 
 
 <section class="card" style="border-left:6px solid #d03b3b">
