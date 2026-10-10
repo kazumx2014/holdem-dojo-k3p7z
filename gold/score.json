@@ -1,6 +1,6 @@
 {
   "asof": "2026-10-09",
-  "generated_at": "2026-10-11 01:18",
+  "generated_at": "2026-10-11 01:37",
   "demo": false,
   "timing_index": 50.7,
   "timing_label": "中立",
@@ -435,7 +435,24 @@
       "war_gvz": false,
       "war": false
     },
-    "macro_total": -2
+    "macro_total": -2,
+    "recommend": {
+      "total": 57.3,
+      "label": "準備しておく",
+      "color": "#6a9f58",
+      "parts": {
+        "war": 17.8,
+        "cheap": 25.0,
+        "turn": 9.5,
+        "macro": 5.0
+      },
+      "weights": {
+        "war": 30,
+        "cheap": 35,
+        "turn": 15,
+        "macro": 20
+      }
+    }
   },
   "validation": null,
   "ml": {

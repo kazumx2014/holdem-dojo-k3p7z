@@ -33,11 +33,16 @@ table.nowrap th,table.nowrap td{white-space:nowrap}
 .gok,.gng{font-size:11px;font-weight:700;padding:1px 7px;border-radius:8px}.gok{background:#e3eefb;color:#1c5cab}.gng{background:#f0efec;color:#898781}
 td.miss{color:#a32d2d;background:#fbe6e6;font-weight:700}
 .gchip{display:inline-block;font-size:12px;padding:3px 9px;border-radius:10px}
+.rec{margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#f9f9f7}
+.rhead{display:flex;align-items:baseline;gap:12px}.rnum{font-size:40px;font-weight:700;line-height:1}.rlbl{font-size:16px;font-weight:700}
+.rbar{display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:8px;font-size:12px;margin:4px 0}
+.rt{height:8px;background:#e1e0d9;border-radius:4px;overflow:hidden}.rf{display:block;height:100%;background:#2a78d6}.rv{text-align:right;font-variant-numeric:tabular-nums}
+.stack{display:block}
 footer{font-size:12px;color:var(--muted);margin:24px 0}
 @media(max-width:560px){.hero{grid-template-columns:1fr}.hero .num{font-size:48px}}
 </style></head><body><div class="wrap">
 <header><h1>Gold KPI Tracker</h1>
-<div class="sub">データ基準日 2026-10-09｜生成 2026-10-11 01:18</div>
+<div class="sub">データ基準日 2026-10-09｜生成 2026-10-11 01:37</div>
 
 </header>
 
@@ -47,6 +52,11 @@ footer{font-size:12px;color:var(--muted);margin:24px 0}
 <div class="lbl" style="color:#8a8f99;font-size:28px">今日の行動：予定どおり</div>
 <div style="font-size:14px">割安：52週高値比 -20.7%・200日線比 -7.3%／環境：4ファクター合計 -2（逆風）のため前倒しは1回分まで／冷却期間中（直近のシグナル 10/02）のため今日はシグナルを出さない</div>
 <div style='margin:4px 0'><b style='color:#d03b3b'>先行アラート：シグナルが近い（資金の準備を）</b>　🔴 冷却明け 10/19（あと6営業日）に条件が続いていれば『次回分を前倒し』が出ます。次回分の資金を用意しておいてください</div>
+
+<div class="rec"><div class="note">前倒し推奨度（100点満点・しきい値への近さで部分点）</div>
+<div class="rhead"><span class="rnum" style="color:#6a9f58">57</span><span class="rlbl" style="color:#6a9f58">準備しておく</span></div>
+<div class='rbar'><span class='rk'>① 戦時</span><span class='rt'><span class='rf' style='width:59%'></span></span><span class='rv'>18 / 30</span></div><div class='rbar'><span class='rk'>② 割安</span><span class='rt'><span class='rf' style='width:71%'></span></span><span class='rv'>25 / 35</span></div><div class='rbar'><span class='rk'>③ 転換</span><span class='rt'><span class='rf' style='width:63%'></span></span><span class='rv'>10 / 15</span></div><div class='rbar'><span class='rk'>④ 環境</span><span class='rt'><span class='rf' style='width:25%'></span></span><span class='rv'>5 / 20</span></div>
+<div class="note">70以上＝前倒し推奨が強い／50〜70＝準備／30〜50＝中立／30未満＝予定どおり。配点は暫定（読みやすさのための指数で、シグナルはルール判定が優先）</div></div>
 <div class="note" style="margin-top:8px">条件グループの成立状況（影響の大きい順）</div>
 <div class="flags"><span class='gng gchip'>① 戦時 未成立</span><span class='gok gchip'>② 割安 成立（2/3）</span><span class='gng gchip'>③ 転換 未成立</span><span class='gng gchip'>④ 環境 -2（逆風→1回分まで）</span></div>
 <div class='note'>今日の動き：投機筋ネットロング比率 28.0%（前日 -1.6pt／1週 -1.6pt／1か月 -4.9pt）：前日比でやや大きく低下（1年の通常変動の1.7倍）。水準は1年の上位40%。（低いほど逆張り好機）</div>
@@ -60,7 +70,7 @@ footer{font-size:12px;color:var(--muted);margin:24px 0}
 <section class="card action" style="border-left:6px solid #8a8f99">
 <h2>今日の行動の内訳（条件グループ別）</h2>
 <ul><li>割安：52週高値比 -20.7%・200日線比 -7.3%</li><li>環境：4ファクター合計 -2（逆風）のため前倒しは1回分まで</li><li>冷却期間中（直近のシグナル 10/02）のため今日はシグナルを出さない</li></ul>
-<div class="flags"><div class='note'>●＝その条件を満たしている（シグナルそのものではない）。グループが「成立」し、冷却期間外ならシグナルが出る</div><div class='grp'><div class='gh'><b>① 戦時</b> <span class='gng'>未成立</span></div><div class='note'>どれか1つで成立 → 2回分を前倒し（最も強い）</div><div class='flags'><span class='flag off'>○ VIX 15.4（≥25）</span> <span class='flag off'>○ 金融ストレス -0.47（≥+1.0）</span> <span class='flag off'>○ GVZ 22.7（≥30）</span></div></div><div class='grp'><div class='gh'><b>② 割安</b> <span class='gok'>成立</span></div><div class='note'>3つ中2つで成立 → 次回分を前倒し（現在 2/3）</div><div class='flags'><span class='flag on'>● 52週高値比 -20.7%（≤-15%）</span> <span class='flag on'>● 200日線比 -7.3%（≤-3%）</span> <span class='flag off'>○ 投機筋ポジション 3年下位44%（≤10%）</span></div></div><div class='grp'><div class='gh'><b>③ 転換</b> <span class='gng'>未成立</span></div><div class='note'>単独で成立 → 次回分を前倒し</div><div class='flags'><span class='flag off'>○ 200日線割れの後、50日線を上抜け</span></div></div><div class='grp'><div class='gh'><b>④ 環境（調整役）</b> <span class='gng'>未成立</span></div><div class='note'>-2以下＝前倒しを1回分に抑える／+2以上＝2回分に広げる。単独ではシグナルを出さない</div><div class='flags'><span class='flag off'>○ 4ファクター合計 -2（逆風→1回分まで）</span></div></div></div>
+<div class="stack"><div class='note'>●＝その条件を満たしている（シグナルそのものではない）。グループが「成立」し、冷却期間外ならシグナルが出る</div><div class='grp'><div class='gh'><b>① 戦時</b> <span class='gng'>未成立</span></div><div class='note'>どれか1つで成立 → 2回分を前倒し（最も強い）</div><div class='flags'><span class='flag off'>○ VIX 15.4（≥25）</span> <span class='flag off'>○ 金融ストレス -0.47（≥+1.0）</span> <span class='flag off'>○ GVZ 22.7（≥30）</span></div></div><div class='grp'><div class='gh'><b>② 割安</b> <span class='gok'>成立</span></div><div class='note'>3つ中2つで成立 → 次回分を前倒し（現在 2/3）</div><div class='flags'><span class='flag on'>● 52週高値比 -20.7%（≤-15%）</span> <span class='flag on'>● 200日線比 -7.3%（≤-3%）</span> <span class='flag off'>○ 投機筋ポジション 3年下位44%（≤10%）</span></div></div><div class='grp'><div class='gh'><b>③ 転換</b> <span class='gng'>未成立</span></div><div class='note'>単独で成立 → 次回分を前倒し</div><div class='flags'><span class='flag off'>○ 200日線割れの後、50日線を上抜け</span></div></div><div class='grp'><div class='gh'><b>④ 環境（調整役）</b> <span class='gng'>未成立</span></div><div class='note'>-2以下＝前倒しを1回分に抑える／+2以上＝2回分に広げる。単独ではシグナルを出さない</div><div class='flags'><span class='flag off'>○ 4ファクター合計 -2（逆風→1回分まで）</span></div></div></div>
 <div class="note">ルール：遅らせない（下落待ちの現金は持たない）。割安・転換で次回分を前倒し、戦時で2回分。シグナル後10営業日は次のシグナルを出さない。</div>
 </section>
 
@@ -101,7 +111,12 @@ footer{font-size:12px;color:var(--muted);margin:24px 0}
 <li><b>金への方向</b>：実質金利・ドル・原油の上昇は逆風、期待インフレ・地政学リスク・金融ストレスの上昇は追い風（金の値動きの経験則）</li>
 <li>スコアやエンジン条件の成立/解除、行動レベルの変化は「判定の変化」として最優先で表示</li>
 </ul>
-<h2>6. 根拠と限界</h2>
+<h2>6. 前倒し推奨度（100点満点）</h2>
+<ul>
+<li>①戦時 30点／②割安 35点／③転換 15点／④環境 20点。各グループは「しきい値にどれだけ近いか」で部分点（例：VIXは12で0点、25で満点）</li>
+<li>シグナルが出る前から数字が上がるので「心の準備」に使う。<b>行動の判定はルール（2〜3節）が優先</b>。配点は暫定で、底値圏分析の結果で見直す</li>
+</ul>
+<h2>7. 根拠と限界</h2>
 <ul>
 <li>閾値は2006〜2015年で探索し、2016〜2026年で検証（過学習防止）。「同じ回数をランダムな日に前倒し」より取得単価が中央値で年+0.8%良い（勝率70〜80%）</li>
 <li>金は長期で上昇してきたため「早く買う」こと自体の効果（年初一括は分割より+7〜11%）の方が大きい。このルールの価値は、主観を排して前倒しを機械化すること</li>
