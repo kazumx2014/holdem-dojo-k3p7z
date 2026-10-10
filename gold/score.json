@@ -1,6 +1,6 @@
 {
   "asof": "2026-10-09",
-  "generated_at": "2026-10-11 02:08",
+  "generated_at": "2026-10-11 08:33",
   "demo": false,
   "timing_index": 50.7,
   "timing_label": "中立",
@@ -428,6 +428,40 @@
       }
     ]
   },
+  "bottom": {
+    "available": true,
+    "checks": [
+      {
+        "name": "投機筋の降り切り",
+        "rule": "3年下位20%以下",
+        "met": false,
+        "now": "3年下位44%（ロング比率 28.0%）"
+      },
+      {
+        "name": "金ボラの沈静",
+        "rule": "GVZが1年中央値以下",
+        "met": true,
+        "now": "1年中央値比 -13%"
+      },
+      {
+        "name": "ドル高の極まり",
+        "rule": "DXYが200日線比 +2%以上",
+        "met": true,
+        "now": "200日線比 +2.9%"
+      },
+      {
+        "name": "実質金利上昇の鈍化（弱い）",
+        "rule": "1か月の変化 < 3か月平均",
+        "met": false,
+        "now": "1か月 +0.32pt／3か月平均 +0.17pt"
+      }
+    ],
+    "met_count": 2,
+    "p_bottom": 0.19385974107424747,
+    "base_rate": 0.3453900709219858,
+    "n_train": 1410,
+    "in_drawdown": true
+  },
   "action": {
     "level": 0,
     "label": "予定どおり",
@@ -468,7 +502,140 @@
       }
     }
   },
-  "validation": null,
+  "validation": {
+    "best_params": {
+      "dd52_th": -0.15,
+      "dev200_th": -0.03,
+      "vix_th": 25.0,
+      "cooldown": 10
+    },
+    "default_params": {
+      "dd52_th": -0.15,
+      "dev200_th": -0.03,
+      "vix_th": 25.0,
+      "cooldown": 10
+    },
+    "search_years": [
+      2006,
+      2015
+    ],
+    "test_years": [
+      2016,
+      2026
+    ],
+    "default_usd": {
+      "search": {
+        "years": 10,
+        "rule_median": 0.01015377972142506,
+        "rule_mean": 0.012514508427393878,
+        "random_median": 0.003661012325538726,
+        "excess_median": 0.008160985943298449,
+        "excess_mean": 0.008008001815694454,
+        "excess_win": 0.7,
+        "excess_worst": -0.045187585294755195,
+        "excess_best": 0.048360177320376785,
+        "front_median": 0.07225299319230982,
+        "fires_per_year": 6.7
+      },
+      "test": {
+        "years": 10,
+        "rule_median": 0.011844617384023315,
+        "rule_mean": 0.011008902601102377,
+        "random_median": 0.0014355642447909656,
+        "excess_median": 0.008306950048543371,
+        "excess_mean": 0.005392712700199332,
+        "excess_win": 0.7,
+        "excess_worst": -0.036537008276692595,
+        "excess_best": 0.034479986071006996,
+        "front_median": 0.09064204947972343,
+        "fires_per_year": 5.1
+      }
+    },
+    "default_jpy": {
+      "search": {
+        "years": 10,
+        "rule_median": 0.010969805845479241,
+        "rule_mean": 0.009124982102546341,
+        "random_median": 0.004841704718302808,
+        "excess_median": 0.007521828496715899,
+        "excess_mean": 0.00781300337131995,
+        "excess_win": 0.8,
+        "excess_worst": -0.04483499006491065,
+        "excess_best": 0.04462109559711669,
+        "front_median": 0.05347729604531681,
+        "fires_per_year": 6.7
+      },
+      "test": {
+        "years": 10,
+        "rule_median": 0.019137091513956928,
+        "rule_mean": 0.01784647412757472,
+        "random_median": 0.007119177447308722,
+        "excess_median": 0.008636515482701834,
+        "excess_mean": 0.008273003406371871,
+        "excess_win": 0.8,
+        "excess_worst": -0.009850643277538929,
+        "excess_best": 0.026201526624503035,
+        "front_median": 0.11250915336578904,
+        "fires_per_year": 5.1
+      }
+    },
+    "best_usd": {
+      "search": {
+        "years": 10,
+        "rule_median": 0.01015377972142506,
+        "rule_mean": 0.012514508427393878,
+        "random_median": 0.003661012325538726,
+        "excess_median": 0.008160985943298449,
+        "excess_mean": 0.008008001815694454,
+        "excess_win": 0.7,
+        "excess_worst": -0.045187585294755195,
+        "excess_best": 0.048360177320376785,
+        "front_median": 0.07225299319230982,
+        "fires_per_year": 6.7
+      },
+      "test": {
+        "years": 10,
+        "rule_median": 0.011844617384023315,
+        "rule_mean": 0.011008902601102377,
+        "random_median": 0.0014355642447909656,
+        "excess_median": 0.008306950048543371,
+        "excess_mean": 0.005392712700199332,
+        "excess_win": 0.7,
+        "excess_worst": -0.036537008276692595,
+        "excess_best": 0.034479986071006996,
+        "front_median": 0.09064204947972343,
+        "fires_per_year": 5.1
+      }
+    },
+    "best_jpy": {
+      "search": {
+        "years": 10,
+        "rule_median": 0.010969805845479241,
+        "rule_mean": 0.009124982102546341,
+        "random_median": 0.004841704718302808,
+        "excess_median": 0.007521828496715899,
+        "excess_mean": 0.00781300337131995,
+        "excess_win": 0.8,
+        "excess_worst": -0.04483499006491065,
+        "excess_best": 0.04462109559711669,
+        "front_median": 0.05347729604531681,
+        "fires_per_year": 6.7
+      },
+      "test": {
+        "years": 10,
+        "rule_median": 0.019137091513956928,
+        "rule_mean": 0.01784647412757472,
+        "random_median": 0.007119177447308722,
+        "excess_median": 0.008636515482701834,
+        "excess_mean": 0.008273003406371871,
+        "excess_win": 0.8,
+        "excess_worst": -0.009850643277538929,
+        "excess_best": 0.026201526624503035,
+        "front_median": 0.11250915336578904,
+        "fires_per_year": 5.1
+      }
+    }
+  },
   "ml": {
     "pred_3m_return": 0.0587,
     "index": 72.8,
