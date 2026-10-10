@@ -1,6 +1,6 @@
 {
   "asof": "2026-10-09",
-  "generated_at": "2026-10-11 01:39",
+  "generated_at": "2026-10-11 01:42",
   "demo": false,
   "timing_index": 50.7,
   "timing_label": "中立",
@@ -438,7 +438,7 @@
     "macro_total": -2,
     "recommend": {
       "total": 58.2,
-      "label": "準備しておく",
+      "label": "資金を準備（成立済みか成立間近）",
       "color": "#6a9f58",
       "parts": {
         "war": 11.9,
