@@ -1,0 +1,310 @@
+{
+  "asof": "2026-10-09",
+  "generated_at": "2026-10-10 23:54",
+  "demo": false,
+  "timing_index": 50.7,
+  "timing_label": "中立",
+  "components": {
+    "macro": 25.0,
+    "ml": 72.8,
+    "tech": 76.5
+  },
+  "score_total": -2,
+  "factors": {
+    "geo": {
+      "label": "① 地政学",
+      "kpi": "geo_gpr_yoy",
+      "value": 0.1540521985337151,
+      "score": 0
+    },
+    "rate": {
+      "label": "② 金利",
+      "kpi": "rate_chg63",
+      "value": 0.5100000000000002,
+      "score": -1
+    },
+    "dollar": {
+      "label": "③ ドル",
+      "kpi": "dxy_dev200",
+      "value": 0.028606957895341845,
+      "score": -1
+    },
+    "infl": {
+      "label": "④ インフレ",
+      "kpi": "bei_chg63",
+      "value": 0.07000000000000028,
+      "score": 0
+    }
+  },
+  "prices": {
+    "gold_usd": 4216.3,
+    "gold_jpy_per_g": 21392.0,
+    "usdjpy": 157.81
+  },
+  "kpis": {
+    "dfii10": 2.87,
+    "t10yie": 2.33,
+    "dgs2": 4.75,
+    "dxy": 102.21,
+    "vix": 15.41,
+    "gpr": 141.4916,
+    "cpi_yoy": 3.713,
+    "corepce_yoy": 3.0076,
+    "rsi14": 43.5211,
+    "gold_dev50": -0.0367,
+    "gold_dev200": -0.0729,
+    "dd52": -0.2072,
+    "jpy_dd52": -0.2045,
+    "high52": 5318.3999,
+    "dev200": -0.0729,
+    "cot_ratio": 0.2802,
+    "cot_pct3y": 0.4431,
+    "stlfsi": -0.4681,
+    "gvz": 22.68,
+    "rate_exp": 0.87,
+    "wti": 96.24,
+    "gold_sp_ratio": 0.5398,
+    "gold_silver_ratio": 69.4956,
+    "usdjpy": 157.81
+  },
+  "action": {
+    "level": 0,
+    "label": "予定どおり",
+    "color": "#8a8f99",
+    "raw_level": 1,
+    "in_cooldown": true,
+    "reasons": [
+      "割安：52週高値比 -20.7%・200日線比 -7.3%",
+      "環境：4ファクター合計 -2（逆風）のため前倒しは1回分まで",
+      "冷却期間中（直近の発火 10/02）のため今日は発火しない"
+    ],
+    "buy_now": [],
+    "pending": [
+      {
+        "id": "2026-11",
+        "date": "2026-11-25",
+        "recurring": false
+      },
+      {
+        "id": "2026-12",
+        "date": "2026-12-25",
+        "recurring": false
+      },
+      {
+        "id": "2027-01",
+        "date": "2027-01-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-02",
+        "date": "2027-02-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-03",
+        "date": "2027-03-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-04",
+        "date": "2027-04-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-05",
+        "date": "2027-05-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-06",
+        "date": "2027-06-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-07",
+        "date": "2027-07-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-08",
+        "date": "2027-08-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-09",
+        "date": "2027-09-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-10",
+        "date": "2027-10-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-11",
+        "date": "2027-11-25",
+        "recurring": true
+      },
+      {
+        "id": "2027-12",
+        "date": "2027-12-25",
+        "recurring": true
+      }
+    ],
+    "flags": {
+      "cheap_dd": true,
+      "cheap_dev": true,
+      "cheap_cot": false,
+      "cheap": true,
+      "turn": false,
+      "war_vix": false,
+      "war_fsi": false,
+      "war_gvz": false,
+      "war": false
+    },
+    "macro_total": -2,
+    "history": [
+      {
+        "date": "2026-04-14",
+        "level": 2,
+        "gold_usd": 4850.1,
+        "gold_jpy_per_g": 24780,
+        "reasons": [
+          "戦時：GVZ 31.0"
+        ]
+      },
+      {
+        "date": "2026-06-09",
+        "level": 1,
+        "gold_usd": 4286.4,
+        "gold_jpy_per_g": 22081,
+        "reasons": [
+          "割安：52週高値比 -19.4%・200日線比 -3.2%"
+        ]
+      },
+      {
+        "date": "2026-06-25",
+        "level": 1,
+        "gold_usd": 4047.6,
+        "gold_jpy_per_g": 21039,
+        "reasons": [
+          "割安：52週高値比 -23.9%・200日線比 -9.3%"
+        ]
+      },
+      {
+        "date": "2026-07-13",
+        "level": 1,
+        "gold_usd": 4005.7,
+        "gold_jpy_per_g": 20905,
+        "reasons": [
+          "割安：52週高値比 -24.7%・200日線比 -10.7%",
+          "環境：4ファクター合計 -2（逆風）のため前倒しは1回分まで"
+        ]
+      },
+      {
+        "date": "2026-07-28",
+        "level": 1,
+        "gold_usd": 4038.7,
+        "gold_jpy_per_g": 21249,
+        "reasons": [
+          "割安：52週高値比 -24.1%・200日線比 -10.1%",
+          "環境：4ファクター合計 -3（逆風）のため前倒しは1回分まで"
+        ]
+      },
+      {
+        "date": "2026-09-01",
+        "level": 1,
+        "gold_usd": 4396.4,
+        "gold_jpy_per_g": 22620,
+        "reasons": [
+          "割安：52週高値比 -17.3%・200日線比 -3.1%"
+        ]
+      },
+      {
+        "date": "2026-09-17",
+        "level": 1,
+        "gold_usd": 4399.7,
+        "gold_jpy_per_g": 22046,
+        "reasons": [
+          "割安：52週高値比 -17.3%・200日線比 -3.4%"
+        ]
+      },
+      {
+        "date": "2026-10-02",
+        "level": 1,
+        "gold_usd": 4162.3,
+        "gold_jpy_per_g": 21118,
+        "reasons": [
+          "割安：52週高値比 -21.7%・200日線比 -8.6%",
+          "環境：4ファクター合計 -2（逆風）のため前倒しは1回分まで"
+        ]
+      }
+    ],
+    "gold_weight": 0.1443,
+    "gold_target": 0.22
+  },
+  "validation": null,
+  "ml": {
+    "pred_3m_return": 0.0587,
+    "index": 72.8,
+    "contrib": {
+      "dollar": 0.0149,
+      "geo": 0.0013,
+      "infl": -0.0153,
+      "rate": 0.0171,
+      "tech": 0.0136
+    },
+    "importance_pct": {
+      "dollar": 12.6,
+      "geo": 11.3,
+      "infl": 19.1,
+      "rate": 34.9,
+      "tech": 22.1
+    },
+    "metrics": {
+      "ic_spearman": 0.036955830853515004,
+      "hit_rate": 0.551931330472103,
+      "n_oos": 4660,
+      "oos_start": "2008-01-02"
+    }
+  },
+  "technicals": {
+    "supports": [
+      {
+        "price": 3939.8999837239585,
+        "touches": 3
+      },
+      {
+        "price": 3471.5249633789062,
+        "touches": 4
+      },
+      {
+        "price": 3257.199951171875,
+        "touches": 2
+      }
+    ],
+    "resistances": [
+      {
+        "price": 4410.60009765625,
+        "touches": 2
+      },
+      {
+        "price": 4769.199951171875,
+        "touches": 2
+      }
+    ]
+  },
+  "reasons": [
+    "① 地政学：GPR指数 3か月平均の前年比 +15.4% → 中立",
+    "② 金利：10年実質金利の3か月変化 +0.51%pt → 逆風",
+    "③ ドル：DXYの200日移動平均乖離 +2.9% → 逆風",
+    "④ インフレ：10年BEIの3か月変化 +0.07%pt → 中立",
+    "MLモデル：3か月先リターン予測 +5.9%（過去予測の73パーセンタイル）。押し上げ要因は② 金利、押し下げ要因は④ インフレ",
+    "テクニカル：RSI 44、50日線比 -3.7%、200日線比 -7.3%、直近の支持線 3,940（-6.6%）、抵抗線 4,411（+4.6%）"
+  ],
+  "next_events": [
+    "次回FOMC政策決定：2026-10-28（あと19日）",
+    "米CPI：毎月中旬（BLS公表日を確認）／コアPCE：月末",
+    "判定ルール：月1回（CPI公表後の週末）に配分を見直す"
+  ]
+}
