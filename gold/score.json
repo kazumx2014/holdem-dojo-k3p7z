@@ -1,6 +1,6 @@
 {
   "asof": "2026-10-21",
-  "generated_at": "2026-10-21 21:41",
+  "generated_at": "2026-10-21 21:53",
   "demo": false,
   "timing_index": 55.7,
   "timing_label": "やや買い",
@@ -499,140 +499,7 @@
       }
     }
   },
-  "validation": {
-    "best_params": {
-      "dd52_th": -0.15,
-      "dev200_th": -0.03,
-      "vix_th": 25.0,
-      "cooldown": 10
-    },
-    "default_params": {
-      "dd52_th": -0.15,
-      "dev200_th": -0.03,
-      "vix_th": 25.0,
-      "cooldown": 10
-    },
-    "search_years": [
-      2006,
-      2015
-    ],
-    "test_years": [
-      2016,
-      2026
-    ],
-    "default_usd": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.01015377972142506,
-        "rule_mean": 0.012514508427393878,
-        "random_median": 0.003661012325538726,
-        "excess_median": 0.008160985943298449,
-        "excess_mean": 0.008008001815694454,
-        "excess_win": 0.7,
-        "excess_worst": -0.045187585294755195,
-        "excess_best": 0.048360177320376785,
-        "front_median": 0.07225299319230982,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.009127678833084518,
-        "rule_mean": 0.00065434145917514,
-        "random_median": 0.0009363632759020746,
-        "excess_median": 0.007650775498289852,
-        "excess_mean": -0.001901476074329606,
-        "excess_win": 0.6363636363636364,
-        "excess_worst": -0.07484336381961898,
-        "excess_best": 0.034479986071006996,
-        "front_median": 0.09035148966483342,
-        "fires_per_year": 5.090909090909091
-      }
-    },
-    "default_jpy": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.008853808524970863,
-        "rule_mean": 0.008844665064034451,
-        "random_median": 0.004417460943387241,
-        "excess_median": 0.007528670998718345,
-        "excess_mean": 0.0077825828215099865,
-        "excess_win": 0.7,
-        "excess_worst": -0.043958509901039,
-        "excess_best": 0.045790795991816235,
-        "front_median": 0.05750494523489158,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.010888044587299195,
-        "rule_mean": 0.005772072029475242,
-        "random_median": 0.005117103205077411,
-        "excess_median": 0.005770941382221784,
-        "excess_mean": -0.0005078713462378446,
-        "excess_win": 0.7272727272727273,
-        "excess_worst": -0.07387963435032141,
-        "excess_best": 0.02476307760170804,
-        "front_median": 0.0853311254299538,
-        "fires_per_year": 5.090909090909091
-      }
-    },
-    "best_usd": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.01015377972142506,
-        "rule_mean": 0.012514508427393878,
-        "random_median": 0.003661012325538726,
-        "excess_median": 0.008160985943298449,
-        "excess_mean": 0.008008001815694454,
-        "excess_win": 0.7,
-        "excess_worst": -0.045187585294755195,
-        "excess_best": 0.048360177320376785,
-        "front_median": 0.07225299319230982,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.009127678833084518,
-        "rule_mean": 0.00065434145917514,
-        "random_median": 0.0009363632759020746,
-        "excess_median": 0.007650775498289852,
-        "excess_mean": -0.001901476074329606,
-        "excess_win": 0.6363636363636364,
-        "excess_worst": -0.07484336381961898,
-        "excess_best": 0.034479986071006996,
-        "front_median": 0.09035148966483342,
-        "fires_per_year": 5.090909090909091
-      }
-    },
-    "best_jpy": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.008853808524970863,
-        "rule_mean": 0.008844665064034451,
-        "random_median": 0.004417460943387241,
-        "excess_median": 0.007528670998718345,
-        "excess_mean": 0.0077825828215099865,
-        "excess_win": 0.7,
-        "excess_worst": -0.043958509901039,
-        "excess_best": 0.045790795991816235,
-        "front_median": 0.05750494523489158,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.010888044587299195,
-        "rule_mean": 0.005772072029475242,
-        "random_median": 0.005117103205077411,
-        "excess_median": 0.005770941382221784,
-        "excess_mean": -0.0005078713462378446,
-        "excess_win": 0.7272727272727273,
-        "excess_worst": -0.07387963435032141,
-        "excess_best": 0.02476307760170804,
-        "front_median": 0.0853311254299538,
-        "fires_per_year": 5.090909090909091
-      }
-    }
-  },
+  "validation": null,
   "ml": {
     "pred_3m_return": 0.068,
     "index": 76.6,
