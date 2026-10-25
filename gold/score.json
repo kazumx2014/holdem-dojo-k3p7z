@@ -1,6 +1,6 @@
 {
   "asof": "2026-10-23",
-  "generated_at": "2026-10-25 11:13",
+  "generated_at": "2026-10-25 11:17",
   "demo": false,
   "timing_index": 68.3,
   "timing_label": "やや買い",
@@ -457,7 +457,7 @@
       }
     ],
     "met_count": 2,
-    "p_bottom": 0.19944242866068615,
+    "p_bottom": 0.1994424286606862,
     "base_rate": 0.3441696113074205,
     "n_train": 1415,
     "in_drawdown": true
