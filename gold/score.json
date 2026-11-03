@@ -1,6 +1,6 @@
 {
   "asof": "2026-11-02",
-  "generated_at": "2026-11-03 10:34",
+  "generated_at": "2026-11-03 10:40",
   "demo": false,
   "timing_index": 65.1,
   "timing_label": "やや買い",
@@ -464,18 +464,18 @@
   "futures": {
     "ticker": "GC=F",
     "label": "金先物（COMEX）",
-    "last": 3966.3,
-    "last_time": "11/03 10:20",
+    "last": 3964.6,
+    "last_time": "11/03 10:30",
     "ref": 3969.0,
     "ref_time": "11/03 03:30",
-    "chg": -0.00068,
-    "implied": 3963.6,
-    "age_min": 14,
-    "fx_chg": 0.00149,
-    "implied_jpy_factor": 1.00081,
-    "implied_dd52": -0.25474,
-    "implied_jpy_dd52": -0.24769,
-    "text": "先物（参考・11/03 10:20 JST 時点）：金先物（COMEX） 3,966.30（現物引け時点比 -0.1%）→ 金（USD）の見込み 3,964、52週高値比の見込み -25.5%（割安ライン -15%：割安ライン内のまま）。投信は翌営業日の基準価額で約定するため、週明け・翌日の参考。円建ての見込み -24.8%"
+    "chg": -0.00111,
+    "implied": 3961.9,
+    "age_min": 11,
+    "fx_chg": 0.00135,
+    "implied_jpy_factor": 1.00024,
+    "implied_dd52": -0.25506,
+    "implied_jpy_dd52": -0.24812,
+    "text": "先物（参考・11/03 10:30 JST 時点）：金先物（COMEX） 3,964.60（現物引け時点比 -0.1%）→ 金（USD）の見込み 3,962、52週高値比の見込み -25.5%（割安ライン -15%：割安ライン内のまま）。投信は翌営業日の基準価額で約定するため、週明け・翌日の参考。円建ての見込み -24.8%"
   },
   "action": {
     "level": 0,
@@ -516,140 +516,7 @@
       }
     }
   },
-  "validation": {
-    "best_params": {
-      "dd52_th": -0.15,
-      "dev200_th": -0.03,
-      "vix_th": 25.0,
-      "cooldown": 10
-    },
-    "default_params": {
-      "dd52_th": -0.15,
-      "dev200_th": -0.03,
-      "vix_th": 25.0,
-      "cooldown": 10
-    },
-    "search_years": [
-      2006,
-      2015
-    ],
-    "test_years": [
-      2016,
-      2026
-    ],
-    "default_usd": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.01015377972142506,
-        "rule_mean": 0.012514508427393878,
-        "random_median": 0.003661012325538726,
-        "excess_median": 0.008160985943298449,
-        "excess_mean": 0.008008001815694454,
-        "excess_win": 0.7,
-        "excess_worst": -0.045187585294755195,
-        "excess_best": 0.048360177320376785,
-        "front_median": 0.07225299319230982,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.009127678833084518,
-        "rule_mean": -0.000569629485264814,
-        "random_median": 0.0009363632759020746,
-        "excess_median": 0.007650775498289852,
-        "excess_mean": -0.0017046467807538017,
-        "excess_win": 0.6363636363636364,
-        "excess_worst": -0.07267824159028513,
-        "excess_best": 0.034479986071006996,
-        "front_median": 0.09035148966483342,
-        "fires_per_year": 5.181818181818182
-      }
-    },
-    "default_jpy": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.008853808524970863,
-        "rule_mean": 0.008844665064034451,
-        "random_median": 0.004417460943387241,
-        "excess_median": 0.007528670998718345,
-        "excess_mean": 0.0077825828215099865,
-        "excess_win": 0.7,
-        "excess_worst": -0.043958509901039,
-        "excess_best": 0.045790795991816235,
-        "front_median": 0.05750494523489158,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.010888044587299195,
-        "rule_mean": 0.004434199969613967,
-        "random_median": 0.005117103205077411,
-        "excess_median": 0.005770941382221784,
-        "excess_mean": -0.00032594304476751823,
-        "excess_win": 0.7272727272727273,
-        "excess_worst": -0.07187842303414782,
-        "excess_best": 0.02476307760170804,
-        "front_median": 0.0853311254299538,
-        "fires_per_year": 5.181818181818182
-      }
-    },
-    "best_usd": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.01015377972142506,
-        "rule_mean": 0.012514508427393878,
-        "random_median": 0.003661012325538726,
-        "excess_median": 0.008160985943298449,
-        "excess_mean": 0.008008001815694454,
-        "excess_win": 0.7,
-        "excess_worst": -0.045187585294755195,
-        "excess_best": 0.048360177320376785,
-        "front_median": 0.07225299319230982,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.009127678833084518,
-        "rule_mean": -0.000569629485264814,
-        "random_median": 0.0009363632759020746,
-        "excess_median": 0.007650775498289852,
-        "excess_mean": -0.0017046467807538017,
-        "excess_win": 0.6363636363636364,
-        "excess_worst": -0.07267824159028513,
-        "excess_best": 0.034479986071006996,
-        "front_median": 0.09035148966483342,
-        "fires_per_year": 5.181818181818182
-      }
-    },
-    "best_jpy": {
-      "search": {
-        "years": 10,
-        "rule_median": 0.008853808524970863,
-        "rule_mean": 0.008844665064034451,
-        "random_median": 0.004417460943387241,
-        "excess_median": 0.007528670998718345,
-        "excess_mean": 0.0077825828215099865,
-        "excess_win": 0.7,
-        "excess_worst": -0.043958509901039,
-        "excess_best": 0.045790795991816235,
-        "front_median": 0.05750494523489158,
-        "fires_per_year": 6.7
-      },
-      "test": {
-        "years": 11,
-        "rule_median": 0.010888044587299195,
-        "rule_mean": 0.004434199969613967,
-        "random_median": 0.005117103205077411,
-        "excess_median": 0.005770941382221784,
-        "excess_mean": -0.00032594304476751823,
-        "excess_win": 0.7272727272727273,
-        "excess_worst": -0.07187842303414782,
-        "excess_best": 0.02476307760170804,
-        "front_median": 0.0853311254299538,
-        "fires_per_year": 5.181818181818182
-      }
-    }
-  },
+  "validation": null,
   "ml": {
     "pred_3m_return": 0.0215,
     "index": 50.5,
