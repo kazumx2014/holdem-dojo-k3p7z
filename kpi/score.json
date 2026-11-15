@@ -2,7 +2,7 @@
   "asof": "2026-11-13",
   "asof_jp": "2026-11-13",
   "asof_us": "2026-11-13",
-  "generated_at": "2026-11-15 08:42",
+  "generated_at": "2026-11-16 07:44",
   "events": [
     "FOMC 12/09（あと26日）",
     "日銀会合 12/18（あと35日）",
@@ -497,7 +497,7 @@
         "ref_time": "11/13 15:30",
         "chg": -0.00098,
         "implied": 61082.33,
-        "age_min": 1547,
+        "age_min": 2929,
         "fx_chg": null,
         "implied_dd52": -0.15593,
         "text": "先物（参考・11/14 06:55 JST 時点）：日経225先物（CME・円建て） 61,065.00（現物引け時点比 -0.1%）→ 日経225の見込み 61,082、円建て52週高値比の見込み -15.6%（割安ライン -10%：割安ライン内のまま）。投信は翌営業日の基準価額で約定するため、週明け・翌日の参考"
@@ -924,7 +924,7 @@
         "ref_time": "11/14 06:00",
         "chg": 0.00407,
         "implied": 7592.46,
-        "age_min": 1547,
+        "age_min": 2929,
         "fx_chg": -0.00118,
         "implied_jpy_factor": 1.00288,
         "implied_dd52": -0.0243,
@@ -1351,7 +1351,7 @@
         "ref_time": "11/14 06:00",
         "chg": 0.00407,
         "implied": 156.74,
-        "age_min": 1547,
+        "age_min": 2929,
         "fx_chg": -0.00118,
         "implied_jpy_factor": 1.00288,
         "implied_dd52": -0.03319,
@@ -1382,7 +1382,7 @@
   },
   "gold": {
     "asof": "2026-11-13",
-    "generated_at": "2026-11-15 08:41",
+    "generated_at": "2026-11-16 07:43",
     "demo": false,
     "timing_index": 58.8,
     "timing_label": "やや買い",
@@ -1446,7 +1446,7 @@
       "rate_exp": 0.98,
       "wti": 89.62,
       "gold_sp_ratio": 0.5139,
-      "gold_silver_ratio": 79.2621,
+      "gold_silver_ratio": 79.1169,
       "usdjpy": 159.875
     },
     "watch": {
@@ -1855,7 +1855,7 @@
       "ref_time": "11/14 03:30",
       "chg": 0.00031,
       "implied": 3887.5,
-      "age_min": 1546,
+      "age_min": 2928,
       "fx_chg": -0.00118,
       "implied_jpy_factor": 0.99913,
       "implied_dd52": -0.26905,
