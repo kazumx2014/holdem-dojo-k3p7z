@@ -1,6 +1,6 @@
 {
   "asof": "2026-11-13",
-  "generated_at": "2026-11-15 08:41",
+  "generated_at": "2026-11-16 07:43",
   "demo": false,
   "timing_index": 58.8,
   "timing_label": "やや買い",
@@ -64,7 +64,7 @@
     "rate_exp": 0.98,
     "wti": 89.62,
     "gold_sp_ratio": 0.5139,
-    "gold_silver_ratio": 79.2621,
+    "gold_silver_ratio": 79.1169,
     "usdjpy": 159.875
   },
   "watch": {
@@ -473,7 +473,7 @@
     "ref_time": "11/14 03:30",
     "chg": 0.00031,
     "implied": 3887.5,
-    "age_min": 1546,
+    "age_min": 2928,
     "fx_chg": -0.00118,
     "implied_jpy_factor": 0.99913,
     "implied_dd52": -0.26905,
