@@ -1,6 +1,6 @@
 {
   "asof": "2026-11-20",
-  "generated_at": "2026-11-21 07:47",
+  "generated_at": "2026-11-21 07:49",
   "demo": false,
   "timing_index": 62.5,
   "timing_label": "やや買い",
@@ -474,7 +474,7 @@
     "ref_time": "11/21 03:30",
     "chg": 0.0062,
     "implied": 3560.94,
-    "age_min": 53,
+    "age_min": 54,
     "fx_chg": 0.0,
     "implied_jpy_factor": 1.0062,
     "implied_dd52": -0.33045,
